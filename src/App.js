@@ -13,7 +13,8 @@ import './App.css';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import NotFound from './components/NotFound';
-import Checkout from './components/Checkout';
+import Checkout from './pages/Checkout';
+import PaymentGateway from './pages/PaymentGateway';
 
 const App = () => (
   <Routes>
@@ -25,6 +26,7 @@ const App = () => (
       <Route path=":id" element={<TradeDetails />} />
       <Route path="reservations" element={<Reservations />} />
       <Route path="checkout" element={<Checkout />} />
+      <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />
       <Route path="/trade/reserve/:tradeId" element={<ReserveFromTd />} />
       <Route path="add" element={<AddTrades />} />
