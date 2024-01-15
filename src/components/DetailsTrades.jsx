@@ -81,7 +81,7 @@ const TradesDetails = () => {
                 to={`/trade/reserve/${trade.id}`}
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-colors duration-300 text-lg font-semibold"
               >
-                Click to Reserve
+                Add to Cart
               </Link>
             </div>
           </div>

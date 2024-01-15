@@ -39,9 +39,9 @@ const SplashScreen = () => {
             className="w-60"
           />
         </div>
-        <h1 className="splash-head text-4xl font-semibold mb-4">Handy Home Hub</h1>
+        <h1 className="splash-head text-4xl font-semibold mb-4">Micro Commerce</h1>
         <p className="splash-subhead text-lg text-gray-600 mb-6">
-          Trade appointment app for tradesmen and customers
+          Micro Commerce app for tradesmen and customers
         </p>
         <div className="flex flex-col gap-4">
           <button
