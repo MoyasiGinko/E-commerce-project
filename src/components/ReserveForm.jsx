@@ -50,13 +50,13 @@ const ReserveForm = () => {
       className="flex flex-col items-center justify-center min-h-screen"
     >
       <h3 className="text-2xl pb-6 font-semibold text-center text-gray-600">
-        Create a Reservation
+        Add to Cart
       </h3>
       <div className="bg-gray-100 bg-opacity-80 p-6 rounded-3xl shadow-lg w-128 space-y-4">
         <div className="flex flex-col">
           <div className="flex-1 pb-2">
             <label htmlFor="trade_id" className="text-gray-600">
-              Select a Trade:
+              Select a Product:
               <select
                 name="trade_id"
                 id="trade_id"
@@ -64,7 +64,7 @@ const ReserveForm = () => {
                 onChange={handleInputChange}
                 className="p-2 border border-gray-300 rounded-md w-full focus:ring focus:ring-indigo-200 focus:outline-none"
               >
-                <option value="">Select a Trade</option>
+                <option value="">Select a Product</option>
                 {trades.map((trade) => (
                   <option key={trade.id} value={trade.id}>
                     {trade.name}
@@ -112,7 +112,7 @@ const ReserveForm = () => {
           type="submit"
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg w-full transition-colors duration-300 shadow-md reserveBtn"
         >
-          Create Reservation
+          Add to Cart
         </button>
         {msg && <p className="text-red-600 text-center mt-4 mb-4">{msg}</p>}
       </div>
