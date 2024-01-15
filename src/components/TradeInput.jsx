@@ -74,7 +74,7 @@ const TradeInput = () => {
 
   return (
     <div className="text-center mt-20 w-full">
-      <h2 className="text-xl font-semibold mb-4">Add a New Trade</h2>
+      <h2 className="text-xl font-semibold mb-4">Add a New Product</h2>
       <div className="bg-white bg-opacity-90 shadow-md p-9 rounded-3xl mx-auto max-w-md tradeinput-container">
         {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
         <form onSubmit={handleNewTrade} className="space-y-4">
