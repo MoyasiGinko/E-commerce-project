@@ -121,7 +121,9 @@ const Checkout = () => {
           />
 
           <div className="mt-4">
-            <h2 className="text-lg font-semibold mb-2">Items in Checkout:</h2>
+            <h2 className="text-lg font-semibold mb-2">
+              Items in Checkout ({itemsInCheckout.length}):
+            </h2>
             <ul className="list-disc pl-4">
               {itemsInCheckout.map((item, index) => (
                 <li key={index} className="flex justify-between">
