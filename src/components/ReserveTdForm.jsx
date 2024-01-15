@@ -62,7 +62,7 @@ const ReserveTdForm = () => {
       className="flex flex-col items-center justify-center min-h-screen"
     >
       <h3 className="text-2xl pb-6 font-semibold text-center text-gray-600">
-        Create a Reservation
+        Add to Cart
       </h3>
       <div className="bg-gray-100 bg-opacity-80 p-6 rounded-3xl shadow-lg w-128 space-y-4">
         <div className="flex flex-col ">
@@ -105,7 +105,7 @@ const ReserveTdForm = () => {
           type="submit"
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg w-full transition-colors duration-300 shadow-md reserveBtn"
         >
-          Create Reservation
+          Add to Cart
         </button>
         {errorMessage && (
           <p className="text-red-600 text-center mt-4">{errorMessage}</p>
