@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchReservations } from '../redux/reducers/rservationSlice';
 import { cancelReservation } from '../redux/reducers/resereveSlice';
 import loadingImage from '../assets/images/loading.gif';
@@ -11,6 +12,8 @@ const ShowReservation = () => {
   const UnAmsg = useSelector((state) => state.reservations.msg);
   const loading = useSelector((state) => state.reservations.loading);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchReservations());
   }, [dispatch]);
@@ -18,15 +21,11 @@ const ShowReservation = () => {
   if (loading) {
     return (
       <div className="text-center mt-4">
-        <img
-          src={loadingImage} // Use the imported image here
-          alt="Loading..."
-        />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
 
-  // Function to calculate days and hours remaining
   const calculateTimeRemaining = (reservationDate) => {
     const currentDate = new Date();
     const reservationDateObj = new Date(reservationDate);
@@ -51,12 +50,15 @@ const ShowReservation = () => {
     });
   };
 
+  // Calculate the total count of items in the cart
+  const totalCount = reservations ? reservations.length : 0;
+
   return (
     <div className="container mx-auto p-4">
       {msg && <p className="text-green-600 text-center mt-4">{msg}</p>}
       {UnAmsg && <p className="text-red-600 text-center mt-4">{UnAmsg}</p>}
       <h1 className="text-3xl flex justify-center font-semibold text-gray-800 mb-4">
-        Reservations
+        Shopping Cart
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {reservations ? (
@@ -85,14 +87,31 @@ const ShowReservation = () => {
                   onClick={() => handleCancelReservation(reservation.id)}
                   className="bg-red-600 text-white py-2 px-4 text-center rounded-full hover:bg-red-700 transition-colors duration-300 cursor-pointer"
                 >
-                  Cancel Reservation
+                  Remove Item
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-gray-500">Loading reservations...</p>
+          <p className="text-gray-500">Loading lists...</p>
         )}
+      </div>
+      {/* Checkout button row */}
+      <div className="flex justify-between items-center mt-4">
+        <div>
+          <p className="text-gray-700 text-lg">
+            Total Items in Cart:
+            {' '}
+            {totalCount}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => navigate('/trade/checkout', { reservations })}
+          className="btn-primary bg-red-500 hover:bg-gray-800 text-white hover:text-white py-2 px-4 rounded-full"
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );
