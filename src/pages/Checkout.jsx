@@ -3,9 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchReservations } from '../redux/reducers/rservationSlice';
 import loadingImage from '../assets/images/loading.gif';
-// import PaymentGateway from './PaymentGateway';
 
-/*eslint-disable */
 const Checkout = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -14,7 +12,7 @@ const Checkout = () => {
   const [city, setCity] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [itemPrices, setItemPrices] = useState([10, 20, 15]); // Example prices for each item
+  // const [itemPrices, setItemPrices] = useState([10, 20, 15]); // Example prices for each item
 
   const dispatch = useDispatch();
   const reservations = useSelector((state) => state.reservations.reservations);
@@ -46,15 +44,18 @@ const Checkout = () => {
     0,
   );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your logic for handling the checkout form submission
-    // You can send the form data, itemsInCheckout, etc., to your server
-    // ...
+  // Check if all required fields are filled
+  const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
 
-    // For example, navigate to a thank you page after successful checkout
-    navigate('/payment-gateway');
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  // Add your logic for handling the checkout form submission
+  // You can send the form data, itemsInCheckout, etc., to your server
+  // ...
+
+  // For example, navigate to a thank you page after successful checkout
+  //   navigate('/payment-gateway');
+  // };
 
   return (
     <div className="flex items-center justify-center">
@@ -123,14 +124,18 @@ const Checkout = () => {
 
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-2">
-              Items in Checkout ({itemsInCheckout.length}
+              Items in Checkout (
+              {itemsInCheckout.length}
               ):
             </h2>
             <ul className="list-disc pl-4">
-              {itemsInCheckout.map((item, index) => (
-                <li key={index} className="flex justify-between">
+              {itemsInCheckout.map((item) => (
+                <li key={item.id} className="flex justify-between">
                   <span>{item.name}</span>
-                  <span>${item.price}</span>
+                  <span>
+                    $
+                    {item.price}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -140,15 +145,19 @@ const Checkout = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-lg font-semibold mb-2">
-                  Total Price: ${totalPrice}
+                  Total Price: $
+                  {totalPrice}
                 </h2>
               </div>
               <button
                 type="submit"
-                onClick={() =>
-                  navigate('/trade/payment-gateway', { state: { totalPrice } })
-                }
-                className="btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
+                onClick={() => navigate('/trade/payment-gateway', { state: { totalPrice } })}
+                disabled={!isFormValid}
+                className={`btn-primary ${
+                  isFormValid
+                    ? 'bg-gray-800 hover:bg-red-500'
+                    : 'bg-gray-400 cursor-not-allowed'
+                } text-red-500 hover:text-white py-2 px-4 rounded-full`}
               >
                 Place Order
               </button>
