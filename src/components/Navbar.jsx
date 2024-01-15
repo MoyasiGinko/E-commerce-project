@@ -14,10 +14,10 @@ const Navbar = () => {
 
   const adminLinks = [
     { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Reserve' },
-    { path: '/trade/reservations', text: 'My Reservations' },
-    { path: '/trade/add', text: 'Add Trade' },
-    { path: '/trade/delete', text: 'Delete Trade' },
+    { path: '/trade/reserve', text: 'Add to Cart' },
+    { path: '/trade/reservations', text: 'Shopping Cart' },
+    { path: '/trade/add', text: 'Add Product' },
+    { path: '/trade/delete', text: 'Delete Product' },
   ];
 
   const userLinks = [
@@ -76,7 +76,7 @@ const Navbar = () => {
             className="text-3xl mt-4 -rotate-6 text-bold underline"
             style={headerStyle}
           >
-            HandyHome
+            MicroCommerce
           </h1>
           {role === 'admin' && (
             <>
