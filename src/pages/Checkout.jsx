@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchReservations } from '../redux/reducers/rservationSlice';
 import loadingImage from '../assets/images/loading.gif';
+// import PaymentGateway from './PaymentGateway';
 
 /*eslint-disable */
 const Checkout = () => {
@@ -42,7 +43,7 @@ const Checkout = () => {
   // Calculate the total price dynamically
   const totalPrice = itemsInCheckout.reduce(
     (total, item) => total + Math.round(item.price * 100) / 100, // Round to 2 decimal places
-    0
+    0,
   );
 
   const handleSubmit = (e) => {
@@ -52,7 +53,7 @@ const Checkout = () => {
     // ...
 
     // For example, navigate to a thank you page after successful checkout
-    navigate('/trade/thank-you');
+    navigate('/payment-gateway');
   };
 
   return (
@@ -122,7 +123,8 @@ const Checkout = () => {
 
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-2">
-              Items in Checkout ({itemsInCheckout.length}):
+              Items in Checkout ({itemsInCheckout.length}
+              ):
             </h2>
             <ul className="list-disc pl-4">
               {itemsInCheckout.map((item, index) => (
@@ -143,6 +145,9 @@ const Checkout = () => {
               </div>
               <button
                 type="submit"
+                onClick={() =>
+                  navigate('/trade/payment-gateway', { state: { totalPrice } })
+                }
                 className="btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
               >
                 Place Order
