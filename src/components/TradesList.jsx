@@ -55,7 +55,7 @@ const TradesList = () => {
             <div className="p-6 bg-black backdrop-filter bg-opacity-50 absolute inset-0 flex flex-col items-center justify-center text-white">
               <h5 className="text-2xl font-semibold">{trade.name}</h5>
               <p className="text-green-300 text-sm mt-2">{`$${trade.price}`}</p>
-              <p className="text-blue-300 text-sm">{`${trade.location}`}</p>
+              <p className="text-blue-300 text-sm">{`${trade.trade_type}`}</p>
             </div>
           </Link>
         ))}
