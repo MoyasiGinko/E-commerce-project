@@ -96,7 +96,7 @@ const CategoryTrades = () => {
           <Link
             key={trade.id}
             to={`/trade/${trade.id}`}
-            className="border rounded overflow-hidden"
+            className="border rounded overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105"
           >
             {/* You can customize the card design based on your preferences */}
             <img
