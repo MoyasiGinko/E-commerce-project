@@ -26,23 +26,23 @@ const ShowReservation = () => {
     );
   }
 
-  const calculateTimeRemaining = (reservationDate) => {
-    const currentDate = new Date();
-    const reservationDateObj = new Date(reservationDate);
-    const timeDifference = reservationDateObj - currentDate;
-    const daysRemaining = Math.floor(timeDifference / (1000 * 3600 * 24));
-    const hoursRemaining = Math.floor(
-      (timeDifference % (1000 * 3600 * 24)) / (1000 * 3600),
-    );
+  // const calculateTimeRemaining = (reservationDate) => {
+  //   const currentDate = new Date();
+  //   const reservationDateObj = new Date(reservationDate);
+  //   const timeDifference = reservationDateObj - currentDate;
+  //   const daysRemaining = Math.floor(timeDifference / (1000 * 3600 * 24));
+  //   const hoursRemaining = Math.floor(
+  //     (timeDifference % (1000 * 3600 * 24)) / (1000 * 3600),
+  //   );
 
-    if (daysRemaining > 0) {
-      return `${daysRemaining} days`;
-    }
-    if (hoursRemaining > 0) {
-      return `${hoursRemaining} hours`;
-    }
-    return 'Less than 1 hour';
-  };
+  //   if (daysRemaining > 0) {
+  //     return `${daysRemaining} days`;
+  //   }
+  //   if (hoursRemaining > 0) {
+  //     return `${hoursRemaining} hours`;
+  //   }
+  //   return 'Less than 1 hour';
+  // };
 
   const handleCancelReservation = (reservationId) => {
     dispatch(cancelReservation(reservationId)).then(() => {
@@ -77,10 +77,11 @@ const ShowReservation = () => {
                 </h2>
 
                 <p className="text-xl font-semibold text-white-400 text-gradient text-shadow mb-4">
-                  {reservation.city}
+                  {reservation.trade.trade_type}
                 </p>
                 <p className="text-2xl font-semibold text-green-400 text-gradient text-shadow mb-4">
-                  {calculateTimeRemaining(reservation.date)}
+                  <span>$</span>
+                  {reservation.trade.price}
                 </p>
                 <button
                   type="button"

@@ -1,9 +1,9 @@
 import React from 'react';
-import ReserveForm from '../components/ReserveForm';
+import CategoryTrades from '../components/Categories';
 
 const Reserve = () => (
   <>
-    <ReserveForm />
+    <CategoryTrades />
   </>
 );
 

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import ReserveForm from '../../components/ReserveForm';
+import ReserveForm from '../../components/Categories';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);

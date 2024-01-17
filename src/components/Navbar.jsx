@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const adminLinks = [
     { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Add to Cart' },
+    { path: '/trade/reserve', text: 'Categories' },
     { path: '/trade/reservations', text: 'Shopping Cart' },
     { path: '/trade/add', text: 'Add Product' },
     { path: '/trade/delete', text: 'Delete Product' },
@@ -24,8 +24,8 @@ const Navbar = () => {
 
   const userLinks = [
     { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Reserve' },
-    { path: '/trade/reservations', text: 'My Reservations' },
+    { path: '/trade/reserve', text: 'Categories' },
+    { path: '/trade/reservations', text: 'Shopping Cart' },
   ];
 
   const handleLogout = () => {
