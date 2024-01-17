@@ -12,7 +12,6 @@ const Checkout = () => {
   const [city, setCity] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  // const [itemPrices, setItemPrices] = useState([10, 20, 15]); // Example prices for each item
 
   const dispatch = useDispatch();
   const reservations = useSelector((state) => state.reservations.reservations);
@@ -32,107 +31,110 @@ const Checkout = () => {
     );
   }
 
-  // List of items being checked out
   const itemsInCheckout = reservations.map((reservation) => ({
     name: reservation.trade.name,
-    price: reservation.trade.price, // Replace with the actual price property of your item
+    price: reservation.trade.price,
   }));
 
-  // Calculate the total price dynamically
   const totalPrice = itemsInCheckout.reduce(
-    (total, item) => total + Math.round(item.price * 100) / 100, // Round to 2 decimal places
+    (total, item) => total + Math.round(item.price * 100) / 100,
     0,
   );
 
-  // Check if all required fields are filled
   const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // Add your logic for handling the checkout form submission
-  // You can send the form data, itemsInCheckout, etc., to your server
-  // ...
-
-  // For example, navigate to a thank you page after successful checkout
-  //   navigate('/payment-gateway');
-  // };
 
   return (
     <div className="flex items-center justify-center">
-      <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
-        <h1 className="text-4xl font-bold mb-4">Place your order</h1>
+      <div className="max-w-screen-md mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
+        <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
         <form className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="input-field border-2 border-gray-400 rounded-full px-4 py-2 col-span-1"
-            />
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
 
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="input-field border-2 border-gray-400 rounded-full px-4 py-2 col-span-1"
-            />
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
           </div>
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2"
-          />
-
-          <input
-            type="text"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2"
-          />
 
           <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className="input-field border-2 border-gray-400 rounded-full px-4 py-2 col-span-1"
-            />
+            <div className="col-span-1">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
 
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="Phone Number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
             <input
               type="text"
-              placeholder="Zip Code"
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-              className="input-field border-2 border-gray-400 rounded-full px-4 py-2 col-span-1"
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
             />
           </div>
 
-          <input
-            type="text"
-            placeholder="Phone Number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2"
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
+
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="Zip Code"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+                className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
+              />
+            </div>
+          </div>
 
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-2">
-              Items in Checkout (
+              Items in Your Order (
               {itemsInCheckout.length}
               ):
             </h2>
             <ul className="list-disc pl-4">
               {itemsInCheckout.map((item) => (
-                <li key={item.id} className="flex justify-between">
+                <li key={item.id} className="flex justify-between items-center">
                   <span>{item.name}</span>
-                  <span>
+                  <span className="font-semibold">
                     $
                     {item.price}
                   </span>
@@ -141,12 +143,12 @@ const Checkout = () => {
             </ul>
           </div>
 
-          <div className="border-t-2 border-gray-400 pt-4 mt-4">
+          <div className="border-t-2 border-gray-300 pt-4 mt-4">
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-lg font-semibold mb-2">
-                  Total Price: $
-                  {totalPrice}
+                  Order Total: $
+                  {totalPrice.toFixed(2)}
                 </h2>
               </div>
               <button
@@ -155,11 +157,11 @@ const Checkout = () => {
                 disabled={!isFormValid}
                 className={`btn-primary ${
                   isFormValid
-                    ? 'bg-gray-800 hover:bg-red-500'
+                    ? 'bg-yellow-400 hover:bg-yellow-500'
                     : 'bg-gray-400 cursor-not-allowed'
-                } text-red-500 hover:text-white py-2 px-4 rounded-full`}
+                } text-white py-2 px-4 rounded-md`}
               >
-                Place Order
+                Place Your Order
               </button>
             </div>
           </div>

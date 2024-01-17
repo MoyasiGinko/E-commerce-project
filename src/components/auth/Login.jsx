@@ -34,70 +34,68 @@ const Login = () => {
   }, [loginStatus, navigate]);
 
   return (
-    <div className="flex flex-col justify-center bg-white items-center mx-auto h-screen">
-      <div className="w-full max-w-xs">
-        <form className="bg-white shadow-2xl w-full rounded-xl px-8 pt-6 pb-8 mb-4 boxdecor" onSubmit={handleLogin}>
-          <div className="mb-4">
-            <h1 className="text-center text-2xl font-bold">Login</h1>
-          </div>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Sign In
+        </h1>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <p className="text-center text-red-500 font-bold">
               {loginStatus === 'failed' && loginError}
             </p>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <span htmlFor="email" className="text-sm text-gray-600">
               Email
-              <input
-                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
-                placeholder="Email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p className="text-xs italic">Please enter your email.</p>
-            </label>
+            </span>
+            <input
+              type="email"
+              id="email"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="you@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <span htmlFor="password" className="text-sm text-gray-600">
               Password
-              <input
-                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPass(e.target.value)}
-              />
-              <p className="text-xs italic">Password must be (at least 6 characters).</p>
-            </label>
+            </span>
+            <input
+              type="password"
+              id="password"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="********"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPass(e.target.value)}
+            />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="mb-6">
             <button
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full ${loginLoading ? 'cursor-not-allowed' : ''} loginBtn`}
               type="submit"
+              className={`w-full py-2 px-4 bg-yellow-400 text-white rounded-md focus:outline-none hover:bg-yellow-500 ${
+                loginLoading ? 'cursor-not-allowed' : ''
+              }`}
               disabled={loginLoading}
             >
-              {loginLoading ? 'Logging in...' : 'Login'}
+              {loginLoading ? 'Logging in...' : 'Sign In'}
             </button>
           </div>
-          <p className="mt-6 text-center text-neutral-800">
-            Not a member?
-            {' '}
-            <Link
-              to="/register"
-              className="text-primary transition duration-150 ease-in-out hover:text-primary-900 focus:text-primary-600 active:text-primary-700
-               dark:text-primary-800 dark:hover:text-primary-900 dark:focus:text-primary-900 dark:active:text-primary-600 signup"
-              role="button"
-            >
-              Sign Up
-            </Link>
-          </p>
         </form>
+        <p className="text-sm text-center text-gray-600">
+          New to Micro Commerce?
+          {' '}
+          <Link
+            to="/register"
+            className="text-blue-500 hover:text-blue-700 focus:text-blue-700"
+          >
+            Create account
+          </Link>
+        </p>
       </div>
     </div>
   );

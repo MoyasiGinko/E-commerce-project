@@ -238,7 +238,7 @@ const PaymentGateway = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
-      <h2 className="text-2xl font-bold mb-4">Payment Gateway</h2>
+      <h2 className="text-2xl font-bold text mb-4">Payment Gateway</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <p className="text-sm mb-4">
           Thank you for choosing us! Whether you prefer the ease of card

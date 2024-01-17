@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrades } from '../redux/reducers/tradesSlice';
 import loadingImage from '../assets/images/loading.gif';
-import TopSellersSlider from './ProductHero';
+import TopSellersSlider from './ProductSlide';
 
 const TradesList = () => {
   const dispatch = useDispatch();

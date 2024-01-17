@@ -27,7 +27,7 @@ const SplashScreen = () => {
 
   return (
     <div className="flex h-screen justify-center items-center splash-container">
-      <div className="splash p-10 shadow-2xl text-center ms-2 me-2">
+      <div className="splash p-10 shadow-md text-center ms-2 me-2 bg-white rounded-md">
         <div className="flex justify-center items-center">
           <Lottie
             onComplete={() => {
@@ -39,7 +39,9 @@ const SplashScreen = () => {
             className="w-60"
           />
         </div>
-        <h1 className="splash-head text-4xl font-semibold mb-4">Micro Commerce</h1>
+        <h1 className="splash-head text-4xl font-semibold mb-4 text-gray-800">
+          Micro Commerce
+        </h1>
         <p className="splash-subhead text-lg text-gray-600 mb-6">
           Micro Commerce app for tradesmen and customers
         </p>
@@ -47,7 +49,7 @@ const SplashScreen = () => {
           <button
             type="button"
             onClick={handleSignup}
-            className="splashBtn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+            className="splashBtn bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
           >
             Sign Up
           </button>

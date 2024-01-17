@@ -98,7 +98,7 @@ const Navbar = () => {
             >
               MicroCommerce
             </h1>
-            <div className="text-lg font-semibold text-#000000 mt-2">
+            <div className="text-lg font-semibold text-gray-800 mt-2">
               {userName}
             </div>
             <div
@@ -113,8 +113,7 @@ const Navbar = () => {
               tabIndex={0}
             >
               {role}
-              {' '}
-              User
+              -User
               <span className="ml-1">&#9660;</span>
               {/* Dropdown menu content */}
               {showProfileOptions && (
@@ -151,7 +150,7 @@ const Navbar = () => {
                       }
                     }}
                   >
-                    Account
+                    Dashboard
                   </div>
                 </div>
               )}
@@ -165,7 +164,7 @@ const Navbar = () => {
                     <li key={link.path}>
                       <button
                         type="button"
-                        className="text-lg font-semibold text-#000000 hover:bg-#146eb4 hover:text-#f2f2f2 w-full px-4 py-2 rounded-full"
+                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
                         onClick={() => {
                           navigate(link.path);
                           closeMenu();
@@ -177,7 +176,7 @@ const Navbar = () => {
                   ))}
                   <button
                     type="button"
-                    className="text-lg font-semibold text-#000000 hover:bg-#146eb4 hover:text-#f2f2f2 w-full px-4 py-2 rounded-full"
+                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
                     onClick={handleLogout}
                   >
                     Logout
@@ -194,7 +193,7 @@ const Navbar = () => {
                     <li key={link.path}>
                       <button
                         type="button"
-                        className="text-lg font-semibold text-#000000 hover:bg-#146eb4 hover:text-#f2f2f2 w-full px-4 py-2 rounded-full"
+                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
                         onClick={() => {
                           navigate(link.path);
                           closeMenu();
@@ -206,7 +205,7 @@ const Navbar = () => {
                   ))}
                   <button
                     type="button"
-                    className="text-lg font-semibold text-#000000 hover:bg-#146eb4 hover:text-#f2f2f2 w-full px-4 py-2 rounded-full"
+                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
                     onClick={handleLogout}
                   >
                     Logout

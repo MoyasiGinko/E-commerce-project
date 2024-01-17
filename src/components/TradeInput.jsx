@@ -152,12 +152,12 @@ const TradeInput = () => {
           />
           <button
             type="submit"
-            className={`bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md ${
+            className={`bg-yellow-600 hover:bg-red-700 text-white px-4 py-2 rounded-md ${
               tradeLoading ? 'cursor-not-allowed' : ''
             }tradeBtn`}
             disabled={tradeLoading}
           >
-            {tradeLoading ? 'Adding Trade...' : 'Add Trade'}
+            {tradeLoading ? 'Adding Product...' : 'Add Product'}
           </button>
         </form>
       </div>

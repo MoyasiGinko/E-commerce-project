@@ -26,31 +26,12 @@ const ShowReservation = () => {
     );
   }
 
-  // const calculateTimeRemaining = (reservationDate) => {
-  //   const currentDate = new Date();
-  //   const reservationDateObj = new Date(reservationDate);
-  //   const timeDifference = reservationDateObj - currentDate;
-  //   const daysRemaining = Math.floor(timeDifference / (1000 * 3600 * 24));
-  //   const hoursRemaining = Math.floor(
-  //     (timeDifference % (1000 * 3600 * 24)) / (1000 * 3600),
-  //   );
-
-  //   if (daysRemaining > 0) {
-  //     return `${daysRemaining} days`;
-  //   }
-  //   if (hoursRemaining > 0) {
-  //     return `${hoursRemaining} hours`;
-  //   }
-  //   return 'Less than 1 hour';
-  // };
-
   const handleCancelReservation = (reservationId) => {
     dispatch(cancelReservation(reservationId)).then(() => {
       dispatch(fetchReservations());
     });
   };
 
-  // Calculate the total count of items in the cart
   const totalCount = reservations ? reservations.length : 0;
 
   return (
@@ -68,25 +49,24 @@ const ShowReservation = () => {
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer relative"
             >
               <div
-                className="bg-cover bg-center bg-no-repeat h-72 grayscale transition-all duration-300"
+                className="bg-cover bg-center bg-no-repeat h-72 transition-all duration-300"
                 style={{ backgroundImage: `url(${reservation.trade.image})` }}
               />
-              <div className="p-6 bg-black backdrop-filter bg-opacity-50 absolute inset-0 flex flex-col items-center justify-center text-white">
-                <h2 className="text-2xl font-semibold text-white text-shadow mb-4 text-center">
+              <div className="p-6 flex flex-col">
+                <h2 className="text-lg font-semibold mb-2">
                   {reservation.trade.name}
                 </h2>
-
-                <p className="text-xl font-semibold text-white-400 text-gradient text-shadow mb-4">
+                <p className="text-sm text-gray-500 mb-2">
                   {reservation.trade.trade_type}
                 </p>
-                <p className="text-2xl font-semibold text-green-400 text-gradient text-shadow mb-4">
+                <p className="text-lg font-semibold text-green-600 mb-2">
                   <span>$</span>
                   {reservation.trade.price}
                 </p>
                 <button
                   type="button"
                   onClick={() => handleCancelReservation(reservation.id)}
-                  className="bg-red-600 text-white py-2 px-4 text-center rounded-full hover:bg-red-700 transition-colors duration-300 cursor-pointer"
+                  className="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition-colors duration-300 cursor-pointer self-start"
                 >
                   Remove Item
                 </button>
@@ -109,9 +89,9 @@ const ShowReservation = () => {
         <button
           type="button"
           onClick={() => navigate('/trade/checkout', { reservations })}
-          className="btn-primary bg-red-500 hover:bg-gray-800 text-white hover:text-white py-2 px-4 rounded-full"
+          className="btn-primary bg-yellow-500 hover:bg-yellow-600 text-white hover:text-white py-2 px-4 rounded-full"
         >
-          Checkout
+          Proceed to Checkout
         </button>
       </div>
     </div>

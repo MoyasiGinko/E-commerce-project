@@ -34,9 +34,14 @@ export const fetchTradesForCategory = createAsyncThunk(
         },
       });
 
-      console.log('Fetched trades:', tradesResponse.data);
+      // Filter trades to include only those with removed status as false
+      const filteredTrades = tradesResponse.data.filter(
+        (trade) => !trade.removed,
+      );
 
-      return tradesResponse.data;
+      console.log('Fetched trades:', filteredTrades);
+
+      return filteredTrades;
     } catch (error) {
       console.error('Error fetching trades:', error.message);
       return rejectWithValue(error.message);

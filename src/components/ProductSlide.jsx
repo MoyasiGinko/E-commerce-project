@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -37,25 +38,31 @@ const TopSellersSlider = () => {
         responsive={sliderSettings.responsive}
       >
         {topSellers.map((trade) => (
-          <div
+          <Link
             key={trade.id}
-            className="border rounded overflow-hidden shadow-md"
+            to={`/trade/${trade.id}`}
+            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer relative border border-gray-200"
           >
-            <img
-              src={trade.image}
-              alt={trade.name}
-              className="w-full h-96 object-fit rounded-t" // Adjust the height here
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-bold mb-2 text-gray-800">
-                {trade.name}
-              </h3>
-              <p className="mt-2 text-lg font-semibold text-indigo-600">
-                $
-                {trade.price}
-              </p>
+            <div
+              key={trade.id}
+              className="border rounded overflow-hidden shadow-md"
+            >
+              <img
+                src={trade.image}
+                alt={trade.name}
+                className="w-full h-96 object-fit rounded-t" // Adjust the height here
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-bold mb-2 text-gray-800">
+                  {trade.name}
+                </h3>
+                <p className="mt-2 text-lg font-semibold text-indigo-600">
+                  $
+                  {trade.price}
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/reducers/auth/registerSlice';
@@ -13,7 +13,9 @@ const Register = () => {
   const dispatch = useDispatch();
   const registerStatus = useSelector((state) => state.register.status);
   const registerError = useSelector((state) => state.register.error);
-  const registerLoading = useSelector((state) => state.register.status === 'loading');
+  const registerLoading = useSelector(
+    (state) => state.register.status === 'loading',
+  );
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -38,90 +40,95 @@ const Register = () => {
   }, [registerStatus, navigate]);
 
   return (
-    <div className="flex flex-col justify-center bg-white items-center mx-auto h-screen">
-      <div className="w-full max-w-xs">
-        <form
-          className="bg-white shadow-2xl w-full rounded-xl px-8 pt-6 pb-8 mb-4 boxdecor"
-          onSubmit={handleRegister}
-        >
-
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Create Account
+        </h1>
+        <form onSubmit={handleRegister}>
           <div className="mb-4">
-            <h1 className="text-center text-2xl font-bold mb-2">Sign Up</h1>
-            <p className="text-center text-gray-600 text-xs">
-              Please fill in this form to create an account!
-            </p>
-            <p className="text-center text-red-500 font-bold mt-4">
-              {registerStatus === 'failed' && registerError.status.message}
-            </p>
+            <span htmlFor="username" className="text-sm text-gray-600">
+              Your Name
+            </span>
+            <input
+              type="text"
+              id="username"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="John Doe"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Name
-              <input
-                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <p className="text-gray-600 text-xs italic">Please enter your name.</p>
-            </label>
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <span htmlFor="email" className="text-sm text-gray-600">
               Email
-              <input
-                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
-                placeholder="Email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p className="text-xs italic">Please enter your email.</p>
-            </label>
+            </span>
+            <input
+              type="email"
+              id="email"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="you@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <span htmlFor="password" className="text-sm text-gray-600">
+              Password
+            </span>
+            <input
+              type="password"
+              id="password"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="********"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPass(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <span htmlFor="userType" className="text-sm text-gray-600">
+              Account Type
+            </span>
+            <select
+              id="userType"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            >
+              <option value="customer">Choose an option</option>
+              <option value="customer">CUSTOMER</option>
+              <option value="vendor">VENDOR</option>
+            </select>
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
-              <input
-                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPass(e.target.value)}
-              />
-              <p className="text-xs italic">Please choose a password.</p>
-            </label>
-          </div>
-          <div className="flex items-center justify-between">
             <button
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full loginBtn ${
+              type="submit"
+              className={`w-full py-2 px-4 bg-yellow-400 text-white rounded-md focus:outline-none hover:bg-yellow-500 ${
                 registerLoading ? 'cursor-not-allowed' : ''
               }`}
-              type="submit"
               disabled={registerLoading}
             >
-              {registerLoading ? 'Signing Up...' : 'Sign Up'}
+              {registerLoading ? 'Creating Account...' : 'Create Account'}
             </button>
           </div>
-          <p className="mt-6 text-center text-neutral-800">
-            Have an Account?
-            {' '}
-            <Link
-              to="/login"
-              className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 signup"
-            >
-              Login
-            </Link>
-          </p>
         </form>
+        <p className="text-sm text-center text-gray-600">
+          Already have an account?
+          {' '}
+          <Link
+            to="/login"
+            className="text-blue-500 hover:text-blue-700 focus:text-blue-700"
+          >
+            Sign In
+          </Link>
+        </p>
+        {registerStatus === 'failed' && (
+          <p className="text-sm text-red-500 text-center mt-4">
+            {registerError.status.message}
+          </p>
+        )}
       </div>
     </div>
   );
