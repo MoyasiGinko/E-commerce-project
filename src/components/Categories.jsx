@@ -17,7 +17,7 @@ const CategoryTrades = () => {
   const [selectedType, setSelectedType] = useState(selectedTradeType || '');
 
   useEffect(() => {
-    // Fetch unique trade types and all trades on component mount
+    // Fetch unique trade types and all products on component mount
     dispatch(fetchTradesForCategory());
   }, [dispatch]);
 
@@ -53,7 +53,7 @@ const CategoryTrades = () => {
     <div className="container mx-auto p-4">
       {/* Render your component using the uniqueTradeTypes data */}
       <span htmlFor="tradeType" className="block mb-2 text-lg font-bold">
-        Select Trade Type:
+        Select a Category:
       </span>
       <select
         id="tradeType"
@@ -61,7 +61,7 @@ const CategoryTrades = () => {
         onChange={(e) => setSelectedType(e.target.value)}
         className="w-full p-2 border rounded"
       >
-        <option value="">All Trades</option>
+        <option value="">All Categories</option>
         {uniqueTradeTypes.map((tradeType) => (
           <option key={tradeType} value={tradeType}>
             {tradeType}
@@ -77,10 +77,18 @@ const CategoryTrades = () => {
       </button>
 
       <h2 className="mt-8 text-2xl font-bold">
-        Trades List for
+        Products List for
         {' '}
-        {selectedTradeType || 'All Trades'}
+        {selectedTradeType || 'All Categories'}
       </h2>
+
+      <p className="text-gray-700 mb-4">
+        Showing
+        {' '}
+        {filteredTrades.length}
+        {' '}
+        products
+      </p>
 
       {/* Render the list of trades as product cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
