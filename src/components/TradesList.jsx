@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrades } from '../redux/reducers/tradesSlice';
 import loadingImage from '../assets/images/loading.gif';
+import TopSellersSlider from './ProductHero';
 
 const TradesList = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ const TradesList = () => {
 
   return (
     <div className="mt-4">
+      <div className="md:col-span-1 pb-10">
+        <TopSellersSlider />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {trades.map((trade) => (
           <Link
@@ -51,7 +55,7 @@ const TradesList = () => {
             />
             <div className="p-4">
               <h5 className="text-lg font-semibold">{trade.name}</h5>
-              <p className="text-gray-500 text-sm mt-2">{trade.description}</p>
+              <p className="text-gray-500 text-sm mt-2">{trade.trade_type}</p>
               <p className="text-green-500 text-base mt-2">{`$${trade.price}`}</p>
             </div>
           </Link>
