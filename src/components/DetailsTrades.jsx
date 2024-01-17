@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchTradeDetails } from '../redux/reducers/tradeDetailsSlice';
 import loadingImage from '../assets/images/loading.gif';
+import Recommendation from './Recommendation';
 
 const TradesDetails = () => {
   const { id } = useParams();
@@ -24,54 +25,45 @@ const TradesDetails = () => {
     );
   }
 
-  const backgroundStyle = {
-    backgroundImage: `url(${trade.image})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
-
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={backgroundStyle}
-    >
-      <div className="bg-gray-100 rounded-lg shadow-md p-6 bg-opacity-80 backdrop-blur-lg">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-screen-2xl mx-auto p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-md">
           <div className="md:col-span-1">
             <img
               src={trade.image}
               alt={trade.name}
-              className="w-full h-80 object-cover rounded-lg shadow-lg"
+              className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
           </div>
-          <div className="md:col-span-1">
-            <h2 className="text-4xl font-semibold text-indigo-600 mb-4">
+          <div className="md:col-span-1 p-6">
+            <h2 className="text-4xl font-semibold text-gray-800 mb-4">
               {trade.name}
             </h2>
-            <p className="text-gray-900 mt-2 text-lg">
+            <p className="text-gray-700 text-lg mb-2">
               <strong>Description:</strong>
               {' '}
               {trade.description}
             </p>
-            <p className="text-gray-900 mt-2 text-lg">
+            <p className="text-gray-700 text-lg mb-2">
               <strong>Location:</strong>
               {' '}
               {trade.location}
             </p>
-            <p className="text-gray-900 mt-2 text-lg">
+            <p className="text-gray-700 text-lg mb-2">
               <strong>Price:</strong>
               {' '}
               $
               {trade.price}
             </p>
-            <p className="text-gray-900 mt-2 text-lg">
+            <p className="text-gray-700 text-lg mb-2">
               <strong>Duration:</strong>
               {' '}
               {trade.duration}
               {' '}
               hours
             </p>
-            <p className="text-gray-900 mt-2 text-lg">
+            <p className="text-gray-700 text-lg mb-2">
               <strong>Type:</strong>
               {' '}
               {trade.trade_type}
@@ -79,12 +71,16 @@ const TradesDetails = () => {
             <div className="mt-6">
               <Link
                 to={`/trade/reserve/${trade.id}`}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-colors duration-300 text-lg font-semibold"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-full transition-colors duration-300 text-lg font-semibold inline-block"
               >
                 Add to Cart
               </Link>
             </div>
           </div>
+        </div>
+        <div className="md:col-span-1 p-6">
+          {/* ... (your existing details content) ... */}
+          <Recommendation />
         </div>
       </div>
     </div>
