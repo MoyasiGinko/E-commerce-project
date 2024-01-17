@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   fetchTradesForCategory,
   selectTradeType,
@@ -84,7 +85,11 @@ const CategoryTrades = () => {
       {/* Render the list of trades as product cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {filteredTrades.map((trade) => (
-          <div key={trade.id} className="border rounded overflow-hidden">
+          <Link
+            key={trade.id}
+            to={`/trade/${trade.id}`}
+            className="border rounded overflow-hidden"
+          >
             {/* You can customize the card design based on your preferences */}
             <img
               src={trade.image} // Add the actual image source
@@ -99,7 +104,7 @@ const CategoryTrades = () => {
                 {trade.price}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
