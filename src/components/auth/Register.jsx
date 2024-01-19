@@ -98,8 +98,8 @@ const Register = () => {
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             >
               <option value="customer">Choose an option</option>
-              <option value="customer">CUSTOMER</option>
-              <option value="vendor">VENDOR</option>
+              <option value="customer">Customer</option>
+              <option value="vendor">Vendor</option>
             </select>
           </div>
           <div className="mb-6">

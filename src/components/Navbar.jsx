@@ -17,7 +17,6 @@ const Navbar = () => {
   const adminLinks = [
     { path: '/trade', text: 'Home' },
     { path: '/trade/reserve', text: 'Categories' },
-    { path: '/trade/reservations', text: 'Shopping Cart' },
     { path: '/trade/add', text: 'Add Product' },
     { path: '/trade/delete', text: 'Delete Product' },
   ];
@@ -123,29 +122,12 @@ const Navbar = () => {
                     tabIndex={0}
                     className="text-sm text-gray-700 cursor-pointer hover:text-indigo-600"
                     onClick={() => {
-                      navigate('/profile');
+                      navigate('/trade/dashboard');
                       closeMenu();
                     }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
-                        navigate('/profile');
-                        closeMenu();
-                      }
-                    }}
-                  >
-                    Profile
-                  </div>
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    className="text-sm text-gray-700 cursor-pointer hover:text-indigo-600"
-                    onClick={() => {
-                      navigate('/account');
-                      closeMenu();
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        navigate('/account');
+                        navigate('/trade/dashboard');
                         closeMenu();
                       }
                     }}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { fetchReservations } from '../redux/reducers/rservationSlice';
 import { cancelReservation } from '../redux/reducers/resereveSlice';
 import loadingImage from '../assets/images/loading.gif';
@@ -48,10 +48,16 @@ const ShowReservation = () => {
               key={reservation.id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer relative"
             >
-              <div
-                className="bg-cover bg-center bg-no-repeat h-72 transition-all duration-300"
-                style={{ backgroundImage: `url(${reservation.trade.image})` }}
-              />
+              <Link
+                key={reservation.id}
+                to={`/trade/${reservation.id}`}
+                className="cursor-pointer"
+              >
+                <div
+                  className="bg-cover bg-center bg-no-repeat h-72 transition-all duration-300"
+                  style={{ backgroundImage: `url(${reservation.trade.image})` }}
+                />
+              </Link>
               <div className="p-6 flex flex-col">
                 <h2 className="text-lg font-semibold mb-2">
                   {reservation.trade.name}

@@ -26,6 +26,27 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
   }
 });
 
+export const updateTrade = createAsyncThunk(
+  'trades/updateTrade',
+  async (updatedTrade) => {
+    try {
+      const token = getToken();
+      const response = await axios.put(
+        `${BASE_URL}/${updatedTrade.id}`,
+        updatedTrade,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
+);
+
 const token = getToken();
 
 const headers = {
@@ -50,11 +71,9 @@ export const fetchTrades = createAsyncThunk(
   },
 );
 
-// this action creator is used to update the removed field of a trade (toogling the remove button)
 export const updateRemoveTrade = createAsyncThunk(
   'trades/updatedTrade',
   async ({ id, removed }) => {
-    // makes a PUT request to the API to update the trade
     const token = getToken();
     const response = await axios.put(
       `${BASE_URL}/${id}`,
@@ -122,11 +141,20 @@ const tradesSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(updateRemoveTrade.fulfilled, (state, action) => {
-        // update trades array with updated trade
         const index = state.trades.findIndex(
           (trade) => trade.id === action.payload.id,
         );
         state.trades[index] = action.payload;
+      })
+      .addCase(updateTrade.fulfilled, (state, action) => {
+        const index = state.trades.findIndex(
+          (trade) => trade.id === action.payload.id,
+        );
+        state.trades[index] = action.payload;
+      })
+      .addCase(updateTrade.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });

@@ -22,6 +22,11 @@ const getUserName = () => {
   return userData?.data?.name || null;
 };
 
+const getUserEmail = () => {
+  const userData = getUserData();
+  return userData?.data?.email || null;
+};
+
 // Function to get token
 const getToken = () => {
   const tokenData = JSON.parse(localStorage.getItem('token'));
@@ -33,5 +38,6 @@ export {
   getUserId,
   getUserRole,
   getUserName,
+  getUserEmail,
   getToken,
 };

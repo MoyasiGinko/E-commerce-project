@@ -18,6 +18,8 @@ import Register from './components/auth/Register';
 import NotFound from './components/NotFound';
 import Checkout from './pages/Checkout';
 import PaymentGateway from './pages/PaymentGateway';
+import Dashboard from './components/Dashboard';
+import EditTrade from './components/dashboard/EditTradesTab';
 
 const App = () => (
   <Routes>
@@ -30,6 +32,8 @@ const App = () => (
       <Route path=":id" element={<TradeDetails />} />
       <Route path="reservations" element={<Reservations />} />
       <Route path="checkout" element={<Checkout />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="/trade/edit-trade/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />
       <Route path="/trade/reserve/:tradeId" element={<ReserveFromTd />} />
