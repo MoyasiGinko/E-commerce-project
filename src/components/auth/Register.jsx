@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
+  const [type, setType] = useState('CUSTOMER'); // Default to 'customer'
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,14 +20,13 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const register = {
-      user: {
-        name,
-        email,
-        password,
-      },
+    const user = {
+      username: name,
+      email,
+      password,
+      type,
     };
-    dispatch(registerUser(register));
+    dispatch(registerUser(user));
 
     setName('');
     setEmail('');
@@ -96,10 +96,11 @@ const Register = () => {
             <select
               id="userType"
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             >
-              <option value="customer">Choose an option</option>
-              <option value="customer">Customer</option>
-              <option value="vendor">Vendor</option>
+              <option value="CUSTOMER">Customer</option>
+              <option value="VENDOR">Vendor</option>
             </select>
           </div>
           <div className="mb-6">

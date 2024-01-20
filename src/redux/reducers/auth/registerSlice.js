@@ -1,20 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/signup`;
+const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/api/v1/auth/register`;
 
 const initialState = {
   status: 'idle',
-  userToken: '',
+  userInfo: {},
   error: null,
 };
 
 export const registerUser = createAsyncThunk(
-  'register',
+  'register/registerUser',
   async (user, thunkAPI) => {
     try {
-      const response = await axios.post(BASE_URL, user,
-        { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post(BASE_URL, user, {
+        headers: { 'Content-Type': 'application/json' },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -25,27 +26,22 @@ export const registerUser = createAsyncThunk(
 const registerSlice = createSlice({
   name: 'register',
   initialState,
-  reducers: {
-    register: (state, action) => {
-      state.status = 'success';
-      state.action = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(registerUser.pending, (state) => {
-      state.status = 'loading';
-    });
-    builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.status = 'success';
-      state.userinfo = action.payload;
-    });
-    builder.addCase(registerUser.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.payload;
-    });
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.userInfo = action.payload;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
   },
 });
 
 export const { register } = registerSlice.actions;
-
 export const registerReducer = registerSlice.reducer;

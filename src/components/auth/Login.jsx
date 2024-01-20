@@ -16,13 +16,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const login = {
-      user: {
-        email,
-        password,
-      },
+    const user = {
+      email,
+      password,
     };
-    dispatch(loginUser(login));
+    dispatch(loginUser(user));
     setEmail('');
     setPass('');
   };
