@@ -7,6 +7,7 @@ import { loginReducer } from './reducers/auth/loginSlice';
 import { reserveReducer } from './reducers/resereveSlice';
 import { reservationReducer } from './reducers/rservationSlice';
 import categoryReducer from './reducers/categorySlice'; // Import categoryReducer
+import orderHistoryReducer from './reducers/orderHistorySlice';
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     reservations: reservationReducer,
     reserve: reserveReducer,
     category: categoryReducer, // Include categoryReducer
+    orderHistory: orderHistoryReducer,
   },
 });
 

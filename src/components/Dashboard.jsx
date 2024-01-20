@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 import InventoryTab from './dashboard/InventoryTab';
 import TradeOrderHistoryTab from './dashboard/TradeorderHistoryTab';
 import ProfileTab from './dashboard/ProfileTab';
+import { getUserRole } from '../utils/userStorage';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('inventory');
+  const userRole = getUserRole();
+  const [activeTab, setActiveTab] = useState(
+    userRole === 'admin' ? 'inventory' : 'orderHistory',
+  );
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -24,28 +28,32 @@ const Dashboard = () => {
     <div className="max-w-full mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
       <h1 className="text-3xl font-semibold mb-6">User Dashboard</h1>
       <div className="flex space-x-4 mb-6">
-        <button
-          type="button"
-          onClick={() => setActiveTab('inventory')}
-          className={`py-2 px-4 rounded-md focus:outline-none ${
-            activeTab === 'inventory'
-              ? 'bg-green-500 text-white'
-              : 'bg-gray-200'
-          }`}
-        >
-          Inventory
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('orderHistory')}
-          className={`py-2 px-4 rounded-md focus:outline-none ${
-            activeTab === 'orderHistory'
-              ? 'bg-green-500 text-white'
-              : 'bg-gray-200'
-          }`}
-        >
-          Order History
-        </button>
+        {userRole === 'admin' && (
+          <button
+            type="button"
+            onClick={() => setActiveTab('inventory')}
+            className={`py-2 px-4 rounded-md focus:outline-none ${
+              activeTab === 'inventory'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-200'
+            }`}
+          >
+            Inventory
+          </button>
+        )}
+        {userRole === 'user' && (
+          <button
+            type="button"
+            onClick={() => setActiveTab('orderHistory')}
+            className={`py-2 px-4 rounded-md focus:outline-none ${
+              activeTab === 'orderHistory'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-200'
+            }`}
+          >
+            Order History
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setActiveTab('profile')}

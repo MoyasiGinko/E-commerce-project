@@ -75,6 +75,12 @@ const TradesDetails = () => {
               >
                 Add to Cart
               </Link>
+              <Link
+                to={`/trade/edit-trade/${trade.id}`}
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Edit
+              </Link>
             </div>
           </div>
         </div>
