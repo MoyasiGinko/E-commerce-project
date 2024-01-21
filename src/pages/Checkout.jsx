@@ -29,10 +29,13 @@ const Checkout = () => {
   }
 
   const itemsInCheckout = cartItems.map((item) => ({
-    id: item.id,
+    productId: item.id,
     name: item.name,
     price: item.price,
     quantity: item.orderQuantity,
+    productQuantity: item.quantity,
+    categoryId: item.category.id,
+    categoryName: item.category.name,
   }));
 
   const totalPrice = itemsInCheckout.reduce(
@@ -45,27 +48,21 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     try {
       // Dispatch the createOrder action
-      await dispatch(
+      const response = await dispatch(
         createOrder({
-          customerInfo: {
-            firstName,
-            lastName,
-            email,
-            address,
-            city,
-            zipCode,
-            phoneNumber,
-          },
-          items: itemsInCheckout,
-          totalPrice,
+          productList: [itemsInCheckout],
+          totalPrice: totalPrice.toFixed(2),
         }),
       );
 
       // Clear the cart (remove items from localStorage)
       localStorage.removeItem('cart');
 
-      // Log a success message
-      console.log('Order placed successfully!');
+      // Log the entire response
+      console.log('Order placed successfully! Response:', response);
+
+      // Log order details
+      console.log('Order Details:', response.orderDetails); // Update this line
 
       // Navigate to the payment gateway page
       navigate('/trade/payment-gateway', { state: { totalPrice } });
