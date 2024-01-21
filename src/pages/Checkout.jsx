@@ -1,8 +1,9 @@
+// Checkout.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchReservations } from '../redux/reducers/rservationSlice';
-import loadingImage from '../assets/images/loading.gif';
+import { createOrder } from '../redux/reducers/orderSlice';
+// import loadingImage from '../assets/images/loading.gif';
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState('');
@@ -14,40 +15,72 @@ const Checkout = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const dispatch = useDispatch();
-  const reservations = useSelector((state) => state.reservations.reservations);
-  const loading = useSelector((state) => state.reservations.loading);
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  const loading = useSelector((state) => state.order.loading);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchReservations());
-  }, [dispatch]);
+    // Fetch any additional data or perform setup if needed
+  }, []);
 
   if (loading) {
-    return (
-      <div className="text-center mt-4">
-        <img src={loadingImage} alt="Loading..." />
-      </div>
-    );
+    return <div>Loading...</div>; // Or a loading spinner
   }
 
-  const itemsInCheckout = reservations.map((reservation) => ({
-    name: reservation.trade.name,
-    price: reservation.trade.price,
+  const itemsInCheckout = cartItems.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    quantity: item.orderQuantity,
   }));
 
   const totalPrice = itemsInCheckout.reduce(
-    (total, item) => total + Math.round(item.price * 100) / 100,
+    (total, item) => total + Math.round(item.price * item.quantity * 100) / 100,
     0,
   );
 
   const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
+
+  const handlePlaceOrder = async () => {
+    try {
+      // Dispatch the createOrder action
+      await dispatch(
+        createOrder({
+          customerInfo: {
+            firstName,
+            lastName,
+            email,
+            address,
+            city,
+            zipCode,
+            phoneNumber,
+          },
+          items: itemsInCheckout,
+          totalPrice,
+        }),
+      );
+
+      // Clear the cart (remove items from localStorage)
+      localStorage.removeItem('cart');
+
+      // Log a success message
+      console.log('Order placed successfully!');
+
+      // Navigate to the payment gateway page
+      navigate('/trade/payment-gateway', { state: { totalPrice } });
+    } catch (error) {
+      // Handle error, e.g., display an error message
+      console.error('Error placing order:', error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
       <div className="max-w-screen-md mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
         <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
         <form className="space-y-4">
+          {/* ... (rest of the form input fields) */}
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <input
@@ -123,26 +156,6 @@ const Checkout = () => {
               />
             </div>
           </div>
-
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold mb-2">
-              Items in Your Order (
-              {itemsInCheckout.length}
-              ):
-            </h2>
-            <ul className="list-disc pl-4">
-              {itemsInCheckout.map((item) => (
-                <li key={item.id} className="flex justify-between items-center">
-                  <span>{item.name}</span>
-                  <span className="font-semibold">
-                    $
-                    {item.price}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="border-t-2 border-gray-300 pt-4 mt-4">
             <div className="flex justify-between items-center">
               <div>
@@ -152,8 +165,8 @@ const Checkout = () => {
                 </h2>
               </div>
               <button
-                type="submit"
-                onClick={() => navigate('/trade/payment-gateway', { state: { totalPrice } })}
+                type="button" // Change to "submit" if you want to submit the form
+                onClick={handlePlaceOrder}
                 disabled={!isFormValid}
                 className={`btn-primary ${
                   isFormValid
