@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchTradeDetails } from '../redux/reducers/tradeDetailsSlice';
@@ -10,17 +10,67 @@ const TradesDetails = () => {
   const dispatch = useDispatch();
   const trade = useSelector((state) => state.tradeDetails.trade);
 
+  // State to manage the order quantity
+  const [orderQuantity, setOrderQuantity] = useState(1);
+
   useEffect(() => {
     dispatch(fetchTradeDetails(id));
   }, [dispatch, id]);
 
+  const handleOrderQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10) || 1;
+    setOrderQuantity(newQuantity);
+  };
+
+  const handleAddToCart = () => {
+    const availableQuantity = trade.quantity || 0;
+
+    if (orderQuantity <= 0 || orderQuantity > availableQuantity) {
+      alert(
+        `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`,
+      );
+      return;
+    }
+
+    // Get the existing cart from local storage or an empty array if not present
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingTradeIndex = existingCart.findIndex(
+      (item) => item.id === trade.id,
+    );
+
+    if (existingTradeIndex !== -1) {
+      // If trade is already in the cart, calculate the remaining quantity that can be added
+      const remainingQuantity = availableQuantity - existingCart[existingTradeIndex].orderQuantity;
+
+      if (orderQuantity > remainingQuantity) {
+        alert(
+          `Cannot add more than ${remainingQuantity} items due to limited stock.`,
+        );
+        return;
+      }
+
+      // Update the quantity in the cart
+      existingCart[existingTradeIndex].orderQuantity += orderQuantity;
+      alert('Quantity updated in the cart!');
+    } else {
+      // If trade is not in the cart, add it with the selected quantity
+      const newTrade = {
+        ...trade,
+        orderQuantity: Math.min(orderQuantity, availableQuantity),
+      };
+      existingCart.push(newTrade);
+      alert('Trade added to cart!');
+    }
+
+    // Update local storage with the modified cart
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+  };
+
   if (!trade) {
     return (
       <div className="text-center mt-4">
-        <img
-          src={loadingImage} // Use the imported image here
-          alt="Loading..."
-        />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
@@ -31,7 +81,7 @@ const TradesDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-md">
           <div className="md:col-span-1">
             <img
-              src={trade.image}
+              src={trade.imageURL}
               alt={trade.name}
               className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
@@ -43,12 +93,12 @@ const TradesDetails = () => {
             <p className="text-gray-700 text-lg mb-2">
               <strong>Description:</strong>
               {' '}
-              {trade.description}
+              {trade.details}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Location:</strong>
+              <strong>Brand:</strong>
               {' '}
-              {trade.location}
+              {trade.brand}
             </p>
             <p className="text-gray-700 text-lg mb-2">
               <strong>Price:</strong>
@@ -57,27 +107,40 @@ const TradesDetails = () => {
               {trade.price}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Duration:</strong>
+              <strong>Quantity:</strong>
               {' '}
-              {trade.duration}
-              {' '}
-              hours
+              {trade.quantity}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Type:</strong>
+              <strong>Category:</strong>
               {' '}
-              {trade.trade_type}
+              {trade.category.name}
             </p>
             <div className="mt-6">
-              <Link
-                to={`/trade/reserve/${trade.id}`}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-full transition-colors duration-300 text-lg font-semibold inline-block"
+              {/* Input field for choosing order quantity */}
+              <span htmlFor="orderQuantity" className="text-gray-700">
+                Quantity:
+              </span>
+              <input
+                type="number"
+                id="orderQuantity"
+                value={orderQuantity}
+                onChange={handleOrderQuantityChange}
+                className="w-16 p-2 border rounded"
+                min="1"
+                max={trade.quantity || ''}
+              />
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
               >
                 Add to Cart
-              </Link>
+              </button>
+
               <Link
                 to={`/trade/edit-trade/${trade.id}`}
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-4"
               >
                 Edit
               </Link>
