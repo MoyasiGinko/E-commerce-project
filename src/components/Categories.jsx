@@ -1,57 +1,36 @@
-// CategoryTrades.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   fetchTradesForCategory,
-  selectTradeType, // Add this import
+  selectTradeType,
 } from '../redux/reducers/categorySlice';
 
 const CategoryTrades = () => {
   const dispatch = useDispatch();
-  const {
-    uniqueTradeTypes, loading, error, selectedTradeType, trades,
-  } = useSelector((state) => state.category);
+  const { uniqueTradeTypes, loading, error, selectedTradeType, trades } =
+    useSelector((state) => state.category);
 
   const [selectedType, setSelectedType] = useState(selectedTradeType || '');
 
   useEffect(() => {
-    // Fetch unique trade types and all products on component mount
     dispatch(fetchTradesForCategory());
-  }, [dispatch]);
+  }, [dispatch, selectedType]); // Add selectedType as a dependency if needed
 
-  // Render your component using the uniqueTradeTypes and filtered trades data
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        Error:
-        {error}
-      </p>
-    );
-  }
-
-  const handleTradeTypeClick = () => {
-    // Dispatch action to select trade type
+  const handleFilterApply = () => {
     dispatch(selectTradeType(selectedType));
-    console.log('Clicked trade type:', selectedType);
-
-    // Fetch trades for the selected trade type
-    dispatch(fetchTradesForCategory());
   };
 
-  // Filter trades based on the selected trade type
   const filteredTrades = selectedTradeType
     ? trades.filter((trade) => trade.category.name === selectedTradeType)
     : trades;
 
+  console.log('Trades:', trades);
+  console.log('Filtered Trades:', filteredTrades);
+  console.log('Unique Trade Types:', uniqueTradeTypes);
+  
   return (
     <div className="container mx-auto p-4">
-      {/* Render your component using the uniqueTradeTypes data */}
       <span htmlFor="tradeType" className="block mb-2 text-lg font-bold">
         Select a Category:
       </span>
@@ -63,34 +42,27 @@ const CategoryTrades = () => {
       >
         <option value="">All Categories</option>
         {uniqueTradeTypes.map((tradeType) => (
-          <option key={tradeType} value={tradeType}>
-            {tradeType}
+          <option key={tradeType.id} value={tradeType.name}>
+            {tradeType.name}
           </option>
         ))}
       </select>
       <button
         type="button"
-        onClick={handleTradeTypeClick}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
+        onClick={handleFilterApply}
+        className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
       >
         Apply Filter
       </button>
 
       <h2 className="mt-8 text-2xl font-bold">
-        Products List for
-        {' '}
-        {selectedTradeType || 'All Categories'}
+        Products List for {selectedTradeType || 'All Categories'}
       </h2>
 
       <p className="text-gray-700 mb-4">
-        Showing
-        {' '}
-        {filteredTrades.length}
-        {' '}
-        products
+        Showing {filteredTrades.length} products
       </p>
 
-      {/* Render the list of trades as product cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {filteredTrades.map((trade) => (
           <Link
@@ -98,19 +70,17 @@ const CategoryTrades = () => {
             to={`/trade/${trade.id}`}
             className="border rounded overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105"
           >
-            {/* You can customize the card design based on your preferences */}
             <img
-              src={trade.imageURL} // Add the actual image source
+              src={trade.imageURL}
               alt={trade.name}
               className="w-full h-40 object-cover"
             />
             <div className="p-4">
               <h3 className="text-xl font-bold mb-2">{trade.name}</h3>
-              <p className="text-gray-700">{trade.category.name}</p>
-              <p className="mt-2">
-                $
-                {trade.price}
+              <p className="text-gray-700">
+                {trade.category ? trade.category.name : 'No Category'}
               </p>
+              <p className="mt-2">${trade.price}</p>
             </div>
           </Link>
         ))}
