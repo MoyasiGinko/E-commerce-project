@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { makePayment } from '../redux/reducers/paymentSlice';
 
-/*eslint-disable*/
 const CardPayment = ({
-  handleSubmit,
   cardNumber,
   expiryDate,
   cvv,
@@ -13,16 +13,45 @@ const CardPayment = ({
   handleCvvChange,
   totalPrice,
 }) => {
+  const dispatch = useDispatch();
+  const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
+
   const isCardNumberValid = cardNumber.replace(/\D/g, '').length === 16;
   const isExpiryDateValid = /^\d{2}\/\d{2}$/.test(expiryDate);
   const isCvvValid = /^\d{3}$/.test(cvv);
 
   const isFormValid = isCardNumberValid && isExpiryDateValid && isCvvValid;
 
+  const [accountName, setAccountName] = useState('');
+  // const [password, setPassword] = useState('');
+  const pass = null; // New state for password
+  const handlePayment = async () => {
+    // Simulating API call
+    try {
+      const response = await dispatch(
+        makePayment({
+          paymentType: 'CARD',
+          amount: totalPrice,
+          orderId: orderIdFromResponse,
+          accountName,
+          password: pass,
+          card: {
+            cardNumber,
+            expiryDate,
+            cvv,
+          },
+        }),
+      );
+      console.log('Card Payment Successful:', response);
+    } catch (error) {
+      console.error('Error making Card Payment:', error);
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto p-6 bg-red-300 border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-2xl font-bold mb-4">Card Payment</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="mb-4">
           <span className="block text-sm font-semibold mb-2">Card Number:</span>
           <input
@@ -35,7 +64,7 @@ const CardPayment = ({
             }`}
           />
           {!isCardNumberValid && (
-            <p className="text-gray-500 text-sm">Enter card number</p>
+            <p className="text-gray-500 text-sm">Enter valid card number</p>
           )}
         </div>
 
@@ -51,7 +80,7 @@ const CardPayment = ({
             }`}
           />
           {!isExpiryDateValid && (
-            <p className="text-gray-500 text-sm">Enter expiry date</p>
+            <p className="text-gray-500 text-sm">Enter valid expiry date</p>
           )}
         </div>
 
@@ -66,7 +95,23 @@ const CardPayment = ({
               isCvvValid ? 'border-green-500' : 'border-gray-500'
             }`}
           />
-          {!isCvvValid && <p className="text-gray-500 text-sm">Enter CVV</p>}
+          {!isCvvValid && (
+            <p className="text-gray-500 text-sm">Enter valid CVV</p>
+          )}
+        </div>
+
+        {/* New input field for account name */}
+        <div className="mb-4">
+          <span className="block text-sm font-semibold mb-2">
+            Account Name:
+          </span>
+          <input
+            type="text"
+            value={accountName}
+            onChange={(e) => setAccountName(e.target.value)}
+            placeholder="Your Account Name"
+            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2"
+          />
         </div>
 
         <div className="flex justify-between items-center mb-4">
@@ -75,7 +120,8 @@ const CardPayment = ({
             {totalPrice.toFixed(2)}
           </span>
           <button
-            type="submit"
+            type="button" // Change type to button
+            onClick={handlePayment} // Call handlePayment on button click
             disabled={!isFormValid}
             className={`btn-primary ${
               isFormValid
@@ -91,15 +137,86 @@ const CardPayment = ({
   );
 };
 
-const PaypalPayment = () => (
-  <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
-    <h2 className="text-2xl font-bold mb-4">PayPal Payment</h2>
-    {/* Your PayPal specific UI goes here */}
-    <div>PayPal Payment UI</div>
-  </div>
-);
+const PaypalPayment = ({ totalPrice }) => {
+  const dispatch = useDispatch();
+  const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
 
-const CashOnDelivery = ({ handleSubmit }) => {
+  const [accountName, setAccountName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handlePayment = async () => {
+    // Simulating API call
+    try {
+      const response = await dispatch(
+        makePayment({
+          paymentType: 'PAYPAL',
+          amount: totalPrice,
+          orderId: orderIdFromResponse,
+          accountName,
+          password,
+        }),
+      );
+      console.log('PayPal Payment Successful:', response);
+      console.log('orderIdFromResponse:', orderIdFromResponse);
+    } catch (error) {
+      console.error('Error making PayPal Payment:', error);
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        PayPal Payment
+      </h2>
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <div className="mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-600">
+            Account Name:
+          </label>
+          <input
+            type="text"
+            value={accountName}
+            onChange={(e) => setAccountName(e.target.value)}
+            placeholder="Your PayPal Account Name"
+            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-600">
+            Password:
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Your PayPal Password"
+            className="input-field w-full border-2 border-gray-400 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-6">
+          <span className="text-lg font-semibold block mb-2 text-gray-700">
+            Payable: $
+            {totalPrice.toFixed(2)}
+          </span>
+          <button
+            type="button"
+            onClick={handlePayment}
+            className="btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full focus:outline-none"
+          >
+            Pay Now
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+const CashOnDelivery = ({ totalPrice }) => {
+  const dispatch = useDispatch();
+  const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
+
   const [termsAndConditionsChecked, setTermsAndConditionsChecked] = useState(false);
   const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
 
@@ -111,7 +228,29 @@ const CashOnDelivery = ({ handleSubmit }) => {
     setPrivacyPolicyChecked(!privacyPolicyChecked);
   };
 
-  const isFormValid = termsAndConditionsChecked && privacyPolicyChecked;
+  const handlePayment = async () => {
+    // Check if terms and conditions and privacy policy are agreed
+    if (!termsAndConditionsChecked || !privacyPolicyChecked) {
+      console.log('Please agree to Terms and Conditions and Privacy Policy.');
+      return;
+    }
+
+    // Simulating API call
+    try {
+      const response = await dispatch(
+        makePayment({
+          paymentType: 'CASH_ON_DELIVERY',
+          amount: totalPrice,
+          orderId: orderIdFromResponse,
+          accountName: null,
+          password: null,
+        }),
+      );
+      console.log('Cash on Delivery Payment Successful:', response);
+    } catch (error) {
+      console.error('Error making Cash on Delivery Payment:', error);
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
@@ -127,7 +266,7 @@ const CashOnDelivery = ({ handleSubmit }) => {
         will be sent to you with the details of your order. Please be ready to
         pay the total amount in cash upon delivery at your doorstep.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col space-y-4">
           <div className="flex items-center">
             <input
@@ -153,15 +292,18 @@ const CashOnDelivery = ({ handleSubmit }) => {
               I agree to the Privacy Policy
             </span>
           </div>
-
+        </div>
+        <div className="mb-4">
+          <span className="text-lg font-semibold">
+            Payable: $
+            {totalPrice.toFixed(2)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center mb-4">
           <button
-            type="submit"
-            disabled={!isFormValid}
-            className={`btn-primary ${
-              isFormValid
-                ? 'bg-gray-800 hover:bg-red-500'
-                : 'bg-gray-400 cursor-not-allowed'
-            } text-red-500 hover:text-white py-2 px-4 rounded-full`}
+            type="button"
+            onClick={handlePayment}
+            className="btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
           >
             Confirm
           </button>
@@ -178,6 +320,7 @@ const PaymentGateway = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const location = useLocation();
   const totalPrice = location.state?.totalPrice || 0;
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     // You can use useEffect for any side effects or initialization if needed
@@ -195,32 +338,18 @@ const PaymentGateway = () => {
     setCvv(e.target.value);
   };
 
-  const handlePaymentMethodChange = (method) => {
-    setSelectedPaymentMethod(method);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, paymentCallback) => {
     e.preventDefault();
 
     // Check the selected payment method
     switch (selectedPaymentMethod) {
-      case 'cashOnDelivery': {
-        // Check if both checkboxes are checked
-        const termsAndConditionsChecked = document.getElementById('termsAndConditions').checked;
-        const privacyPolicyChecked = document.getElementById('privacyPolicy').checked;
-
-        if (!termsAndConditionsChecked || !privacyPolicyChecked) {
-          console.log(
-            'Please agree to both Terms and Conditions and Privacy Policy.',
-          );
-          return; // Prevent form submission
-        }
-
-        console.log('Processing Cash on Delivery...');
+      case 'cashOnDelivery':
+        // Simulating API call
+        paymentCallback();
         break;
-      }
       case 'paypal':
-        console.log('Processing PayPal payment...');
+        // Simulating API call
+        paymentCallback();
         break;
       case 'cardPayment':
         // Check if card details are filled
@@ -228,8 +357,8 @@ const PaymentGateway = () => {
           console.log('Please fill in all card details.');
           return; // Prevent form submission
         }
-
-        console.log('Processing Card payment...');
+        // Simulating API call
+        paymentCallback();
         break;
       default:
         console.log('No payment method selected');
@@ -239,7 +368,7 @@ const PaymentGateway = () => {
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-2xl font-bold text mb-4">Payment Gateway</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <p className="text-sm mb-4">
           Thank you for choosing us! Whether you prefer the ease of card
           payment, the speed of PayPal, or the convenience of Cash on Delivery,
@@ -255,7 +384,7 @@ const PaymentGateway = () => {
               type="radio"
               name="paymentMethod"
               value="cashOnDelivery"
-              onChange={() => handlePaymentMethodChange('cashOnDelivery')}
+              onChange={() => setSelectedPaymentMethod('cashOnDelivery')}
             />
             <span className="ml-2">Cash on Delivery</span>
 
@@ -263,7 +392,7 @@ const PaymentGateway = () => {
               type="radio"
               name="paymentMethod"
               value="paypal"
-              onChange={() => handlePaymentMethodChange('paypal')}
+              onChange={() => setSelectedPaymentMethod('paypal')}
             />
             <span className="ml-2">PayPal</span>
 
@@ -271,7 +400,7 @@ const PaymentGateway = () => {
               type="radio"
               name="paymentMethod"
               value="cardPayment"
-              onChange={() => handlePaymentMethodChange('cardPayment')}
+              onChange={() => setSelectedPaymentMethod('cardPayment')}
             />
             <span className="ml-2">Card Payment</span>
           </div>
@@ -280,7 +409,6 @@ const PaymentGateway = () => {
         {/* Conditionally render different displays based on the selected payment method */}
         {selectedPaymentMethod === 'cardPayment' && (
           <CardPayment
-            handleSubmit={handleSubmit}
             cardNumber={cardNumber}
             expiryDate={expiryDate}
             cvv={cvv}
@@ -290,14 +418,28 @@ const PaymentGateway = () => {
             totalPrice={totalPrice}
           />
         )}
-        {selectedPaymentMethod === 'paypal' && <PaypalPayment />}
-        {selectedPaymentMethod === 'cashOnDelivery' && <CashOnDelivery />}
+        {selectedPaymentMethod === 'paypal' && (
+          <PaypalPayment totalPrice={totalPrice} />
+        )}
+        {selectedPaymentMethod === 'cashOnDelivery' && (
+          <CashOnDelivery totalPrice={totalPrice} />
+        )}
 
         <div className="flex justify-between items-center mb-4">
           <span className="text-lg font-semibold">
             Total Amount: $
             {totalPrice.toFixed(2)}
           </span>
+          {/* <button
+            type="button"
+            onClick={(e) =>
+              handleSubmit(e, () => console.log('Processing Payment...'))
+            }
+            className="btn-primary bg-gray-800
+            hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
+          >
+            Place Order
+          </button> */}
         </div>
       </form>
     </div>
@@ -307,7 +449,6 @@ const PaymentGateway = () => {
 export default PaymentGateway;
 
 CardPayment.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
   cardNumber: PropTypes.string.isRequired,
   expiryDate: PropTypes.string.isRequired,
   cvv: PropTypes.string.isRequired,
@@ -317,6 +458,10 @@ CardPayment.propTypes = {
   totalPrice: PropTypes.number.isRequired,
 };
 
+PaypalPayment.propTypes = {
+  totalPrice: PropTypes.number.isRequired,
+};
+
 CashOnDelivery.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };

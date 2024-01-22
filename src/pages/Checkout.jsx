@@ -60,6 +60,11 @@ const Checkout = () => {
 
       // Log the entire response
       console.log('Order placed successfully! Response:', response);
+      const orderIdFromResponse = response.payload.id;
+      console.log('Order ID:', orderIdFromResponse);
+
+      // Save orderIdFromResponse into local storage
+      localStorage.setItem('orderId', orderIdFromResponse);
 
       // Log order details
       console.log('Order Details:', response.orderDetails); // Update this line
