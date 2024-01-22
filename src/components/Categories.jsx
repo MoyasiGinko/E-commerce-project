@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   fetchTradesForCategory,
-  selectTradeType,
+  selectTradeType, // Add this import
 } from '../redux/reducers/categorySlice';
 
 const CategoryTrades = () => {
