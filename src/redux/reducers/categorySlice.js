@@ -8,7 +8,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 const initialState = {
   trades: [],
-  tradeCategories: [],
+  categories: [],
   selectedTradeCategory: null,
   uniqueTradeTypes: [],
   selectedTradeType: null,
