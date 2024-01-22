@@ -32,6 +32,8 @@ const TradesList = () => {
     );
   }
 
+  console.log('Trades:', trades);
+
   return (
     <div className="mt-4">
       <div className="md:col-span-1 pb-10">
@@ -46,7 +48,7 @@ const TradesList = () => {
           >
             <div
               style={{
-                backgroundImage: `url(${trade.image})`,
+                backgroundImage: `url(${trade.imageURL})`,
                 height: '200px',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -55,7 +57,8 @@ const TradesList = () => {
             />
             <div className="p-4">
               <h5 className="text-lg font-semibold">{trade.name}</h5>
-              <p className="text-gray-500 text-sm mt-2">{trade.trade_type}</p>
+              <p className="text-gray-500 text-sm mt-2">{trade.brand}</p>
+              <p className="text-gray-500 text-sm mt-2">{trade.category.name}</p>
               <p className="text-green-500 text-base mt-2">{`$${trade.price}`}</p>
             </div>
           </Link>

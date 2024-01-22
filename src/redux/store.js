@@ -5,9 +5,10 @@ import { logoutReducer } from './reducers/auth/logoutSlice';
 import { registerReducer } from './reducers/auth/registerSlice';
 import { loginReducer } from './reducers/auth/loginSlice';
 import { reserveReducer } from './reducers/resereveSlice';
-import { reservationReducer } from './reducers/rservationSlice';
+import { orderReducer } from './reducers/orderSlice';
 import categoryReducer from './reducers/categorySlice'; // Import categoryReducer
 import orderHistoryReducer from './reducers/orderHistorySlice';
+import { paymentReducer } from './reducers/paymentSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,10 +17,11 @@ const store = configureStore({
     register: registerReducer,
     login: loginReducer,
     logout: logoutReducer,
-    reservations: reservationReducer,
+    order: orderReducer,
     reserve: reserveReducer,
     category: categoryReducer, // Include categoryReducer
     orderHistory: orderHistoryReducer,
+    payment: paymentReducer,
   },
 });
 

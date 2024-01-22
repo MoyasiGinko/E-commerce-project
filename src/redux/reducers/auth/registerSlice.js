@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/api/v1/auth/register`;
+const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/register`;
 
 const initialState = {
   status: 'idle',

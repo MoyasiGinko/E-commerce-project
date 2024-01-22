@@ -27,9 +27,12 @@ const Login = () => {
 
   useEffect(() => {
     if (loginStatus === 'success') {
+      console.log('Login successful. Redirecting to /trade.');
       navigate('/trade');
+    } else if (loginStatus === 'failed') {
+      console.error('Login failed. Error:', loginError);
     }
-  }, [loginStatus, navigate]);
+  }, [loginStatus, loginError, navigate]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">

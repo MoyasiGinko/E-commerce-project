@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/api/v1/auth/login`;
+const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/login`;
 
 const initialState = {
   status: 'idle',
   userInfo: {},
   error: null,
+  token: '',
 };
 
 export const loginUser = createAsyncThunk(
@@ -16,7 +17,12 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(BASE_URL, user, {
         headers: { 'Content-Type': 'application/json' },
       });
-      localStorage.setItem('token', response.data.token);
+      if (response.headers?.authorization) {
+        localStorage.setItem(
+          'token',
+          JSON.stringify(response.headers.authorization.split(' ')[1]),
+        );
+      }
       localStorage.setItem('user', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
@@ -28,7 +34,12 @@ export const loginUser = createAsyncThunk(
 const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    login: (state, action) => {
+      state.status = 'success';
+      state.action = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -37,10 +48,14 @@ const loginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'success';
         state.userInfo = action.payload;
+
+        console.log('Login successful. Token:', action.payload.token);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
+
+        console.error('Login failed. Error:', payload);
       });
   },
 });

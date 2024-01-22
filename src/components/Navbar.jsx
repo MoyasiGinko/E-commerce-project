@@ -11,6 +11,8 @@ const Navbar = () => {
   const role = getUserRole();
   const userName = getUserName() || 'Guest';
 
+  console.log('Navbar role:', role);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -138,7 +140,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          {role === 'admin' && (
+          {role === 'VENDOR' && (
             <>
               <div className="navbar-nav mt-4">
                 <ul className="space-y-4">
@@ -167,7 +169,7 @@ const Navbar = () => {
               </div>
             </>
           )}
-          {role === 'user' && (
+          {role === 'CUSTOMER' && (
             <>
               <div className="navbar-nav mt-4">
                 <ul className="space-y-4">

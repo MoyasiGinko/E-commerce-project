@@ -46,7 +46,7 @@ const CategoryTrades = () => {
 
   // Filter trades based on the selected trade type
   const filteredTrades = selectedTradeType
-    ? trades.filter((trade) => trade.trade_type === selectedTradeType)
+    ? trades.filter((trade) => trade.category.name === selectedTradeType)
     : trades;
 
   return (
@@ -100,13 +100,13 @@ const CategoryTrades = () => {
           >
             {/* You can customize the card design based on your preferences */}
             <img
-              src={trade.image} // Add the actual image source
+              src={trade.imageURL} // Add the actual image source
               alt={trade.name}
               className="w-full h-40 object-cover"
             />
             <div className="p-4">
               <h3 className="text-xl font-bold mb-2">{trade.name}</h3>
-              <p className="text-gray-700">{trade.trade_type}</p>
+              <p className="text-gray-700">{trade.category.name}</p>
               <p className="mt-2">
                 $
                 {trade.price}

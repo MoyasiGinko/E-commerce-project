@@ -38,11 +38,11 @@ const Checkout = () => {
     categoryName: item.category.name,
   }));
 
-  const totalPrice = itemsInCheckout.reduce(
+  const calcPrice = itemsInCheckout.reduce(
     (total, item) => total + Math.round(item.price * item.quantity * 100) / 100,
     0,
   );
-
+  const totalPrice = Math.round(calcPrice * 100) / 100;
   const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
 
   const handlePlaceOrder = async () => {

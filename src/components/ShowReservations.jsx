@@ -58,7 +58,9 @@ const ShowReservation = () => {
                 {trade.category.type}
               </p>
               <p className="text-sm text-gray-500 mb-2">
-                Quantity: {trade.orderQuantity}
+                Quantity:
+                {' '}
+                {trade.orderQuantity}
               </p>
               <p className="text-lg font-semibold text-green-600 mb-2">
                 <span>Price: $</span>

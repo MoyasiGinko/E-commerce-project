@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/trades`;
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const initialState = {
   trades: [],
@@ -22,10 +22,10 @@ export const fetchTradesForCategory = createAsyncThunk(
     const { selectedTradeType } = getState().category;
 
     try {
-      let apiUrl = BASE_URL;
+      let apiUrl = `${BASE_URL}/products`; // Modify the endpoint based on your API structure
 
       if (selectedTradeType) {
-        apiUrl += `?trade_type=${selectedTradeType}`;
+        apiUrl += `?category=${selectedTradeType}`; // Adjust the query parameter based on your API
       }
 
       const tradesResponse = await axios.get(apiUrl, {
@@ -34,14 +34,15 @@ export const fetchTradesForCategory = createAsyncThunk(
         },
       });
 
-      // Filter trades to include only those with removed status as false
-      const filteredTrades = tradesResponse.data.filter(
-        (trade) => !trade.removed,
-      );
+      return tradesResponse.data;
+      // // Filter trades to include only those with removed status as false
+      // const filteredTrades = tradesResponse.data.filter(
+      //   (trade) => !trade.removed
+      // );
 
-      console.log('Fetched trades:', filteredTrades);
+      // console.log('Fetched trades:', filteredTrades);
 
-      return filteredTrades;
+      // return filteredTrades;
     } catch (error) {
       console.error('Error fetching trades:', error.message);
       return rejectWithValue(error.message);
@@ -67,7 +68,7 @@ const categorySlice = createSlice({
         state.loading = false;
         state.trades = action.payload;
         state.uniqueTradeTypes = [
-          ...new Set(action.payload.map((trade) => trade.trade_type)),
+          ...new Set(action.payload.map((trade) => trade.category.name)),
         ];
         state.status = 'success';
         state.error = null;

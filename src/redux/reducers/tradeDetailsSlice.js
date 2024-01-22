@@ -12,7 +12,7 @@ export const fetchTradeDetails = createAsyncThunk(
   'tradeDetails/fetchTradeDetails',
   async (tradeId) => {
     const response = await axios.get(
-      `${baseUrl}/trades/${tradeId}`,
+      `${baseUrl}/products/${tradeId}`,
     );
     return response.data;
   },

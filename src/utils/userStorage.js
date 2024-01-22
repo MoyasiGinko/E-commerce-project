@@ -7,29 +7,29 @@ const getUserData = () => {
 // Function to get user ID
 const getUserId = () => {
   const userData = getUserData();
-  return userData?.data?.id || null;
+  return userData?.id || null;
 };
 
 // Function to get user role
 const getUserRole = () => {
   const userData = getUserData();
-  return userData?.data?.role || null;
+  return userData?.type || null;
 };
 
 // Function to get user name
 const getUserName = () => {
   const userData = getUserData();
-  return userData?.data?.name || null;
+  return userData?.username || null;
 };
 
 const getUserEmail = () => {
   const userData = getUserData();
-  return userData?.data?.email || null;
+  return userData?.email || null;
 };
 
 // Function to get token
 const getToken = () => {
-  const tokenData = JSON.parse(localStorage.getItem('token'));
+  const tokenData = localStorage.getItem('token');
   return tokenData || null;
 };
 

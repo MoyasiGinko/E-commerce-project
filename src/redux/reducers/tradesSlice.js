@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/trades`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}/products`;
 const initialState = {
   trades: [],
   status: 'idle',
@@ -54,22 +54,16 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 
-export const fetchTrades = createAsyncThunk(
-  'trades/fetchTrades',
-  async (includeRemoved = false) => {
-    const response = await axios.get(BASE_URL, { headers });
-
-    let trades = [];
-
-    // If include removed is false, filter the data to include only trades with removed = false
-    if (includeRemoved) {
-      trades = response.data;
-    } else {
-      trades = response.data.filter((trade) => trade.removed === false);
-    }
-    return trades;
-  },
-);
+export const fetchTrades = createAsyncThunk('trades/fetchTrades', async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}`, {
+      headers,
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
 
 export const updateRemoveTrade = createAsyncThunk(
   'trades/updatedTrade',
