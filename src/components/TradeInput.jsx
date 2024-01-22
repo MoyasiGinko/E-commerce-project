@@ -44,7 +44,7 @@ const TradeInput = () => {
 
   useEffect(() => {
     if (tradeSuccess === 'success') {
-      navigate('/trade');
+      navigate('/trade/add');
     }
   }, [tradeSuccess, navigate]);
 
@@ -59,7 +59,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10),
+      (category) => category.id === parseInt(selectedCategoryId, 10)
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -115,19 +115,15 @@ const TradeInput = () => {
   }
 
   if (categoriesError) {
-    return (
-      <div>
-        Error loading categories:
-        {categoriesError}
-      </div>
-    );
+    return <div>Error loading categories: {categoriesError}</div>;
   }
-  console.log('Categories:', categories);
 
   return (
     <div className="text-center mt-20 w-full">
-      <h2 className="text-xl font-semibold mb-4">Add a New Product</h2>
-      <div className="bg-white bg-opacity-90 shadow-md p-9 rounded-3xl mx-auto max-w-md tradeinput-container">
+      <h2 className="text-3xl font-semibold mb-8 text-gray-700">
+        Add a New Product
+      </h2>
+      <div className="bg-white shadow-md p-8 rounded-md mx-auto max-w-md tradeinput-container">
         {errorMessage && (
           <div className="text-red-500 mb-4">{errorMessage}</div>
         )}
@@ -173,7 +169,6 @@ const TradeInput = () => {
             required
           />
 
-          {/* Dropdown for selecting category */}
           <select
             name="category"
             value={tradeData.category ? tradeData.category.id : ''}
@@ -184,8 +179,8 @@ const TradeInput = () => {
             <option value="" disabled>
               Select a category
             </option>
-            {categories
-              && categories.map((category) => (
+            {categories &&
+              categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -214,7 +209,7 @@ const TradeInput = () => {
 
           <button
             type="submit"
-            className={`bg-yellow-600 hover:bg-red-700 text-white px-4 py-2 rounded-md ${
+            className={`submit-button bg-yellow-600 hover:bg-red-700 text-white px-4 py-2 rounded-md ${
               tradeLoading ? 'cursor-not-allowed' : ''
             }tradeBtn`}
             disabled={tradeLoading}
