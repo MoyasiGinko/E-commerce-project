@@ -170,9 +170,9 @@ const PaypalPayment = ({ totalPrice }) => {
       </h2>
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2 text-gray-600">
+          <span className="block text-sm font-semibold mb-2 text-gray-600">
             Account Name:
-          </label>
+          </span>
           <input
             type="text"
             value={accountName}
@@ -183,9 +183,9 @@ const PaypalPayment = ({ totalPrice }) => {
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2 text-gray-600">
+          <span className="block text-sm font-semibold mb-2 text-gray-600">
             Password:
-          </label>
+          </span>
           <input
             type="password"
             value={password}
@@ -430,16 +430,14 @@ const PaymentGateway = () => {
             Total Amount: $
             {totalPrice.toFixed(2)}
           </span>
-          {/* <button
+          <button
             type="button"
-            onClick={(e) =>
-              handleSubmit(e, () => console.log('Processing Payment...'))
-            }
+            onClick={(e) => handleSubmit(e, () => console.log('Processing Payment...'))}
             className="btn-primary bg-gray-800
             hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
           >
-            Place Order
-          </button> */}
+            Done
+          </button>
         </div>
       </form>
     </div>

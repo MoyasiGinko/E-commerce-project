@@ -8,14 +8,15 @@ import {
 
 const CategoryTrades = () => {
   const dispatch = useDispatch();
-  const { uniqueTradeTypes, loading, error, selectedTradeType, trades } =
-    useSelector((state) => state.category);
+  const {
+    uniqueTradeTypes, loading, error, selectedTradeType, trades,
+  } = useSelector((state) => state.category);
 
   const [selectedType, setSelectedType] = useState(selectedTradeType || '');
 
   useEffect(() => {
     dispatch(fetchTradesForCategory());
-  }, [dispatch, selectedType]); // Add selectedType as a dependency if needed
+  }, [dispatch, selectedType]);
 
   const handleFilterApply = () => {
     dispatch(selectTradeType(selectedType));
@@ -25,10 +26,21 @@ const CategoryTrades = () => {
     ? trades.filter((trade) => trade.category.name === selectedTradeType)
     : trades;
 
-  console.log('Trades:', trades);
-  console.log('Filtered Trades:', filteredTrades);
-  console.log('Unique Trade Types:', uniqueTradeTypes);
-  
+  // Use a Set to keep track of unique trade types for the dropdown options
+  const uniqueTradeTypeSet = new Set();
+
+  if (loading) {
+    return <p>Loading trades...</p>;
+  }
+  if (error) {
+    return (
+      <p>
+        Error fetching trades:
+        {error}
+      </p>
+    );
+  }
+
   return (
     <div className="container mx-auto p-4">
       <span htmlFor="tradeType" className="block mb-2 text-lg font-bold">
@@ -41,11 +53,20 @@ const CategoryTrades = () => {
         className="w-full p-2 border rounded"
       >
         <option value="">All Categories</option>
-        {uniqueTradeTypes.map((tradeType) => (
-          <option key={tradeType.id} value={tradeType.name}>
-            {tradeType.name}
-          </option>
-        ))}
+        {uniqueTradeTypes.map((tradeType) => {
+          // Check if the trade type is already in the Set
+          if (!uniqueTradeTypeSet.has(tradeType.name)) {
+            uniqueTradeTypeSet.add(tradeType.name);
+
+            return (
+              <option key={tradeType.id} value={tradeType.name}>
+                {tradeType.name}
+              </option>
+            );
+          }
+
+          return null; // Skip rendering duplicate trade types
+        })}
       </select>
       <button
         type="button"
@@ -56,11 +77,17 @@ const CategoryTrades = () => {
       </button>
 
       <h2 className="mt-8 text-2xl font-bold">
-        Products List for {selectedTradeType || 'All Categories'}
+        Products List for
+        {' '}
+        {selectedTradeType || 'All Categories'}
       </h2>
 
       <p className="text-gray-700 mb-4">
-        Showing {filteredTrades.length} products
+        Showing
+        {' '}
+        {filteredTrades.length}
+        {' '}
+        products
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
@@ -80,7 +107,10 @@ const CategoryTrades = () => {
               <p className="text-gray-700">
                 {trade.category ? trade.category.name : 'No Category'}
               </p>
-              <p className="mt-2">${trade.price}</p>
+              <p className="mt-2">
+                $
+                {trade.price}
+              </p>
             </div>
           </Link>
         ))}

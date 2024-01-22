@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import loadingImage from '../assets/images/loading.gif';
+// import loadingImage from '../assets/images/loading.gif';
 
 const ShowReservation = () => {
   // State to manage the cart locally
