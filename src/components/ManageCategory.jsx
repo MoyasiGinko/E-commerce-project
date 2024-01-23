@@ -26,7 +26,6 @@ const CategoryManagement = () => {
     dispatch(createTradeCategory([{ name: newCategory }]))
       .then(() => setNewCategory(''))
       .catch((err) => console.error('Error creating category:', err));
-    console.log('newCategory', newCategory);
   };
 
   const handleUpdateCategory = () => {
@@ -66,70 +65,89 @@ const CategoryManagement = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8 p-4">
-      <h2 className="text-2xl font-bold mb-4">Trade Categories</h2>
-      {loading && <p>Loading categories...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-      <ul>
+    <div className="max-w-screen-xl mx-auto mt-8 p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-3xl font-bold">Shop by Category</h2>
+        <div className="flex items-center space-x-4">
+          <input
+            type="text"
+            placeholder="Search categories..."
+            className="px-4 py-2 border border-gray-300 rounded"
+          />
+          <button type="button" className="px-4 py-2 bg-yellow-500 text-white rounded">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-8">
         {categories.map((category) => (
-          <li
+          <div
             key={category.id}
-            className="border-b border-gray-200 py-2 flex items-center justify-between"
+            className="bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105"
           >
             {editingCategory && editingCategory.id === category.id ? (
-              <div className="flex items-center">
+              <div className="flex items-center mb-4">
                 <input
                   type="text"
                   value={editingCategory.name}
                   onChange={handleInputChange}
-                  className="mr-2 px-2 py-1 border border-gray-300"
+                  className="mr-2 px-2 py-1 border border-gray-300 w-full"
                 />
                 <button
+                  type="button"
                   onClick={handleUpdateCategory}
-                  className="bg-blue-500 text-white px-2 py-1 rounded"
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Update
                 </button>
                 <button
+                  type="button"
                   onClick={handleCancelEdit}
-                  className="ml-2 px-2 py-1 border border-gray-300 rounded"
+                  className="ml-2 px-4 py-2 border border-gray-300 rounded"
                 >
                   Cancel
                 </button>
               </div>
             ) : (
-              <div className="flex items-center">
-                <span className="mr-2">{category.name}</span>
-                <button
-                  onClick={() => handleEditCategory(category)}
-                  className="bg-green-500 text-white px-2 py-1 rounded"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteCategory(category.id)}
-                  className="ml-2 px-2 py-1 border border-red-500 text-red-500 rounded"
-                >
-                  Delete
-                </button>
-              </div>
+              <>
+                <h3 className="text-lg font-semibold mb-2">{category.name}</h3>
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => handleEditCategory(category)}
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteCategory(category.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
-      <div className="mt-4">
-        <h3 className="text-xl font-bold mb-2">Create New Category</h3>
-        <div className="flex">
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-2xl font-bold mb-4">Create New Category</h3>
+        <div className="flex items-center space-x-4">
           <input
             type="text"
             placeholder="Enter category name"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
-            className="mr-2 px-2 py-1 border border-gray-300 flex-grow"
+            className="px-4 py-2 border border-gray-300 rounded w-full"
           />
           <button
+            type="button"
             onClick={handleCreateCategory}
-            className="bg-blue-500 text-white px-2 py-1 rounded"
+            className="px-4 py-2 bg-blue-500 text-white rounded"
           >
             Create
           </button>
