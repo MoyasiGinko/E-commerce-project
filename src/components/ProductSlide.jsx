@@ -48,7 +48,7 @@ const TopSellersSlider = () => {
               className="border rounded overflow-hidden shadow-md"
             >
               <img
-                src={trade.image}
+                src={trade.imageURL}
                 alt={trade.name}
                 className="w-full h-96 object-fit rounded-t" // Adjust the height here
               />
