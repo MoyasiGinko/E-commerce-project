@@ -5,117 +5,136 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTradeCategories,
   createTradeCategory,
-  getTradeCategoryById,
   updateTradeCategory,
   deleteTradeCategory,
 } from '../redux/reducers/categorySlice';
 
 const CategoryManagement = () => {
   const dispatch = useDispatch();
-  const [newCategoryName, setNewCategoryName] = useState('');
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const categories = useSelector((state) => state.category.categories);
+  const loading = useSelector((state) => state.category.loading);
+  const error = useSelector((state) => state.category.error);
+
+  const [newCategory, setNewCategory] = useState('');
+  const [editingCategory, setEditingCategory] = useState(null);
 
   useEffect(() => {
-    // Fetch categories on component mount
     dispatch(fetchTradeCategories());
   }, [dispatch]);
 
-  const handleCreateCategory = async () => {
-    try {
-      const response = await dispatch(
-        createTradeCategory([{ name: newCategoryName }])
-      );
-      const newCategories = response.payload;
-      dispatch(fetchTradeCategories());
-      setNewCategoryName('');
-      console.log('New categories:', newCategories);
-    } catch (error) {
-      console.error('Error creating category:', error.message);
-    }
+  const handleCreateCategory = () => {
+    dispatch(createTradeCategory([{ name: newCategory }]))
+      .then(() => setNewCategory(''))
+      .catch((err) => console.error('Error creating category:', err));
+    console.log('newCategory', newCategory);
   };
 
-  const handleEditCategory = async (categoryId) => {
-    try {
-      const category = await dispatch(getTradeCategoryById(categoryId));
-      setSelectedCategoryId(category.id);
-      setNewCategoryName(category.name || ''); // Ensure the value is not undefined
-      console.log('Selected category:', category);
-      console.log('Selected category ID:', selectedCategoryId);
-    } catch (error) {
-      console.error('Error fetching category by ID:', error.message);
-    }
-  };
-
-  const handleUpdateCategory = async () => {
-    try {
-      if (selectedCategoryId) {
-        await dispatch(
-          updateTradeCategory({
-            categoryId: selectedCategoryId,
-            updatedCategory: { name: newCategoryName },
-          })
-        );
-        // Refetch categories after the update
-        dispatch(fetchTradeCategories());
-        setSelectedCategoryId(null);
-        setNewCategoryName('');
-      }
-    } catch (error) {
-      console.error('Error updating category:', error.message);
+  const handleUpdateCategory = () => {
+    if (editingCategory) {
+      dispatch(
+        updateTradeCategory({
+          categoryId: editingCategory.id,
+          updatedCategory: { name: editingCategory.name },
+        })
+      )
+        .then(() => setEditingCategory(null))
+        .catch((err) => console.error('Error updating category:', err));
     }
   };
 
   const handleDeleteCategory = (categoryId) => {
-    dispatch(deleteTradeCategory(categoryId));
+    if (window.confirm('Are you sure you want to delete this category?')) {
+      dispatch(deleteTradeCategory(categoryId)).catch((err) =>
+        console.error('Error deleting category:', err)
+      );
+    }
+  };
+
+  const handleEditCategory = (category) => {
+    setEditingCategory({ ...category, originalName: category.name });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCategory(null);
+  };
+
+  const handleInputChange = (e) => {
+    setEditingCategory({
+      ...editingCategory,
+      name: e.target.value,
+    });
   };
 
   return (
-    <div className="category-management">
-      <h2>Product Category Management</h2>
-
-      {/* Create new category */}
-      <div className="category-form">
-        <input
-          type="text"
-          placeholder="New Category Name"
-          value={newCategoryName}
-          onChange={(e) => setNewCategoryName(e.target.value)}
-        />
-        <button onClick={handleCreateCategory}>Create Category</button>
-      </div>
-
-      {/* List existing categories */}
-      <ul className="category-list">
+    <div className="max-w-3xl mx-auto mt-8 p-4">
+      <h2 className="text-2xl font-bold mb-4">Trade Categories</h2>
+      {loading && <p>Loading categories...</p>}
+      {error && <p className="text-red-500">Error: {error}</p>}
+      <ul>
         {categories.map((category) => (
-          <li key={category.id}>
-            <div className="category-info">
-              <span>{category.name}</span>
-              <div className="category-actions">
-                <button onClick={() => handleEditCategory(category.id)}>
+          <li
+            key={category.id}
+            className="border-b border-gray-200 py-2 flex items-center justify-between"
+          >
+            {editingCategory && editingCategory.id === category.id ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={editingCategory.name}
+                  onChange={handleInputChange}
+                  className="mr-2 px-2 py-1 border border-gray-300"
+                />
+                <button
+                  onClick={handleUpdateCategory}
+                  className="bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={handleCancelEdit}
+                  className="ml-2 px-2 py-1 border border-gray-300 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span className="mr-2">{category.name}</span>
+                <button
+                  onClick={() => handleEditCategory(category)}
+                  className="bg-green-500 text-white px-2 py-1 rounded"
+                >
                   Edit
                 </button>
-                <button onClick={() => handleDeleteCategory(category.id)}>
+                <button
+                  onClick={() => handleDeleteCategory(category.id)}
+                  className="ml-2 px-2 py-1 border border-red-500 text-red-500 rounded"
+                >
                   Delete
                 </button>
               </div>
-            </div>
+            )}
           </li>
         ))}
       </ul>
-
-      {/* Update category */}
-      {selectedCategoryId && (
-        <div className="category-form">
+      <div className="mt-4">
+        <h3 className="text-xl font-bold mb-2">Create New Category</h3>
+        <div className="flex">
           <input
             type="text"
-            placeholder="Updated Category Name"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
+            placeholder="Enter category name"
+            value={newCategory}
+            onChange={(e) => setNewCategory(e.target.value)}
+            className="mr-2 px-2 py-1 border border-gray-300 flex-grow"
           />
-          <button onClick={handleUpdateCategory}>Update Category</button>
+          <button
+            onClick={handleCreateCategory}
+            className="bg-blue-500 text-white px-2 py-1 rounded"
+          >
+            Create
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
