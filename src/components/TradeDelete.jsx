@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Lottie from 'lottie-react';
-import { fetchTrades, updateRemoveTrade } from '../redux/reducers/tradesSlice';
+import { fetchTrades, deleteTrade } from '../redux/reducers/tradesSlice';
 import { getUserRole } from '../utils/userStorage';
-// import animationData from '../assets/images/loader-bals.json';
 import loadingImage from '../assets/images/loading.gif';
 
 const TradeDelete = () => {
   const dispatch = useDispatch();
-  const isAdmin = getUserRole() === 'admin';
+  const isAdmin = getUserRole() === 'VENDOR';
   const trades = useSelector((state) => state.trades.trades);
   const loading = useSelector((state) => state.trades.loading);
 
@@ -19,7 +17,7 @@ const TradeDelete = () => {
   if (!isAdmin) {
     return (
       <div className="text-center mt-4 font-semibold text-red-500 w-full">
-        You must be an admin to see this page
+        You must be a vendor to see this page
       </div>
     );
   }
@@ -27,20 +25,14 @@ const TradeDelete = () => {
   if (loading) {
     return (
       <div className="text-center mt-4">
-        <img
-          src={loadingImage} // Use the imported image here
-          alt="Loading..."
-        />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
 
-  const handleToggleRemoved = (tradeId, isRemoved) => {
-    const updatedTrade = {
-      id: tradeId,
-      removed: !isRemoved,
-    };
-    dispatch(updateRemoveTrade(updatedTrade));
+  const handleRemoveTrade = (tradeId) => {
+    // Use the deleteTrade action to delete a trade by its ID
+    dispatch(deleteTrade(tradeId));
   };
 
   return (
@@ -61,7 +53,7 @@ const TradeDelete = () => {
               className={`bg-cover bg-center bg-no-repeat h-72 ${
                 trade.removed ? 'grayscale' : ''
               } transition-all duration-300`}
-              style={{ backgroundImage: `url(${trade.image})` }}
+              style={{ backgroundImage: `url(${trade.imageURL})` }}
             />
             <div className="p-6 bg-black backdrop-filter bg-opacity-50 absolute inset-0 flex flex-col items-center justify-center text-white">
               <h5
@@ -80,7 +72,7 @@ const TradeDelete = () => {
                     ? 'bg-gray-300 text-neutral-600 hover:bg-green-300 hover:text-neutral-800'
                     : 'bg-red-500 text-white hover:bg-red-600 hover:text-white'
                 } transition-colors`}
-                onClick={() => handleToggleRemoved(trade.id, trade.removed)}
+                onClick={() => handleRemoveTrade(trade.id)}
               >
                 {trade.removed ? 'Restore' : 'Remove'}
               </button>

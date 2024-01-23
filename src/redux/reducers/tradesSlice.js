@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/products`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}/product`;
 const initialState = {
   trades: [],
   status: 'idle',
@@ -65,24 +65,21 @@ export const fetchTrades = createAsyncThunk('trades/fetchTrades', async () => {
   }
 });
 
-export const updateRemoveTrade = createAsyncThunk(
-  'trades/updatedTrade',
-  async ({ id, removed }) => {
-    const token = getToken();
-    const response = await axios.put(
-      `${BASE_URL}/${id}`,
-      {
-        removed,
-      },
-      {
+export const deleteTrade = createAsyncThunk(
+  'trades/deleteTrade',
+  async (tradeId) => {
+    try {
+      const token = getToken();
+      await axios.delete(`${BASE_URL}/${tradeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      },
-    );
-
-    return response.data;
-  },
+      });
+      return tradeId; // Return the deleted trade's ID
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 );
 
 const tradesSlice = createSlice({
@@ -134,11 +131,9 @@ const tradesSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(updateRemoveTrade.fulfilled, (state, action) => {
-        const index = state.trades.findIndex(
-          (trade) => trade.id === action.payload.id,
-        );
-        state.trades[index] = action.payload;
+      .addCase(deleteTrade.fulfilled, (state, action) => {
+        // Remove the trade from the state using its ID
+        state.trades = state.trades.filter((trade) => trade.id !== action.payload);
       })
       .addCase(updateTrade.fulfilled, (state, action) => {
         const index = state.trades.findIndex(

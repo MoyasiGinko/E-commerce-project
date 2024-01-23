@@ -24,7 +24,7 @@ export const fetchTradesForCategory = createAsyncThunk(
     const { selectedTradeType } = getState().category;
 
     try {
-      let apiUrl = `${BASE_URL}/products`; // Modify the endpoint based on your API structure
+      let apiUrl = `${BASE_URL}/product`; // Modify the endpoint based on your API structure
 
       if (selectedTradeType) {
         apiUrl += `?category=${selectedTradeType}`; // Adjust the query parameter based on your API
