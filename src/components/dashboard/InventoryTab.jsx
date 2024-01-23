@@ -144,11 +144,12 @@ const InventoryTab = () => {
 
   // Render the component
   return (
-    <div>
+    <div className="container mx-auto mt-8">
       <div className="mb-4">
         <select
           value={selectedProductId}
           onChange={(e) => handleProductChange(JSON.parse(e.target.value))}
+          className="py-2 px-4 border rounded"
         >
           <option value="" disabled>
             Select a Product
@@ -168,17 +169,20 @@ const InventoryTab = () => {
         type="button"
         onClick={handleAddInventory}
         disabled={!selectedProductId}
-        className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4 ${
+        className={`bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 mb-4 ${
           !selectedProductId && 'opacity-50 cursor-not-allowed'
         }`}
       >
-        Add Inventory
+        Add to Inventory
       </button>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {inventoryItems.map((inventoryItem) => (
-          <div key={inventoryItem.id} className="border p-4 rounded-lg">
-            <h2 className="text-xl font-semibold mb-2">
+          <div
+            key={inventoryItem.id}
+            className="border p-4 rounded-lg bg-white"
+          >
+            <h2 className="text-lg font-semibold mb-2">
               {inventoryItem.productName}
             </h2>
             <p className="text-gray-500 mb-2">{`Quantity: ${inventoryItem.quantity}`}</p>
@@ -191,14 +195,14 @@ const InventoryTab = () => {
                   value={selectedProductName}
                   onChange={(e) => setSelectedProductName(e.target.value)}
                   placeholder="Product Name"
-                  className="mr-2"
+                  className="py-2 px-4 border rounded mr-2"
                 />
                 <input
                   type="number"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="Quantity"
-                  className="mr-2"
+                  className="py-2 px-4 border rounded mr-2"
                 />
                 <button
                   type="button"
