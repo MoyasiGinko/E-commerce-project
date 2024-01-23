@@ -37,14 +37,6 @@ export const fetchTradesForCategory = createAsyncThunk(
       });
 
       return tradesResponse.data;
-      // // Filter trades to include only those with removed status as false
-      // const filteredTrades = tradesResponse.data.filter(
-      //   (trade) => !trade.removed
-      // );
-
-      // console.log('Fetched trades:', filteredTrades);
-
-      // return filteredTrades;
     } catch (error) {
       console.error('Error fetching trades:', error.message);
       return rejectWithValue(error.message);
@@ -72,12 +64,12 @@ export const fetchTradeCategories = createAsyncThunk(
 
 export const createTradeCategory = createAsyncThunk(
   'category/createTradeCategory',
-  async (tradeCategory, { rejectWithValue }) => {
+  async ([categoryArray], { rejectWithValue }) => {
     try {
       const token = getToken();
       const response = await axios.post(
         `${BASE_URL}/product-category/`,
-        tradeCategory,
+        categoryArray,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -106,7 +98,8 @@ export const getTradeCategoryById = createAsyncThunk(
           },
         },
       );
-      return response.data;
+
+      return [response.data];
     } catch (error) {
       console.error('Error fetching trade category by ID:', error.message);
       return rejectWithValue(error.message);
@@ -151,7 +144,12 @@ export const deleteTradeCategory = createAsyncThunk(
         },
       );
 
-      return response.data;
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
+      throw new Error(
+        `Failed to delete trade category. Status: ${response.status}`,
+      );
     } catch (error) {
       console.error('Error deleting trade category:', error.message);
       return rejectWithValue(error.message);
@@ -181,7 +179,7 @@ const categorySlice = createSlice({
         state.trades = action.payload;
         state.uniqueTradeTypes = [
           ...new Set(action.payload.map((trade) => trade.category)),
-        ]; // Update this line to use the entire category object
+        ];
         state.status = 'success';
         state.error = null;
       })
@@ -195,14 +193,29 @@ const categorySlice = createSlice({
       })
       .addCase(fetchTradeCategories.fulfilled, (state, action) => {
         state.loading = false;
-        // Assuming the payload is an object with category IDs as keys
-        state.categories = Object.values(action.payload);
+        state.categories = action.payload;
         state.status = 'success';
         state.error = null;
         console.log('Fetched categories:', state.categories);
       })
-
       .addCase(fetchTradeCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateTradeCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTradeCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedCategory = action.payload;
+        state.categories = state.categories.map((category) => (
+          (category.id === updatedCategory.id) ? updatedCategory : category
+        ));
+        state.status = 'success';
+        state.error = null;
+      })
+      .addCase(updateTradeCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

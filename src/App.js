@@ -20,6 +20,7 @@ import Checkout from './pages/Checkout';
 import PaymentGateway from './pages/PaymentGateway';
 import Dashboard from './components/Dashboard';
 import EditTrade from './components/dashboard/EditTradesTab';
+import CategoryManagement from './components/ManageCategory';
 
 const App = () => (
   <Routes>
@@ -33,6 +34,7 @@ const App = () => (
       <Route path="reservations" element={<Reservations />} />
       <Route path="checkout" element={<Checkout />} />
       <Route path="dashboard" element={<Dashboard />} />
+      <Route path="manage-category" element={<CategoryManagement />} />
       <Route path="/trade/edit-trade/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />

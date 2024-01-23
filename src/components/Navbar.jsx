@@ -21,6 +21,7 @@ const Navbar = () => {
     { path: '/trade/reserve', text: 'Categories' },
     { path: '/trade/add', text: 'Add Product' },
     { path: '/trade/delete', text: 'Delete Product' },
+    { path: '/trade/manage-category', text: 'Manage Category' },
   ];
 
   const userLinks = [

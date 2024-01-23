@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { updateTrade } from '../../redux/reducers/tradesSlice';
 
-const history = createBrowserHistory();
-
 const EditTrade = () => {
-  const [editedTrade, setEditedTrade] = useState(null);
+  const [editedTrade, setEditedTrade] = useState({ name: '', details: '' });
   const dispatch = useDispatch();
   const trades = useSelector((state) => state.trades.trades);
   const { tradeId } = useParams();
 
   useEffect(() => {
-    // Find the trade to edit based on the tradeId from the URL parameter
     const tradeToEdit = trades.find(
-      (trade) => trade.id === parseInt(tradeId, 10),
+      (trade) => trade.id === parseInt(tradeId, 10)
     );
-
-    // Set the initial state for editedTrade
-    setEditedTrade(tradeToEdit);
+    setEditedTrade(tradeToEdit || { name: '', details: '' });
   }, [trades, tradeId]);
 
   const handleInputChange = (e) => {
@@ -31,101 +25,70 @@ const EditTrade = () => {
   };
 
   const handleSave = () => {
-    // Dispatch the updateTrade action to update the trade
-    dispatch(updateTrade(editedTrade));
-
-    // Redirect or navigate back to the inventory page
-    history.push('/trade/dashboard');
+    dispatch(
+      updateTrade({
+        id: tradeId,
+        name: editedTrade.name,
+        details: editedTrade.details,
+      })
+    );
   };
 
   if (!editedTrade) {
-    return <div>Loading...</div>; // or a loading spinner
+    return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">
-        Edit Trade:
-        {' '}
-        {editedTrade.name}
-      </h2>
-      <form onSubmit={(e) => e.preventDefault()}>
-        {/* Add your form inputs here */}
-        <span className="block mb-4">
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={editedTrade.name}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-        {/* Add more input fields based on your trade properties */}
-        <span className="block mb-4">
-          Quantity:
-          <input
-            type="number"
-            name="quantity"
-            value={editedTrade.quantity}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-        <span className="block mb-4">
-          Price:
-          <input
-            type="number"
-            name="price"
-            value={editedTrade.price}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-        <span className="block mb-4">
-          Description:
-          <textarea
-            name="description"
-            value={editedTrade.description}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-        <span className="block mb-4">
-          Type:
-          <input
-            type="text"
-            name="name"
-            value={editedTrade.trade_type}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-        <span className="block mb-4">
-          Image:
-          <input
-            type="text"
-            name="name"
-            value={editedTrade.image}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-          />
-        </span>
-      </form>
-      <div className="flex justify-end mt-4">
-        <button
-          type="button"
-          onClick={handleSave}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mr-2"
-        >
-          Save
-        </button>
-        <Link
-          to="/trade/dashboard"
-          className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-        >
-          Back to Inventory
-        </Link>
+    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md p-8 bg-white rounded shadow-lg">
+        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+          Edit Trade: {editedTrade.name}
+        </h2>
+        <form>
+          <div className="mb-6">
+            <label htmlFor="name" className="text-sm text-gray-600 block mb-2">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={editedTrade.name}
+              onChange={handleInputChange}
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-500 transition-all duration-300"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="details"
+              className="text-sm text-gray-600 block mb-2"
+            >
+              Details:
+            </label>
+            <textarea
+              id="details"
+              name="details"
+              value={editedTrade.details}
+              onChange={handleInputChange}
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-500 transition-all duration-300"
+            />
+          </div>
+        </form>
+        <div className="flex justify-end mt-8">
+          <button
+            type="button"
+            onClick={handleSave}
+            className="bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600 mr-4 transition-all duration-300"
+          >
+            Save
+          </button>
+          <Link
+            to="/trade/dashboard"
+            className="bg-gray-300 text-gray-800 py-3 px-6 rounded hover:bg-gray-400 transition-all duration-300"
+          >
+            Back to Dashboard
+          </Link>
+        </div>
       </div>
     </div>
   );

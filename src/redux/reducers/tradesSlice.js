@@ -28,23 +28,23 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
 
 export const updateTrade = createAsyncThunk(
   'trades/updateTrade',
-  async (updatedTrade) => {
+  async ({ id, name, details }) => {
     try {
       const token = getToken();
       const response = await axios.put(
-        `${BASE_URL}/${updatedTrade.id}`,
-        updatedTrade,
+        `${BASE_URL}/${id}`,
+        { name, details },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       return response.data;
     } catch (error) {
       return error.response.data;
     }
-  },
+  }
 );
 
 const token = getToken();

@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import InventoryTab from './dashboard/InventoryTab';
 import TradeOrderHistoryTab from './dashboard/TradeorderHistoryTab';
 import ProfileTab from './dashboard/ProfileTab';
+import MyItemsTab from './dashboard/MyItemsTab';
 import { getUserRole } from '../utils/userStorage';
 
 const Dashboard = () => {
   const userRole = getUserRole();
   const [activeTab, setActiveTab] = useState(
-    userRole === 'VENDOR' ? 'inventory' : 'orderHistory',
+    userRole === 'VENDOR' ? 'MyItemsTab' : 'orderHistory'
   );
 
   const renderTabContent = () => {
@@ -17,6 +18,8 @@ const Dashboard = () => {
         return <ProfileTab />;
       case 'inventory':
         return <InventoryTab />;
+      case 'MyItemsTab':
+        return <MyItemsTab />;
       case 'orderHistory':
         return <TradeOrderHistoryTab />;
       default:
@@ -31,6 +34,19 @@ const Dashboard = () => {
         {userRole === 'VENDOR' && (
           <button
             type="button"
+            onClick={() => setActiveTab('MyItemsTab')}
+            className={`py-2 px-4 rounded-md focus:outline-none ${
+              activeTab === 'MyItemsTab'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-200'
+            }`}
+          >
+            My Items
+          </button>
+        )}
+        {userRole === 'VENDOR' && (
+          <button
+            type="button"
             onClick={() => setActiveTab('inventory')}
             className={`py-2 px-4 rounded-md focus:outline-none ${
               activeTab === 'inventory'
@@ -41,7 +57,8 @@ const Dashboard = () => {
             Inventory
           </button>
         )}
-        {userRole === 'CUSTOMER' && (
+
+        {userRole === 'ADMIN' && (
           <button
             type="button"
             onClick={() => setActiveTab('orderHistory')}

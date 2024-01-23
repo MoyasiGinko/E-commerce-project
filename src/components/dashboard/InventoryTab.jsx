@@ -62,7 +62,7 @@ const InventoryTab = () => {
     );
 
     setQuantity(
-      selectedProductInInventory ? selectedProductInInventory.quantity : 0
+      selectedProductInInventory ? selectedProductInInventory.quantity : 0,
     );
   };
 
@@ -70,7 +70,7 @@ const InventoryTab = () => {
   const handleAddInventory = async () => {
     // Check if the selected product is already in the inventory
     const isProductInInventory = inventoryItems.some(
-      (item) => item.productId === selectedProductId
+      (item) => item.productId === selectedProductId,
     );
 
     if (isProductInInventory) {
@@ -152,9 +152,9 @@ const InventoryTab = () => {
           value={
             selectedProductId
               ? JSON.stringify({
-                  id: selectedProductId,
-                  name: selectedProductName,
-                })
+                id: selectedProductId,
+                name: selectedProductName,
+              })
               : ''
           }
           onChange={handleProductChange}
