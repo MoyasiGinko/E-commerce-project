@@ -6,6 +6,7 @@ import {
   deleteInventoryItem,
   addInventoryItem,
 } from '../../redux/reducers/inventorySlice';
+import { fetchTrades } from '../../redux/reducers/tradesSlice'; // Import the fetchTrades action
 import { getUserId } from '../../utils/userStorage';
 
 const InventoryTab = () => {
@@ -16,13 +17,7 @@ const InventoryTab = () => {
 
   const dispatch = useDispatch();
   const inventoryItems = useSelector((state) => state.inventory.items);
-
-  // Sample products array (replace this with your actual data fetching logic)
-  const products = [
-    { id: 1, name: 'Product 1' },
-    { id: 2, name: 'Product 2' },
-    { id: 3, name: 'Product 3' },
-  ];
+  const trades = useSelector((state) => state.trades.trades); // Fetch trades from the trades slice
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,9 +25,11 @@ const InventoryTab = () => {
         const userId = getUserId();
         // Fetch all inventory items for the current user (vendor)
         await dispatch(fetchInventory(userId));
+        // Fetch trades and store them in the products array
+        await dispatch(fetchTrades());
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching inventory:', error.message);
+        console.error('Error fetching data:', error.message);
         setLoading(false);
       }
     };
@@ -61,7 +58,7 @@ const InventoryTab = () => {
       const inventoryData = {
         productId: selectedProductId,
         productName: selectedProductName,
-        quantity,
+        quantity: quantity,
       };
 
       // Add the inventory item
@@ -75,6 +72,9 @@ const InventoryTab = () => {
     return <div>Loading...</div>; // Or a loading spinner
   }
 
+  console.log('Inventory Items:', inventoryItems);
+  console.log('Trades:', trades[3].name);
+
   return (
     <div>
       {/* Dropdown to select a product */}
@@ -82,10 +82,13 @@ const InventoryTab = () => {
         <option value="" disabled selected>
           Select a Product
         </option>
-        {/* Map through products to create options */}
-        {products.map((product) => (
-          <option key={product.id} value={JSON.stringify(product)}>
-            {product.name}
+        {/* Map through trades to create options */}
+        {trades.map((trade) => (
+          <option
+            key={trade.id}
+            value={JSON.stringify({ id: trade.id, name: trade.name })}
+          >
+            {trade.name}
           </option>
         ))}
       </select>
