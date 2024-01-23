@@ -9,6 +9,7 @@ import { orderReducer } from './reducers/orderSlice';
 import categoryReducer from './reducers/categorySlice'; // Import categoryReducer
 import orderHistoryReducer from './reducers/orderHistorySlice';
 import { paymentReducer } from './reducers/paymentSlice';
+import inventoryReducer from './reducers/inventorySlice';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     category: categoryReducer, // Include categoryReducer
     orderHistory: orderHistoryReducer,
     payment: paymentReducer,
+    inventory: inventoryReducer,
   },
 });
 

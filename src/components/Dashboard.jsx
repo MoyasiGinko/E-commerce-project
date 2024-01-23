@@ -8,7 +8,7 @@ import { getUserRole } from '../utils/userStorage';
 const Dashboard = () => {
   const userRole = getUserRole();
   const [activeTab, setActiveTab] = useState(
-    userRole === 'admin' ? 'inventory' : 'orderHistory',
+    userRole === 'VENDOR' ? 'inventory' : 'orderHistory',
   );
 
   const renderTabContent = () => {
@@ -28,7 +28,7 @@ const Dashboard = () => {
     <div className="max-w-full mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
       <h1 className="text-3xl font-semibold mb-6">User Dashboard</h1>
       <div className="flex space-x-4 mb-6">
-        {userRole === 'admin' && (
+        {userRole === 'VENDOR' && (
           <button
             type="button"
             onClick={() => setActiveTab('inventory')}
@@ -41,7 +41,7 @@ const Dashboard = () => {
             Inventory
           </button>
         )}
-        {userRole === 'user' && (
+        {userRole === 'CUSTOMER' && (
           <button
             type="button"
             onClick={() => setActiveTab('orderHistory')}
