@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { updateTrade } from '../../redux/reducers/tradesSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditTrade = () => {
   const [editedTrade, setEditedTrade] = useState({ name: '', details: '' });
@@ -32,6 +34,16 @@ const EditTrade = () => {
         details: editedTrade.details,
       })
     );
+
+    // Show successful notification
+    toast.success('Trade updated successfully!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   if (!editedTrade) {
@@ -90,6 +102,7 @@ const EditTrade = () => {
           </Link>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
