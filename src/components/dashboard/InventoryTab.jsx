@@ -52,13 +52,15 @@ const InventoryTab = () => {
   };
 
   // Handle selecting a product from the dropdown
-  const handleProductChange = (selectedProduct) => {
+  const handleProductChange = (e) => {
+    const selectedProduct = JSON.parse(e.target.value);
     setSelectedProductId(selectedProduct.id);
     setSelectedProductName(selectedProduct.name);
     // Set the quantity based on the selected product
     const selectedProductInInventory = inventoryItems.find(
-      (item) => item.productId === selectedProduct.id
+      (item) => item.productId === selectedProduct.id,
     );
+
     setQuantity(
       selectedProductInInventory ? selectedProductInInventory.quantity : 0
     );
@@ -147,13 +149,22 @@ const InventoryTab = () => {
     <div className="container mx-auto mt-8">
       <div className="mb-4">
         <select
-          value={selectedProductId}
-          onChange={(e) => handleProductChange(JSON.parse(e.target.value))}
+          value={
+            selectedProductId
+              ? JSON.stringify({
+                  id: selectedProductId,
+                  name: selectedProductName,
+                })
+              : ''
+          }
+          onChange={handleProductChange}
           className="py-2 px-4 border rounded"
         >
-          <option value="" disabled>
-            Select a Product
-          </option>
+          {!selectedProductId && (
+            <option value="" disabled>
+              Select a Product
+            </option>
+          )}
           {trades.map((trade) => (
             <option
               key={trade.id}
