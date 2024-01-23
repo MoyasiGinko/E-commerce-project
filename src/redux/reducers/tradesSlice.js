@@ -79,7 +79,7 @@ export const deleteTrade = createAsyncThunk(
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 const tradesSlice = createSlice({

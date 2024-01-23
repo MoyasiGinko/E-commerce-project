@@ -7,7 +7,7 @@ import {
   selectTradeType,
   selectTradeCategory,
 } from '../redux/reducers/categorySlice';
-import { getUserRole } from '../utils/userStorage';
+import { getUserRole, getUserId } from '../utils/userStorage';
 import '../styles/trade.css';
 
 const TradeInput = () => {
@@ -23,6 +23,7 @@ const TradeInput = () => {
   const navigate = useNavigate();
 
   const isAdmin = getUserRole() === 'VENDOR';
+  const currentUserId = getUserId();
 
   const [tradeData, setTradeData] = useState({
     name: '',
@@ -32,6 +33,7 @@ const TradeInput = () => {
     category: '',
     quantity: 0,
     imageURL: '',
+    vendorId: currentUserId,
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -90,6 +92,7 @@ const TradeInput = () => {
       category: tradeData.category, // Use the entire category object
       quantity: parseFloat(tradeData.quantity),
       imageURL: tradeData.imageURL,
+      vendorId: currentUserId,
     };
 
     dispatch(addTrades(newTradeData))
@@ -102,6 +105,7 @@ const TradeInput = () => {
           category: '',
           quantity: 0,
           imageURL: '',
+          vendorId: currentUserId,
         });
         setErrorMessage('');
       })

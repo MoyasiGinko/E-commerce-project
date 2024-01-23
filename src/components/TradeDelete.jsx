@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTrades, deleteTrade } from '../redux/reducers/tradesSlice';
-import { getUserRole } from '../utils/userStorage';
+import { getUserRole, getUserId } from '../utils/userStorage';
 import loadingImage from '../assets/images/loading.gif';
 
 const TradeDelete = () => {
@@ -9,6 +9,7 @@ const TradeDelete = () => {
   const isAdmin = getUserRole() === 'VENDOR';
   const trades = useSelector((state) => state.trades.trades);
   const loading = useSelector((state) => state.trades.loading);
+  const currentUserId = getUserId(); // Assuming you have user data in the Redux state
 
   useEffect(() => {
     dispatch(fetchTrades(true));
@@ -30,8 +31,12 @@ const TradeDelete = () => {
     );
   }
 
+  // Filter trades based on the current user's vendorId
+  const filteredTrades = trades.filter(
+    (trade) => trade.vendorId === currentUserId,
+  );
+
   const handleRemoveTrade = (tradeId) => {
-    // Use the deleteTrade action to delete a trade by its ID
     dispatch(deleteTrade(tradeId));
   };
 
@@ -44,7 +49,7 @@ const TradeDelete = () => {
         Click on a trade to remove or restore it
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {trades.map((trade) => (
+        {filteredTrades.map((trade) => (
           <div
             key={trade.id}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer relative"
