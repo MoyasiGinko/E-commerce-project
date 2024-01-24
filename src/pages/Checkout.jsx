@@ -159,13 +159,27 @@ const Checkout = () => {
             </div>
           </div>
           <div className="border-t-2 border-gray-300 pt-4 mt-4">
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold mb-2">Items in Checkout:</h3>
+              <ul>
+                {itemsInCheckout.map((item) => (
+                  <li
+                    key={item.productId}
+                    className="flex justify-between items-center mb-2"
+                  >
+                    <div>{item.name}</div>
+                    <div>
+                      X
+                      {item.quantity}
+                      {' '}
+                      - $
+                      {item.price.toFixed(2) * item.quantity}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-lg font-semibold mb-2">
-                  Order Total: $
-                  {totalPrice.toFixed(2)}
-                </h2>
-              </div>
               <button
                 type="button" // Change to "submit" if you want to submit the form
                 onClick={handlePlaceOrder}
@@ -178,6 +192,12 @@ const Checkout = () => {
               >
                 Place Your Order
               </button>
+              <div>
+                <h2 className="text-lg font-semibold mb-2">
+                  Order Total: $
+                  {totalPrice.toFixed(2)}
+                </h2>
+              </div>
             </div>
           </div>
         </form>
