@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { makePayment } from '../../redux/reducers/paymentSlice';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PaypalPayment = () => {
   const dispatch = useDispatch();
-  const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
-  const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0; // Get totalPrice from local storage
+  const orderIdFromResponse = Number(localStorage.getItem('orderId'));
+  const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
   const [accountName, setAccountName] = useState('');
   const [password, setPassword] = useState('');
@@ -17,23 +18,9 @@ const PaypalPayment = () => {
     setTotalPrice(initialTotalPrice);
   }, [initialTotalPrice]);
 
-  const handlePayment = async () => {
-    // Check if the payable amount is greater than 0
-    if (totalPrice === 0) {
-      // Show notification if the payable amount is 0
-      toast.error('Cannot process payment for $0.00');
-      return;
-    }
-
-    // Check if account name and password are not empty
-    if (!accountName || !password) {
-      // Show notification if either field is empty
-      toast.error('Please fill in both Account Name and Password.');
-      return;
-    }
-
-    // Simulating API call
+  const handleApprove = async (data, actions) => {
     try {
+      // Capture the payment on the server
       const response = await dispatch(
         makePayment({
           paymentType: 'PAYPAL',
@@ -43,16 +30,23 @@ const PaypalPayment = () => {
           password,
         }),
       );
+
       console.log('PayPal Payment Successful:', response);
-      setTotalPrice(0); // Set totalPrice to 0 after payment
-      setAccountName(''); // Clear the accountName input
-      setPassword(''); // Clear the password input
-      // Show a success notification
+
+      // Update UI and show a success notification
+      setTotalPrice(0);
+      setAccountName('');
+      setPassword('');
       toast.success('Payment successful!');
       localStorage.removeItem('totalPrice');
     } catch (error) {
       console.error('Error making PayPal Payment:', error);
     }
+  };
+
+  const handleError = (err) => {
+    // Handle payment error logic here
+    console.error('PayPal Payment Error:', err);
   };
 
   return (
@@ -92,18 +86,26 @@ const PaypalPayment = () => {
             Payable: $
             {totalPrice.toFixed(2)}
           </span>
-          <button
-            type="button"
-            onClick={handlePayment}
-            className={`btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full focus:outline-none ${
-              totalPrice === 0 || !accountName || !password
-                ? 'cursor-not-allowed'
-                : ''
-            }`}
-            disabled={totalPrice === 0 || !accountName || !password}
+
+          <PayPalScriptProvider
+            options={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}
           >
-            Pay Now
-          </button>
+            <PayPalButtons
+              createOrder={(data, actions) =>
+                // Create the order details
+                actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: totalPrice.toFixed(2),
+                      },
+                    },
+                  ],
+                })}
+              onApprove={handleApprove}
+              onError={handleError}
+            />
+          </PayPalScriptProvider>
         </div>
       </form>
       <ToastContainer />
