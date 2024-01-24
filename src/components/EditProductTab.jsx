@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { updateTrade } from '../../redux/reducers/tradesSlice';
+import { updateTrade } from '../redux/reducers/tradesSlice';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditTrade = () => {
@@ -13,7 +13,7 @@ const EditTrade = () => {
 
   useEffect(() => {
     const tradeToEdit = trades.find(
-      (trade) => trade.id === parseInt(tradeId, 10),
+      (trade) => trade.id === parseInt(tradeId, 10)
     );
     setEditedTrade(tradeToEdit || { name: '', details: '' });
   }, [trades, tradeId]);
@@ -32,7 +32,7 @@ const EditTrade = () => {
         id: tradeId,
         name: editedTrade.name,
         details: editedTrade.details,
-      }),
+      })
     );
 
     // Show successful notification

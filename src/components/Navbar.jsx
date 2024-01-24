@@ -25,6 +25,7 @@ const Navbar = () => {
   const vendorLinks = [
     { path: '/trade', text: 'Home' },
     { path: '/trade/reserve', text: 'Categories' },
+    { path: '/trade/edit-product', text: 'Edit Product' },
     { path: '/trade/add', text: 'Add Product' },
     { path: '/trade/delete', text: 'Delete Product' },
   ];

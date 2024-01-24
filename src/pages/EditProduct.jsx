@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUserId } from '../../utils/userStorage';
-import { fetchTrades } from '../../redux/reducers/tradesSlice';
+import { Edit } from '@mui/icons-material';
+import { getUserId } from '../utils/userStorage';
+import { fetchTrades } from '../redux/reducers/tradesSlice';
 
-const MyItemsTab = () => {
+const EditProduct = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const trades = useSelector((state) => state.trades.trades);
@@ -64,4 +65,4 @@ const MyItemsTab = () => {
   );
 };
 
-export default MyItemsTab;
+export default EditProduct;

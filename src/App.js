@@ -19,7 +19,8 @@ import NotFound from './components/NotFound';
 import Checkout from './pages/Checkout';
 import PaymentGateway from './pages/PaymentGateway';
 import Dashboard from './components/Dashboard';
-import EditTrade from './components/dashboard/EditTradesTab';
+import EditTrade from './components/EditProductTab';
+import EditProduct from './pages/EditProduct';
 import CategoryManagement from './components/ManageCategory';
 
 const App = () => (
@@ -35,6 +36,7 @@ const App = () => (
       <Route path="checkout" element={<Checkout />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="manage-category" element={<CategoryManagement />} />
+      <Route path="edit-product" element={<EditProduct />} />
       <Route path="/trade/edit-trade/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />
