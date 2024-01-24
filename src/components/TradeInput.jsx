@@ -76,7 +76,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10),
+      (category) => category.id === parseInt(selectedCategoryId, 10)
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -229,7 +229,6 @@ const TradeInput = () => {
               className="rounded-md"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
             />
-
             <Select
               fullWidth
               variant="outlined"
@@ -241,13 +240,16 @@ const TradeInput = () => {
               onChange={handleCategoryChange}
               required
               className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                color: 'rgba(0, 0, 0, 1)',
+              }}
             >
               <MenuItem value="" disabled selected>
                 Select a category
               </MenuItem>
-              {categories
-                && categories.map((category) => (
+              {categories &&
+                categories.map((category) => (
                   <MenuItem key={category.id} value={category.id}>
                     {category.name}
                   </MenuItem>

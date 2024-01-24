@@ -150,7 +150,7 @@ const TradesDetails = () => {
               )}
               {userRole !== 'CUSTOMER' && userRole !== 'ADMIN' && (
                 <Link
-                  to={`/trade/edit-trade/${trade.id}`}
+                  to={`/trade/edit-product/${trade.id}`}
                   className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-4"
                 >
                   Edit

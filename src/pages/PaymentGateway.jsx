@@ -5,9 +5,6 @@ import CashOnDelivery from '../components/payment/CashOnDelivery';
 import CardPayment from '../components/payment/CardPayment';
 
 const PaymentGateway = () => {
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -31,18 +28,6 @@ const PaymentGateway = () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
-
-  const handleCardNumberChange = (e) => {
-    setCardNumber(e.target.value);
-  };
-
-  const handleExpiryDateChange = (e) => {
-    setExpiryDate(e.target.value);
-  };
-
-  const handleCvvChange = (e) => {
-    setCvv(e.target.value);
-  };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
@@ -73,7 +58,7 @@ const PaymentGateway = () => {
               value="paypal"
               onChange={() => setSelectedPaymentMethod('paypal')}
             />
-            <span className="ml-2">PayPal</span>
+            <span className="ml-2">Digital Payment</span>
 
             <input
               type="radio"
@@ -81,22 +66,8 @@ const PaymentGateway = () => {
               value="cardPayment"
               onChange={() => setSelectedPaymentMethod('cardPayment')}
             />
-            <span className="ml-2">Card Payment</span>
           </div>
         </div>
-
-        {selectedPaymentMethod === 'cardPayment' && (
-          <CardPayment
-            cardNumber={cardNumber}
-            expiryDate={expiryDate}
-            cvv={cvv}
-            handleCardNumberChange={handleCardNumberChange}
-            handleExpiryDateChange={handleExpiryDateChange}
-            handleCvvChange={handleCvvChange}
-            totalPrice={totalPrice}
-            setTotalPrice={setTotalPrice}
-          />
-        )}
         {selectedPaymentMethod === 'paypal' && (
           <PaypalPayment
             totalPrice={totalPrice}
@@ -119,12 +90,6 @@ export default PaymentGateway;
 // Prop types for your components remain the same as before
 
 CardPayment.propTypes = {
-  cardNumber: PropTypes.string.isRequired,
-  expiryDate: PropTypes.string.isRequired,
-  cvv: PropTypes.string.isRequired,
-  handleCardNumberChange: PropTypes.func.isRequired,
-  handleExpiryDateChange: PropTypes.func.isRequired,
-  handleCvvChange: PropTypes.func.isRequired,
   totalPrice: PropTypes.number.isRequired,
   setTotalPrice: PropTypes.func.isRequired,
 };

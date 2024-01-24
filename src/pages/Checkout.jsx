@@ -171,11 +171,11 @@ const Checkout = () => {
                   >
                     <div>{item.name}</div>
                     <div>
-                      X
                       {item.quantity}
+                      x
                       {' '}
                       - $
-                      {item.price.toFixed(2) * item.quantity}
+                      {item.price * item.quantity}
                     </div>
                   </li>
                 ))}
