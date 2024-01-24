@@ -28,7 +28,7 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
 
 export const updateTrade = createAsyncThunk(
   'trades/updateTrade',
-  async ({ id, name, details, quantity, price }) => {
+  async ({ id, name, details, quantity, price, brand, category, imageURL, }) => {
     try {
       const token = getToken();
       const response = await axios.put(
@@ -38,6 +38,9 @@ export const updateTrade = createAsyncThunk(
           details,
           quantity,
           price,
+          brand,
+          category,
+          imageURL,
         },
         {
           headers: {

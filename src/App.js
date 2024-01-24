@@ -37,7 +37,7 @@ const App = () => (
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="manage-category" element={<CategoryManagement />} />
       <Route path="edit-product" element={<EditProduct />} />
-      <Route path="/trade/edit-trade/:tradeId" element={<EditTrade />} />
+      <Route path="/trade/edit-product/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />
       <Route path="/trade/reserve/:tradeId" element={<ReserveFromTd />} />

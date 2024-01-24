@@ -32,6 +32,9 @@ const EditTrade = () => {
         id: tradeId,
         name: editedTrade.name,
         details: editedTrade.details,
+        brand: editedTrade.brand,
+        price: editedTrade.price,
+        imageURL: editedTrade.imageURL,
       })
     );
 
@@ -88,6 +91,54 @@ const EditTrade = () => {
               className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
             />
           </div>
+          <div className="mb-6">
+            <label
+              htmlFor="brand"
+              className="text-sm text-vintage-white block mb-2"
+            >
+              Brand:
+            </label>
+            <input
+              type="text"
+              id="brand"
+              name="brand"
+              value={editedTrade.brand}
+              onChange={handleInputChange}
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="price"
+              className="text-sm text-vintage-white block mb-2"
+            >
+              Price:
+            </label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={editedTrade.price}
+              onChange={handleInputChange}
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="image"
+              className="text-sm text-vintage-white block mb-2"
+            >
+              Image:
+            </label>
+            <input
+              placeholder="Image URL"
+              id="image"
+              name="image"
+              value={editedTrade.imageURL}
+              onChange={handleInputChange}
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+            />
+          </div>
         </form>
         <div className="flex justify-end mt-8">
           <button
@@ -98,7 +149,7 @@ const EditTrade = () => {
             Save
           </button>
           <Link
-            to="/trade/dashboard"
+            to="/trade/edit-product"
             className="bg-vintage-dark-blue text-vintage-white py-3 px-6 rounded hover:bg-vintage-darker-blue transition-all duration-300"
           >
             Back to Dashboard
