@@ -47,11 +47,6 @@ const CardPayment = ({
           orderId: orderIdFromResponse,
           accountName,
           password: null,
-          card: {
-            cardNumber,
-            expiryDate,
-            cvv,
-          },
         }),
       );
       console.log('Card Payment Successful:', response);
