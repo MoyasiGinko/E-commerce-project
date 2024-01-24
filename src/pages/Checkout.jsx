@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createOrder } from '../redux/reducers/orderSlice';
-// import loadingImage from '../assets/images/loading.gif';
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState('');
@@ -58,6 +57,9 @@ const Checkout = () => {
       // Clear the cart (remove items from localStorage)
       localStorage.removeItem('cart');
 
+      // Save totalPrice into local storage
+      localStorage.setItem('totalPrice', totalPrice.toFixed(2));
+
       // Log the entire response
       console.log('Order placed successfully! Response:', response);
       const orderIdFromResponse = response.payload.id;
@@ -67,7 +69,7 @@ const Checkout = () => {
       localStorage.setItem('orderId', orderIdFromResponse);
 
       // Log order details
-      console.log('Order Details:', response.orderDetails); // Update this line
+      console.log('Order Details:', response.orderDetails);
 
       // Navigate to the payment gateway page
       navigate('/trade/payment-gateway', { state: { totalPrice } });

@@ -1,6 +1,7 @@
-// Import necessary dependencies and actions
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   fetchInventory,
   deleteInventoryItem,
@@ -10,9 +11,7 @@ import {
 import { fetchTrades } from '../../redux/reducers/tradesSlice';
 import { getUserId } from '../../utils/userStorage';
 
-// Define the InventoryTab component
 const InventoryTab = () => {
-  // State variables for component
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);
@@ -20,12 +19,10 @@ const InventoryTab = () => {
   const [selectedProductName, setSelectedProductName] = useState('');
   const [quantity, setQuantity] = useState(0);
 
-  // Redux hooks to dispatch actions and retrieve state
   const dispatch = useDispatch();
   const inventoryItems = useSelector((state) => state.inventory.items);
   const trades = useSelector((state) => state.trades.trades);
 
-  // Fetch data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,21 +39,21 @@ const InventoryTab = () => {
     fetchData();
   }, [dispatch]);
 
-  // Handle deleting an inventory item
   const handleDeleteInventory = async (inventoryId) => {
     try {
       await dispatch(deleteInventoryItem(inventoryId));
+      toast.success('Inventory item deleted successfully');
     } catch (error) {
       console.error('Error deleting inventory item:', error.message);
+      toast.error('Error deleting inventory item');
     }
   };
 
-  // Handle selecting a product from the dropdown
   const handleProductChange = (e) => {
     const selectedProduct = JSON.parse(e.target.value);
     setSelectedProductId(selectedProduct.id);
     setSelectedProductName(selectedProduct.name);
-    // Set the quantity based on the selected product
+
     const selectedProductInInventory = inventoryItems.find(
       (item) => item.productId === selectedProduct.id,
     );
@@ -66,16 +63,13 @@ const InventoryTab = () => {
     );
   };
 
-  // Handle adding an inventory item
   const handleAddInventory = async () => {
-    // Check if the selected product is already in the inventory
     const isProductInInventory = inventoryItems.some(
       (item) => item.productId === selectedProductId,
     );
 
     if (isProductInInventory) {
-      // Show alert if the product is already in the inventory
-      alert('Selected product is already in the inventory.');
+      toast.error('Selected product is already in the inventory.');
     } else {
       try {
         const inventoryData = {
@@ -85,32 +79,29 @@ const InventoryTab = () => {
         };
 
         await dispatch(addInventoryItem(inventoryData));
-        // Reset the form after adding
         setSelectedProductId('');
         setSelectedProductName('');
         setQuantity(0);
+
+        toast.success('Inventory item added successfully');
       } catch (error) {
         console.error('Error adding inventory item:', error.message);
+        toast.error('Error adding inventory item');
       }
     }
   };
 
-  // Handle entering edit mode for an inventory item
   const handleEditInventory = (inventoryId) => {
-    // Set editing mode and item id
     setIsEditing(true);
     setEditingItemId(inventoryId);
 
-    // Find the inventory item by id
     const editedItem = inventoryItems.find((item) => item.id === inventoryId);
 
-    // Set the state with the values from the inventory item
     setSelectedProductId(editedItem.productId);
     setSelectedProductName(editedItem.productName);
     setQuantity(editedItem.quantity);
   };
 
-  // Handle updating an inventory item
   const handleUpdateInventory = async (inventoryId) => {
     try {
       const updatedData = {
@@ -119,20 +110,20 @@ const InventoryTab = () => {
       };
 
       await dispatch(updateInventoryItem({ inventoryId, updatedData }));
-      // Reset the form after updating
       setIsEditing(false);
       setEditingItemId(null);
       setSelectedProductId('');
       setSelectedProductName('');
       setQuantity(0);
+
+      toast.success('Inventory item updated successfully');
     } catch (error) {
       console.error('Error updating inventory item:', error.message);
+      toast.error('Error updating inventory item');
     }
   };
 
-  // Handle canceling the edit mode
   const handleCancelEdit = () => {
-    // Reset editing state
     setIsEditing(false);
     setEditingItemId(null);
     setSelectedProductId('');
@@ -144,7 +135,6 @@ const InventoryTab = () => {
     return <p>Loading inventory...</p>;
   }
 
-  // Render the component
   return (
     <div className="container mx-auto mt-8">
       <div className="mb-4">
@@ -158,7 +148,7 @@ const InventoryTab = () => {
               : ''
           }
           onChange={handleProductChange}
-          className="py-2 px-4 border rounded"
+          className="py-2 px-4 border rounded bg-gray-100"
         >
           {!selectedProductId && (
             <option value="" disabled>
@@ -191,7 +181,7 @@ const InventoryTab = () => {
         {inventoryItems.map((inventoryItem) => (
           <div
             key={inventoryItem.id}
-            className="border p-4 rounded-lg bg-white"
+            className="border p-4 rounded-lg bg-white shadow-md transform transition-all hover:scale-105"
           >
             <h2 className="text-lg font-semibold mb-2">
               {inventoryItem.productName}
@@ -200,7 +190,6 @@ const InventoryTab = () => {
 
             {isEditing && editingItemId === inventoryItem.id ? (
               <div className="mb-4">
-                {/* Editing controls */}
                 <input
                   type="text"
                   value={selectedProductName}
@@ -232,7 +221,6 @@ const InventoryTab = () => {
               </div>
             ) : (
               <div className="flex">
-                {/* Non-editing controls */}
                 <button
                   type="button"
                   onClick={() => handleEditInventory(inventoryItem.id)}
@@ -252,6 +240,9 @@ const InventoryTab = () => {
           </div>
         ))}
       </div>
+
+      {/* React Toastify container for notifications */}
+      <ToastContainer />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { updateTrade } from '../../redux/reducers/tradesSlice';
 import { toast, ToastContainer } from 'react-toastify';
+import { updateTrade } from '../../redux/reducers/tradesSlice';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditTrade = () => {
@@ -13,7 +13,7 @@ const EditTrade = () => {
 
   useEffect(() => {
     const tradeToEdit = trades.find(
-      (trade) => trade.id === parseInt(tradeId, 10)
+      (trade) => trade.id === parseInt(tradeId, 10),
     );
     setEditedTrade(tradeToEdit || { name: '', details: '' });
   }, [trades, tradeId]);
@@ -32,7 +32,7 @@ const EditTrade = () => {
         id: tradeId,
         name: editedTrade.name,
         details: editedTrade.details,
-      })
+      }),
     );
 
     // Show successful notification
@@ -51,14 +51,17 @@ const EditTrade = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow-lg">
-        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
-          Edit Trade: {editedTrade.name}
+    <div className="bg-vintage-yellow min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md p-8 bg-vintage-blue rounded shadow-lg">
+        <h2 className="text-3xl font-semibold mb-6 text-vintage-white">
+          {editedTrade.name}
         </h2>
         <form>
           <div className="mb-6">
-            <label htmlFor="name" className="text-sm text-gray-600 block mb-2">
+            <label
+              htmlFor="name"
+              className="text-sm text-vintage-white block mb-2"
+            >
               Name:
             </label>
             <input
@@ -67,13 +70,13 @@ const EditTrade = () => {
               name="name"
               value={editedTrade.name}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-500 transition-all duration-300"
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
             />
           </div>
           <div className="mb-6">
             <label
               htmlFor="details"
-              className="text-sm text-gray-600 block mb-2"
+              className="text-sm text-vintage-white block mb-2"
             >
               Details:
             </label>
@@ -82,7 +85,7 @@ const EditTrade = () => {
               name="details"
               value={editedTrade.details}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-500 transition-all duration-300"
+              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
             />
           </div>
         </form>
@@ -90,13 +93,13 @@ const EditTrade = () => {
           <button
             type="button"
             onClick={handleSave}
-            className="bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600 mr-4 transition-all duration-300"
+            className="bg-vintage-blue text-vintage-white py-3 px-6 rounded hover:bg-vintage-dark-blue mr-4 transition-all duration-300"
           >
             Save
           </button>
           <Link
             to="/trade/dashboard"
-            className="bg-gray-300 text-gray-800 py-3 px-6 rounded hover:bg-gray-400 transition-all duration-300"
+            className="bg-vintage-dark-blue text-vintage-white py-3 px-6 rounded hover:bg-vintage-darker-blue transition-all duration-300"
           >
             Back to Dashboard
           </Link>

@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import loadingImage from '../assets/images/loading.gif';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ShowReservation = () => {
-  // State to manage the cart locally
   const [localCart, setLocalCart] = useState([]);
 
   useEffect(() => {
-    // Load cart data from local storage
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setLocalCart(storedCart);
   }, []);
 
   const handleRemoveFromCart = (productId) => {
-    // Remove the specific product from the cart
     const updatedCart = localCart.filter((trade) => trade.id !== productId);
-
-    // Update local storage with the modified cart
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-    // Update the local state to re-render the component
     setLocalCart(updatedCart);
+
+    // Notify the user that the item has been removed
+    toast.success('Item removed from the cart!');
   };
 
   if (localCart.length === 0) {
@@ -33,6 +30,7 @@ const ShowReservation = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-3xl flex justify-center font-semibold text-gray-800 mb-4">
         Shopping Cart
       </h1>
@@ -66,7 +64,6 @@ const ShowReservation = () => {
                 <span>Price: $</span>
                 {trade.price * trade.orderQuantity}
               </p>
-              {/* Remove button */}
               <button
                 type="button"
                 onClick={() => handleRemoveFromCart(trade.id)}
@@ -78,7 +75,6 @@ const ShowReservation = () => {
           </div>
         ))}
       </div>
-      {/* Checkout button row */}
       <div className="flex justify-center items-center mt-4">
         <Link
           to="/trade/checkout"

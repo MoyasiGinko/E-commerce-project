@@ -19,12 +19,17 @@ const Navbar = () => {
   const adminLinks = [
     { path: '/trade', text: 'Home' },
     { path: '/trade/reserve', text: 'Categories' },
-    { path: '/trade/add', text: 'Add Product' },
-    { path: '/trade/delete', text: 'Delete Product' },
     { path: '/trade/manage-category', text: 'Manage Category' },
   ];
 
-  const userLinks = [
+  const vendorLinks = [
+    { path: '/trade', text: 'Home' },
+    { path: '/trade/reserve', text: 'Categories' },
+    { path: '/trade/add', text: 'Add Product' },
+    { path: '/trade/delete', text: 'Delete Product' },
+  ];
+
+  const customerLinks = [
     { path: '/trade', text: 'Home' },
     { path: '/trade/reserve', text: 'Categories' },
     { path: '/trade/reservations', text: 'Shopping Cart' },
@@ -141,7 +146,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          {role === 'VENDOR' && (
+          {role === 'ADMIN' && (
             <>
               <div className="navbar-nav mt-4">
                 <ul className="space-y-4">
@@ -170,11 +175,40 @@ const Navbar = () => {
               </div>
             </>
           )}
+          {role === 'VENDOR' && (
+            <>
+              <div className="navbar-nav mt-4">
+                <ul className="space-y-4">
+                  {vendorLinks.map((link) => (
+                    <li key={link.path}>
+                      <button
+                        type="button"
+                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
+                        onClick={() => {
+                          navigate(link.path);
+                          closeMenu();
+                        }}
+                      >
+                        {link.text}
+                      </button>
+                    </li>
+                  ))}
+                  <button
+                    type="button"
+                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </ul>
+              </div>
+            </>
+          )}
           {role === 'CUSTOMER' && (
             <>
               <div className="navbar-nav mt-4">
                 <ul className="space-y-4">
-                  {userLinks.map((link) => (
+                  {customerLinks.map((link) => (
                     <li key={link.path}>
                       <button
                         type="button"

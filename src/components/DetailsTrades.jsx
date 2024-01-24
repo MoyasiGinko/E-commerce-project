@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { fetchTradeDetails } from '../redux/reducers/tradeDetailsSlice';
 import loadingImage from '../assets/images/loading.gif';
 import Recommendation from './Recommendation';
+import 'react-toastify/dist/ReactToastify.css';
+import { getUserRole } from '../utils/userStorage';
 
 const TradesDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const trade = useSelector((state) => state.tradeDetails.trade);
-
+  const userRole = getUserRole();
   // State to manage the order quantity
   const [orderQuantity, setOrderQuantity] = useState(1);
 
@@ -26,7 +29,7 @@ const TradesDetails = () => {
     const availableQuantity = trade.quantity || 0;
 
     if (orderQuantity <= 0 || orderQuantity > availableQuantity) {
-      alert(
+      toast.error(
         `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`,
       );
       return;
@@ -44,7 +47,7 @@ const TradesDetails = () => {
       const remainingQuantity = availableQuantity - existingCart[existingTradeIndex].orderQuantity;
 
       if (orderQuantity > remainingQuantity) {
-        alert(
+        toast.error(
           `Cannot add more than ${remainingQuantity} items due to limited stock.`,
         );
         return;
@@ -52,7 +55,7 @@ const TradesDetails = () => {
 
       // Update the quantity in the cart
       existingCart[existingTradeIndex].orderQuantity += orderQuantity;
-      alert('Quantity updated in the cart!');
+      toast.success('Quantity updated in the cart!');
     } else {
       // If trade is not in the cart, add it with the selected quantity
       const newTrade = {
@@ -60,7 +63,7 @@ const TradesDetails = () => {
         orderQuantity: Math.min(orderQuantity, availableQuantity),
       };
       existingCart.push(newTrade);
-      alert('Trade added to cart!');
+      toast.success('Trade added to cart!');
     }
 
     // Update local storage with the modified cart
@@ -77,6 +80,7 @@ const TradesDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <ToastContainer />
       <div className="max-w-screen-2xl mx-auto p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-md">
           <div className="md:col-span-1">
@@ -118,32 +122,40 @@ const TradesDetails = () => {
             </p>
             <div className="mt-6">
               {/* Input field for choosing order quantity */}
-              <span htmlFor="orderQuantity" className="text-gray-700">
-                Quantity:
-              </span>
-              <input
-                type="number"
-                id="orderQuantity"
-                value={orderQuantity}
-                onChange={handleOrderQuantityChange}
-                className="w-16 p-2 border rounded"
-                min="1"
-                max={trade.quantity || ''}
-              />
-              <button
-                type="button"
-                onClick={handleAddToCart}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
-              >
-                Add to Cart
-              </button>
 
-              <Link
-                to={`/trade/edit-trade/${trade.id}`}
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-4"
-              >
-                Edit
-              </Link>
+              {/* Conditionally render the "Add to Cart" button */}
+              {userRole !== 'VENDOR' && userRole !== 'ADMIN' && (
+                <div className="flex items-center mt-6">
+                  <span htmlFor="orderQuantity" className="text-gray-700">
+                    Quantity:
+                  </span>
+                  <input
+                    type="number"
+                    id="orderQuantity"
+                    value={orderQuantity}
+                    onChange={handleOrderQuantityChange}
+                    className="w-16 p-2 border rounded"
+                    min="1"
+                    max={trade.quantity || ''}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3
+                        rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              )}
+              {userRole !== 'CUSTOMER' && userRole !== 'ADMIN' && (
+                <Link
+                  to={`/trade/edit-trade/${trade.id}`}
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-4"
+                >
+                  Edit
+                </Link>
+              )}
             </div>
           </div>
         </div>

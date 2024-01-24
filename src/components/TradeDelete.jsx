@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { fetchTrades, deleteTrade } from '../redux/reducers/tradesSlice';
 import { getUserRole, getUserId } from '../utils/userStorage';
 import loadingImage from '../assets/images/loading.gif';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TradeDelete = () => {
   const dispatch = useDispatch();
   const isAdmin = getUserRole() === 'VENDOR';
   const trades = useSelector((state) => state.trades.trades);
   const loading = useSelector((state) => state.trades.loading);
-  const currentUserId = getUserId(); // Assuming you have user data in the Redux state
+  const currentUserId = getUserId();
 
   useEffect(() => {
     dispatch(fetchTrades(true));
@@ -31,19 +33,19 @@ const TradeDelete = () => {
     );
   }
 
-  // Filter trades based on the current user's vendorId
   const filteredTrades = trades.filter(
     (trade) => trade.vendorId === currentUserId,
   );
 
-  const handleRemoveTrade = (tradeId) => {
+  const handleRemoveTrade = (tradeId, tradeName) => {
     dispatch(deleteTrade(tradeId));
+    toast.success(`Product "${tradeName}" removed successfully!`);
   };
 
   return (
     <div className="text-center mt-4 w-full">
       <h2 className="text-3xl font-semibold mb-4 text-neutral-800">
-        Trades Administration
+        Products Administration
       </h2>
       <p className="text-sm text-gray-500 mb-6">
         Click on a trade to remove or restore it
@@ -77,7 +79,7 @@ const TradeDelete = () => {
                     ? 'bg-gray-300 text-neutral-600 hover:bg-green-300 hover:text-neutral-800'
                     : 'bg-red-500 text-white hover:bg-red-600 hover:text-white'
                 } transition-colors`}
-                onClick={() => handleRemoveTrade(trade.id)}
+                onClick={() => handleRemoveTrade(trade.id, trade.name)}
               >
                 {trade.removed ? 'Restore' : 'Remove'}
               </button>
@@ -85,6 +87,7 @@ const TradeDelete = () => {
           </div>
         ))}
       </div>
+      <ToastContainer />
     </div>
   );
 };

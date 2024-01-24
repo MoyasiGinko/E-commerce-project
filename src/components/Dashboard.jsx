@@ -9,7 +9,7 @@ import { getUserRole } from '../utils/userStorage';
 const Dashboard = () => {
   const userRole = getUserRole();
   const [activeTab, setActiveTab] = useState(
-    userRole === 'VENDOR' ? 'MyItemsTab' : 'orderHistory'
+    userRole === 'VENDOR' ? 'MyItemsTab' : 'orderHistory',
   );
 
   const renderTabContent = () => {
@@ -68,7 +68,7 @@ const Dashboard = () => {
                 : 'bg-gray-200'
             }`}
           >
-            Order History
+            Admin Panel
           </button>
         )}
         <button

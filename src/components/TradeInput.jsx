@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 import { addTrades } from '../redux/reducers/tradesSlice';
 import {
   fetchTradeCategories,
@@ -8,10 +20,12 @@ import {
   selectTradeCategory,
 } from '../redux/reducers/categorySlice';
 import { getUserRole, getUserId } from '../utils/userStorage';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/trade.css';
 
 const TradeInput = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const tradeLoading = useSelector((state) => state.trades.loading);
   const tradeError = useSelector((state) => state.trades.error);
   const tradeSuccess = useSelector((state) => state.trades.status);
@@ -20,7 +34,6 @@ const TradeInput = () => {
     loading: categoriesLoading,
     error: categoriesError,
   } = useSelector((state) => state.category);
-  const navigate = useNavigate();
 
   const isAdmin = getUserRole() === 'VENDOR';
   const currentUserId = getUserId();
@@ -46,6 +59,8 @@ const TradeInput = () => {
 
   useEffect(() => {
     if (tradeSuccess === 'success') {
+      // Show a success notification when trade is added successfully
+      toast.success('Trade added successfully!');
       navigate('/trade/add');
     }
   }, [tradeSuccess, navigate]);
@@ -72,14 +87,6 @@ const TradeInput = () => {
       category: selectedCategory, // Store the entire category object
     });
   };
-
-  if (!isAdmin) {
-    return (
-      <div className="text-center mt-4 font-semibold text-red-500 w-full">
-        You must be a vendor to see this page
-      </div>
-    );
-  }
 
   const handleNewTrade = (e) => {
     e.preventDefault();
@@ -114,120 +121,183 @@ const TradeInput = () => {
       });
   };
 
-  if (categoriesLoading) {
-    return <div>Loading categories...</div>;
-  }
-
-  if (categoriesError) {
+  if (!isAdmin) {
     return (
-      <div>
-        Error loading categories:
-        {categoriesError}
+      <div className="text-center mt-4 font-semibold text-red-500 w-full">
+        You must be a vendor to see this page
       </div>
     );
   }
 
   return (
-    <div className="text-center mt-20 w-full">
-      <h2 className="text-3xl font-semibold mb-8 text-gray-700">
-        Add a New Product
-      </h2>
-      <div className="bg-white shadow-md p-8 rounded-md mx-auto max-w-md tradeinput-container">
-        {errorMessage && (
-          <div className="text-red-500 mb-4">{errorMessage}</div>
-        )}
-        <form onSubmit={handleNewTrade} className="space-y-4">
-          {tradeError && <div className="text-red-500">{tradeError}</div>}
+    <Container component="main" maxWidth="md">
+      <CssBaseline />
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        className="full-height bg-vintage-yellow"
+      >
+        <Paper
+          elevation={3}
+          className="p-8 rounded-md tradeinput-container"
+          style={{
+            backgroundColor: '#ffffffe6',
+            transform: 'translateY(-20px)',
+            transition: 'transform 0.3s ease',
+          }}
+        >
+          {errorMessage && (
+            <Typography variant="body1" color="error" className="mb-4">
+              {errorMessage}
+            </Typography>
+          )}
+          <form onSubmit={handleNewTrade} className="space-y-4">
+            {tradeError && (
+              <Typography variant="body1" color="error">
+                {tradeError}
+              </Typography>
+            )}
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Trade Name"
-            value={tradeData.name}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <Typography
+              component="h2"
+              variant="h4"
+              color="textPrimary"
+              gutterBottom
+              className="text-3xl mb-8 text-gray-700"
+              style={{
+                fontFamily: 'cursive',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              Add a New Product
+            </Typography>
 
-          <input
-            type="text"
-            name="brand"
-            placeholder="Brand"
-            value={tradeData.brand}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              id="name"
+              label="Trade Name"
+              name="name"
+              value={tradeData.name}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
 
-          <textarea
-            name="details"
-            placeholder="Details"
-            value={tradeData.details}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              id="brand"
+              label="Brand"
+              name="brand"
+              value={tradeData.brand}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={tradeData.price}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              id="details"
+              label="Details"
+              name="details"
+              value={tradeData.details}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
 
-          <select
-            name="category"
-            value={tradeData.category ? tradeData.category.id : ''}
-            onChange={handleCategoryChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          >
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories
-              && categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-          </select>
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              type="number"
+              id="price"
+              label="Price"
+              name="price"
+              value={tradeData.price}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
 
-          <input
-            type="number"
-            name="quantity"
-            placeholder="Quantity"
-            value={tradeData.quantity}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <Select
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              id="category"
+              label="Category"
+              name="category"
+              value={tradeData.category ? tradeData.category.id : ''}
+              onChange={handleCategoryChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            >
+              <MenuItem value="" disabled selected>
+                Select a category
+              </MenuItem>
+              {categories
+                && categories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+            </Select>
 
-          <input
-            type="text"
-            name="imageURL"
-            placeholder="Image URL"
-            value={tradeData.imageURL}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
-            required
-          />
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              type="number"
+              id="quantity"
+              label="Quantity"
+              name="quantity"
+              value={tradeData.quantity}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
 
-          <button
-            type="submit"
-            className={`submit-button bg-yellow-600 hover:bg-red-700 text-white px-4 py-2 rounded-md ${
-              tradeLoading ? 'cursor-not-allowed' : ''
-            }tradeBtn`}
-            disabled={tradeLoading}
-          >
-            {tradeLoading ? 'Adding Product...' : 'Add Product'}
-          </button>
-        </form>
-      </div>
-    </div>
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              id="imageURL"
+              label="Image URL"
+              name="imageURL"
+              value={tradeData.imageURL}
+              onChange={handleInputChange}
+              required
+              className="rounded-md"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={tradeLoading}
+              className="submit-button tradeBtn rounded-md"
+            >
+              {tradeLoading ? 'Adding Product...' : 'Add Product'}
+            </Button>
+          </form>
+        </Paper>
+      </Grid>
+      <ToastContainer />
+    </Container>
   );
 };
 

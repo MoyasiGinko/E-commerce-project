@@ -38,13 +38,13 @@ export const updateTrade = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 const token = getToken();

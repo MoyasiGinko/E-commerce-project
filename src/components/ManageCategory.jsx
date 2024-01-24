@@ -1,7 +1,7 @@
-// CategoryManagement.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   fetchTradeCategories,
   createTradeCategory,
@@ -22,13 +22,24 @@ const CategoryManagement = () => {
     dispatch(fetchTradeCategories());
   }, [dispatch]);
 
+  const showToast = (message, type = 'success') => {
+    toast[type](message, {
+      position: 'top-right',
+      autoClose: 2000,
+    });
+  };
+
   const handleCreateCategory = () => {
     dispatch(createTradeCategory([{ name: newCategory }]))
       .then(() => {
         setNewCategory('');
         dispatch(fetchTradeCategories());
+        showToast('Category created successfully');
       })
-      .catch((err) => console.error('Error creating category:', err));
+      .catch((err) => {
+        console.error('Error creating category:', err);
+        showToast('Error creating category', 'error');
+      });
   };
 
   const handleUpdateCategory = () => {
@@ -42,8 +53,12 @@ const CategoryManagement = () => {
         .then(() => {
           setEditingCategory(null);
           dispatch(fetchTradeCategories());
+          showToast('Category updated successfully');
         })
-        .catch((err) => console.error('Error updating category:', err));
+        .catch((err) => {
+          console.error('Error updating category:', err);
+          showToast('Error updating category', 'error');
+        });
     }
   };
 
@@ -52,8 +67,12 @@ const CategoryManagement = () => {
       dispatch(deleteTradeCategory(categoryId))
         .then(() => {
           dispatch(fetchTradeCategories());
+          showToast('Category deleted successfully');
         })
-        .catch((err) => console.error('Error deleting category:', err));
+        .catch((err) => {
+          console.error('Error deleting category:', err);
+          showToast('Error deleting category', 'error');
+        });
     }
   };
 
@@ -152,6 +171,8 @@ const CategoryManagement = () => {
           </button>
         </div>
       </div>
+
+      <ToastContainer />
     </div>
   );
 };
