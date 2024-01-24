@@ -12,6 +12,7 @@ const CardPayment = ({
   handleExpiryDateChange,
   handleCvvChange,
   totalPrice,
+  setTotalPrice,
 }) => {
   const dispatch = useDispatch();
   const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
@@ -43,6 +44,7 @@ const CardPayment = ({
         }),
       );
       console.log('Card Payment Successful:', response);
+      setTotalPrice(0); // Set totalPrice to 0 after payment
     } catch (error) {
       console.error('Error making Card Payment:', error);
     }
@@ -137,7 +139,7 @@ const CardPayment = ({
   );
 };
 
-const PaypalPayment = ({ totalPrice }) => {
+const PaypalPayment = ({ totalPrice, setTotalPrice }) => {
   const dispatch = useDispatch();
   const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
 
@@ -158,6 +160,7 @@ const PaypalPayment = ({ totalPrice }) => {
       );
       console.log('PayPal Payment Successful:', response);
       console.log('orderIdFromResponse:', orderIdFromResponse);
+      setTotalPrice(0); // Set totalPrice to 0 after payment
     } catch (error) {
       console.error('Error making PayPal Payment:', error);
     }
@@ -213,7 +216,7 @@ const PaypalPayment = ({ totalPrice }) => {
   );
 };
 
-const CashOnDelivery = ({ totalPrice }) => {
+const CashOnDelivery = ({ totalPrice, setTotalPrice }) => {
   const dispatch = useDispatch();
   const orderIdFromResponse = Number(localStorage.getItem('orderId')); // Get orderId from local storage
 
@@ -247,6 +250,7 @@ const CashOnDelivery = ({ totalPrice }) => {
         }),
       );
       console.log('Cash on Delivery Payment Successful:', response);
+      setTotalPrice(0); // Set totalPrice to 0 after payment
     } catch (error) {
       console.error('Error making Cash on Delivery Payment:', error);
     }
@@ -318,13 +322,15 @@ const PaymentGateway = () => {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0); // Initialize totalPrice state
   const location = useLocation();
-  const totalPrice = location.state?.totalPrice || 0;
   // const dispatch = useDispatch();
 
   useEffect(() => {
-    // You can use useEffect for any side effects or initialization if needed
-  }, []);
+    // Get total price from location state
+    const initialTotalPrice = location.state?.totalPrice || 0;
+    setTotalPrice(initialTotalPrice);
+  }, [location.state]);
 
   const handleCardNumberChange = (e) => {
     setCardNumber(e.target.value);
@@ -338,32 +344,32 @@ const PaymentGateway = () => {
     setCvv(e.target.value);
   };
 
-  const handleSubmit = (e, paymentCallback) => {
-    e.preventDefault();
+  // const handleSubmit = async (e, paymentCallback) => {
+  //   e.preventDefault();
 
-    // Check the selected payment method
-    switch (selectedPaymentMethod) {
-      case 'cashOnDelivery':
-        // Simulating API call
-        paymentCallback();
-        break;
-      case 'paypal':
-        // Simulating API call
-        paymentCallback();
-        break;
-      case 'cardPayment':
-        // Check if card details are filled
-        if (!cardNumber.trim() || !expiryDate.trim() || !cvv.trim()) {
-          console.log('Please fill in all card details.');
-          return; // Prevent form submission
-        }
-        // Simulating API call
-        paymentCallback();
-        break;
-      default:
-        console.log('No payment method selected');
-    }
-  };
+  //   // Check the selected payment method
+  //   switch (selectedPaymentMethod) {
+  //     case 'cashOnDelivery':
+  //       // Simulating API call
+  //       paymentCallback();
+  //       break;
+  //     case 'paypal':
+  //       // Simulating API call
+  //       paymentCallback();
+  //       break;
+  //     case 'cardPayment':
+  //       // Check if card details are filled
+  //       if (!cardNumber.trim() || !expiryDate.trim() || !cvv.trim()) {
+  //         console.log('Please fill in all card details.');
+  //         return; // Prevent form submission
+  //       }
+  //       // Simulating API call
+  //       paymentCallback();
+  //       break;
+  //     default:
+  //       console.log('No payment method selected');
+  //   }
+  // };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
@@ -416,13 +422,20 @@ const PaymentGateway = () => {
             handleExpiryDateChange={handleExpiryDateChange}
             handleCvvChange={handleCvvChange}
             totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
           />
         )}
         {selectedPaymentMethod === 'paypal' && (
-          <PaypalPayment totalPrice={totalPrice} />
+          <PaypalPayment
+            totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
+          />
         )}
         {selectedPaymentMethod === 'cashOnDelivery' && (
-          <CashOnDelivery totalPrice={totalPrice} />
+          <CashOnDelivery
+            totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
+          />
         )}
 
         <div className="flex justify-between items-center mb-4">
@@ -430,14 +443,16 @@ const PaymentGateway = () => {
             Total Amount: $
             {totalPrice.toFixed(2)}
           </span>
-          <button
+          {/* <button
             type="button"
-            onClick={(e) => handleSubmit(e, () => console.log('Processing Payment...'))}
+            onClick={
+              (e) => handleSubmit(e, () => setTotalPrice(0)) // Set totalPrice to 0 after payment
+            }
             className="btn-primary bg-gray-800
             hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
           >
             Done
-          </button>
+          </button> */}
         </div>
       </form>
     </div>
@@ -454,12 +469,15 @@ CardPayment.propTypes = {
   handleExpiryDateChange: PropTypes.func.isRequired,
   handleCvvChange: PropTypes.func.isRequired,
   totalPrice: PropTypes.number.isRequired,
+  setTotalPrice: PropTypes.func.isRequired,
 };
 
 PaypalPayment.propTypes = {
   totalPrice: PropTypes.number.isRequired,
+  setTotalPrice: PropTypes.func.isRequired,
 };
 
 CashOnDelivery.propTypes = {
   totalPrice: PropTypes.number.isRequired,
+  setTotalPrice: PropTypes.func.isRequired,
 };
