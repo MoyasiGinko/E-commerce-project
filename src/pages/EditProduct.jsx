@@ -42,13 +42,13 @@ const EditProduct = () => {
             />
           </Link>
           <h2 className="text-xl font-semibold mb-2">{trade.name}</h2>
-          <p className="text-gray-500 mb-2">{`Type: ${trade.category.name}`}</p>
-          <p className="text-gray-500 mb-2">{`Price: $${trade.price}`}</p>
+          <p className="text-gray-500 mb-2">{`${trade.category.name}`}</p>
+          <p className="text-red-500 font-bold mb-2">{`$${trade.price}`}</p>
           <Link
             to={`/trade/edit-product/${trade.id}`}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 inline-block"
+            className="bg-gray-500 text-white py-2 px-4 rounded font-bold hover:bg-red-600 focus:outline-none transition duration-300 inline-block"
           >
-            Edit
+            <span className="text-xl">&#9998;</span>
           </Link>
         </div>
       ))}

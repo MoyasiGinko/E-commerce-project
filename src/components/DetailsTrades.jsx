@@ -141,10 +141,9 @@ const TradesDetails = () => {
               <div className="mt-4 flex items-center">
                 <Link
                   to={`/trade/edit-product/${trade.id}`}
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 inline-block"
+                  className="bg-gray-500 text-white py-2 px-4 rounded font-bold hover:bg-red-600 focus:outline-none transition duration-300 inline-block"
                 >
                   <span className="text-xl">&#9998;</span>
-                  Edit
                 </Link>
                 {/* <Link
                   to={`/trade/edit-product/${trade.id}`}
