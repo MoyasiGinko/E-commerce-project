@@ -45,37 +45,26 @@ const Recommendation = () => {
       <h2 className="text-3xl font-semibold mb-4 text-gray-800">
         Recommended for You
       </h2>
-      <Slider
-        dots={sliderSettings.dots}
-        infinite={sliderSettings.infinite}
-        speed={sliderSettings.speed}
-        slidesToShow={sliderSettings.slidesToShow}
-        slidesToScroll={sliderSettings.slidesToScroll}
-        responsive={sliderSettings.responsive}
-      >
+      <Slider {...sliderSettings}>
         {recommendedTrades.map((trade) => (
           <Link
             key={trade.id}
             to={`/trade/${trade.id}`}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer relative"
           >
-            <div
-              key={trade.id}
-              className="border rounded overflow-hidden shadow-md"
-            >
+            <div className="border rounded overflow-hidden shadow-md">
               <img
                 src={trade.imageURL}
                 alt={trade.name}
-                className="w-full h-40 object-cover rounded-t"
+                className="w-full h-48 object-cover rounded-t"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">
                   {trade.name}
                 </h3>
-                <p className="text-gray-600">{trade.trade_type}</p>
-                <p className="mt-2 text-lg font-semibold text-indigo-600">
-                  $
-                  {trade.price}
+                <p className="text-gray-600 mb-2">{trade.category.name}</p>
+                <p className="text-lg font-semibold text-indigo-600">
+                  ${trade.price}
                 </p>
               </div>
             </div>
