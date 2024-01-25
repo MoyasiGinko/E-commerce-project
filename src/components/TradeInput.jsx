@@ -76,7 +76,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10)
+      (category) => category.id === parseInt(selectedCategoryId, 10),
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -248,8 +248,8 @@ const TradeInput = () => {
               <MenuItem value="" disabled selected>
                 Select a category
               </MenuItem>
-              {categories &&
-                categories.map((category) => (
+              {categories
+                && categories.map((category) => (
                   <MenuItem key={category.id} value={category.id}>
                     {category.name}
                   </MenuItem>

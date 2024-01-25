@@ -8,7 +8,7 @@ import { getUserRole } from '../utils/userStorage';
 const Dashboard = () => {
   const userRole = getUserRole();
   const [activeTab, setActiveTab] = useState(
-    userRole === 'VENDOR' ? 'inventory' : 'profile'
+    userRole === 'VENDOR' ? 'inventory' : 'profile',
   );
 
   const renderTabContent = () => {

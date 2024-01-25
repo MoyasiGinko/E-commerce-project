@@ -7,7 +7,7 @@ import { loginReducer } from './reducers/auth/loginSlice';
 import { reserveReducer } from './reducers/resereveSlice';
 import { orderReducer } from './reducers/orderSlice';
 import categoryReducer from './reducers/categorySlice'; // Import categoryReducer
-// import healthReducer from './reducers/healthSlice.js';
+import suggestionReducer from './reducers/suggestionSlice';
 import { paymentReducer } from './reducers/paymentSlice';
 import inventoryReducer from './reducers/inventorySlice';
 
@@ -21,7 +21,7 @@ const store = configureStore({
     order: orderReducer,
     reserve: reserveReducer,
     category: categoryReducer, // Include categoryReducer
-    // health: healthReducer,
+    suggestion: suggestionReducer,
     payment: paymentReducer,
     inventory: inventoryReducer,
   },

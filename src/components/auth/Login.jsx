@@ -59,9 +59,9 @@ const Login = () => {
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <p className="text-center text-red-500 font-bold">
-              {loginError ||
-                (loginStatus === 'failed' &&
-                  'An error occurred. Please try again.')}
+              {loginError
+                || (loginStatus === 'failed'
+                  && 'An error occurred. Please try again.')}
             </p>
           </div>
           <div className="mb-4">
@@ -112,7 +112,8 @@ const Login = () => {
           </div>
         </form>
         <p className="text-sm text-center text-gray-600 font-merriweather">
-          New to MicroCommerce?{' '}
+          New to MicroCommerce?
+          {' '}
           <Link
             to="/register"
             className="text-blue-500 hover:text-blue-700 focus:text-blue-700"

@@ -21,7 +21,12 @@ class HealthComponent extends Component {
     const { healthData, error } = this.state;
 
     if (error) {
-      return <div>Error fetching health data: {error.message}</div>;
+      return (
+        <div>
+          Error fetching health data:
+          {error.message}
+        </div>
+      );
     }
 
     if (!healthData) {

@@ -18,7 +18,7 @@ const Register = () => {
   const registerStatus = useSelector((state) => state.register.status);
   // const registerError = useSelector((state) => state.register.error);
   const registerLoading = useSelector(
-    (state) => state.register.status === 'loading'
+    (state) => state.register.status === 'loading',
   );
 
   const handleRegister = async (e) => {
@@ -45,7 +45,7 @@ const Register = () => {
           : 'An unexpected error occurred. Please try again.',
         {
           position: toast.POSITION.TOP_CENTER,
-        }
+        },
       );
     }
 
@@ -156,7 +156,8 @@ const Register = () => {
           </div>
         </form>
         <p className="text-sm text-center text-gray-600 font-merriweather">
-          Already have an account?{' '}
+          Already have an account?
+          {' '}
           <Link
             to="/login"
             className="text-blue-500 hover:text-blue-700 focus:text-blue-700"

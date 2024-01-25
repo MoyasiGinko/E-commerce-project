@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchTrades } from '../redux/reducers/tradesSlice';
 import loadingImage from '../assets/images/loading.gif';
 import TopSellersSlider from './ProductSlide';
+import SuggestionTab from './SuggestCategory';
 
 const TradesList = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const TradesList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
+          type="button"
           className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2"
           onClick={handleSearch}
         >
@@ -57,6 +59,10 @@ const TradesList = () => {
         </button>
       </div>
       <TopSellersSlider />
+      {/* <h2 className="text-3xl font-semibold mb-4 text-neutral-800">
+        Most Popular Category
+      </h2> */}
+      <SuggestionTab />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
         {trades.map((trade) => (
           <Link

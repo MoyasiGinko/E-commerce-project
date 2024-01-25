@@ -28,7 +28,9 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
 
 export const updateTrade = createAsyncThunk(
   'trades/updateTrade',
-  async ({ id, name, details, quantity, price, brand, category, imageURL, }) => {
+  async ({
+    id, name, details, quantity, price, brand, category, imageURL,
+  }) => {
     try {
       const token = getToken();
       const response = await axios.put(
@@ -46,13 +48,13 @@ export const updateTrade = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 const token = getToken();
@@ -87,7 +89,7 @@ export const deleteTrade = createAsyncThunk(
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 const tradesSlice = createSlice({
@@ -142,12 +144,12 @@ const tradesSlice = createSlice({
       .addCase(deleteTrade.fulfilled, (state, action) => {
         // Remove the trade from the state using its ID
         state.trades = state.trades.filter(
-          (trade) => trade.id !== action.payload
+          (trade) => trade.id !== action.payload,
         );
       })
       .addCase(updateTrade.fulfilled, (state, action) => {
         const index = state.trades.findIndex(
-          (trade) => trade.id === action.payload.id
+          (trade) => trade.id === action.payload.id,
         );
         state.trades[index] = action.payload;
       })
