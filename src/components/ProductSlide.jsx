@@ -22,44 +22,33 @@ const TopSellersSlider = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1, // Show one big slide at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
   };
 
   return (
     <div className="mt-8">
       <h2 className="text-3xl font-semibold mb-4 text-gray-800">Top Sellers</h2>
-      <Slider
-        dots={sliderSettings.dots}
-        infinite={sliderSettings.infinite}
-        speed={sliderSettings.speed}
-        slidesToShow={sliderSettings.slidesToShow}
-        slidesToScroll={sliderSettings.slidesToScroll}
-        responsive={sliderSettings.responsive}
-      >
+      <Slider {...sliderSettings}>
         {topSellers.map((trade) => (
           <Link
             key={trade.id}
             to={`/trade/${trade.id}`}
             className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer relative border border-gray-200"
           >
-            <div
-              key={trade.id}
-              className="border rounded overflow-hidden shadow-md"
-            >
+            <div className="relative">
               <img
                 src={trade.imageURL}
                 alt={trade.name}
-                className="w-full h-96 object-fit rounded-t" // Adjust the height here
+                className="w-full h-96 object-fit rounded-t"
               />
-              <div className="p-4">
-                <h3 className="text-xl font-bold mb-2 text-gray-800">
+              <div className="absolute bottom-0 left-0 p-4">
+                <p className="text-sm text-teal-50 drop-shadow-md">
+                  {trade.category.name}
+                </p>
+                <h3 className="text-xl font-bold text-teal-50 drop-shadow-md">
                   {trade.name}
                 </h3>
-                <p className="mt-2 text-lg font-semibold text-indigo-600">
-                  $
-                  {trade.price}
-                </p>
               </div>
             </div>
           </Link>
