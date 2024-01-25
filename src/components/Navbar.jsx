@@ -11,30 +11,8 @@ const Navbar = () => {
   const role = getUserRole();
   const userName = getUserName() || 'Guest';
 
-  console.log('Navbar role:', role);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const adminLinks = [
-    { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Categories' },
-    { path: '/trade/manage-category', text: 'Manage Category' },
-  ];
-
-  const vendorLinks = [
-    { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Categories' },
-    { path: '/trade/edit-product', text: 'Edit Product' },
-    { path: '/trade/add', text: 'Add Product' },
-    { path: '/trade/delete', text: 'Delete Product' },
-  ];
-
-  const customerLinks = [
-    { path: '/trade', text: 'Home' },
-    { path: '/trade/reserve', text: 'Categories' },
-    { path: '/trade/reservations', text: 'Shopping Cart' },
-  ];
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -42,10 +20,6 @@ const Navbar = () => {
     localStorage.removeItem('token');
     navigate('/');
     window.location.reload();
-  };
-
-  const headerStyle = {
-    fontFamily: 'Dancing Script',
   };
 
   const toggleMenu = () => {
@@ -60,6 +34,44 @@ const Navbar = () => {
 
   const toggleProfileOptions = () => {
     setShowProfileOptions(!showProfileOptions);
+  };
+
+  const dropdownItems = [
+    {
+      text: 'Dashboard',
+      path: '/trade/dashboard',
+      onClick: () => {
+        navigate('/trade/dashboard');
+        closeMenu();
+      },
+    },
+  ];
+
+  const headerStyle = {
+    fontFamily: 'Dancing Script',
+  };
+
+  const roleLinks = {
+    ADMIN: [
+      { path: '/trade', text: 'Home' },
+      { path: '/trade/reserve', text: 'Categories' },
+      { path: '/trade/manage-category', text: 'Manage Category' },
+      { text: 'Logout', onClick: handleLogout },
+    ],
+    VENDOR: [
+      { path: '/trade', text: 'Home' },
+      { path: '/trade/reserve', text: 'Categories' },
+      { path: '/trade/edit-product', text: 'Edit Product' },
+      { path: '/trade/add', text: 'Add Product' },
+      { path: '/trade/delete', text: 'Delete Product' },
+      { text: 'Logout', onClick: handleLogout },
+    ],
+    CUSTOMER: [
+      { path: '/trade', text: 'Home' },
+      { path: '/trade/reserve', text: 'Categories' },
+      { path: '/trade/reservations', text: 'Shopping Cart' },
+      { text: 'Logout', onClick: handleLogout },
+    ],
   };
 
   return (
@@ -94,19 +106,19 @@ const Navbar = () => {
       <aside
         id="default-sidebar"
         aria-label="Sidebar"
-        className={`fixed top-0 left-0 z-40 w-full h-screen bg-#f2f2f2 transition-transform sm:relative sm:w-64 ${
+        className={`fixed top-0 left-0 z-40 w-full h-screen bg-gray-800 transition-transform sm:relative sm:w-64 ${
           menu ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
       >
         <nav className="h-screen flex flex-col justify-between items-center border-e-2 p-3">
           <div className="flex flex-col items-center">
             <h1
-              className="text-3xl mt-4 -rotate-6 text-bold underline"
+              className="text-3xl mt-4 -rotate-6 text-bold underline font-bold text-white"
               style={headerStyle}
             >
               MicroCommerce
             </h1>
-            <div className="text-lg font-semibold text-gray-800 mt-2">
+            <div className="text-lg font-semibold text-gray-300 mt-2">
               {userName}
             </div>
             <div
@@ -126,114 +138,43 @@ const Navbar = () => {
               {/* Dropdown menu content */}
               {showProfileOptions && (
                 <div className="bg-white border mt-1 p-2 rounded-md absolute top-8 right-0">
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    className="text-sm text-gray-700 cursor-pointer hover:text-indigo-600"
-                    onClick={() => {
-                      navigate('/trade/dashboard');
-                      closeMenu();
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        navigate('/trade/dashboard');
-                        closeMenu();
-                      }
-                    }}
-                  >
-                    Dashboard
-                  </div>
+                  {dropdownItems.map((item) => (
+                    <div
+                      key={item.text}
+                      role="button"
+                      tabIndex={0}
+                      className="text-sm text-gray-700 cursor-pointer hover:text-indigo-600"
+                      onClick={item.onClick}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          item.onClick();
+                        }
+                      }}
+                    >
+                      {item.text}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
           </div>
-          {role === 'ADMIN' && (
-            <>
-              <div className="navbar-nav mt-4">
-                <ul className="space-y-4">
-                  {adminLinks.map((link) => (
-                    <li key={link.path}>
-                      <button
-                        type="button"
-                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                        onClick={() => {
-                          navigate(link.path);
-                          closeMenu();
-                        }}
-                      >
-                        {link.text}
-                      </button>
-                    </li>
-                  ))}
+          <div className="navbar-nav mt-4">
+            <ul className="space-y-4">
+              {roleLinks[role].map((link) => (
+                <li key={link.path}>
                   <button
                     type="button"
-                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                    onClick={handleLogout}
+                    className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
+                    onClick={
+                      link.onClick ? link.onClick : () => navigate(link.path)
+                    }
                   >
-                    Logout
+                    {link.text}
                   </button>
-                </ul>
-              </div>
-            </>
-          )}
-          {role === 'VENDOR' && (
-            <>
-              <div className="navbar-nav mt-4">
-                <ul className="space-y-4">
-                  {vendorLinks.map((link) => (
-                    <li key={link.path}>
-                      <button
-                        type="button"
-                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                        onClick={() => {
-                          navigate(link.path);
-                          closeMenu();
-                        }}
-                      >
-                        {link.text}
-                      </button>
-                    </li>
-                  ))}
-                  <button
-                    type="button"
-                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </ul>
-              </div>
-            </>
-          )}
-          {role === 'CUSTOMER' && (
-            <>
-              <div className="navbar-nav mt-4">
-                <ul className="space-y-4">
-                  {customerLinks.map((link) => (
-                    <li key={link.path}>
-                      <button
-                        type="button"
-                        className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                        onClick={() => {
-                          navigate(link.path);
-                          closeMenu();
-                        }}
-                      >
-                        {link.text}
-                      </button>
-                    </li>
-                  ))}
-                  <button
-                    type="button"
-                    className="text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-black w-full px-4 py-2 rounded-full"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </ul>
-              </div>
-            </>
-          )}
+                </li>
+              ))}
+            </ul>
+          </div>
           <FooterToolbar />
         </nav>
       </aside>

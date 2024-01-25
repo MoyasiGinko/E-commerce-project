@@ -9,8 +9,7 @@ const PaymentGateway = () => {
 
   useEffect(() => {
     // Set the initial value of totalPrice from localStorage
-    const initialTotalPrice =
-      parseFloat(localStorage.getItem('totalPrice')) || 0;
+    const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
     setTotalPrice(initialTotalPrice);
 
     // Add an event listener for storage changes

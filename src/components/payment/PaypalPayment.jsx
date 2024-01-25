@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { act } from 'react-dom/test-utils';
 import CustomPaypalButtons from './PayPalButtons';
 import { makePayment } from '../../redux/reducers/paymentSlice';
-import { act } from 'react-dom/test-utils';
 
 const PaypalPayment = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const PaypalPayment = () => {
           orderId: orderIdFromResponse,
           accountName: '1234', // Dummy account name
           password: '1234', // Dummy password
-        })
+        }),
       );
 
       // Capture the payment on the client side
@@ -60,22 +60,21 @@ const PaypalPayment = () => {
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="mb-6">
           <span className="text-lg font-semibold block mb-2 text-gray-700">
-            Payable: ${totalPrice.toFixed(2)}
+            Payable: $
+            {totalPrice.toFixed(2)}
           </span>
 
           {renderPaypalButtons && ( // Conditionally render based on state
             <CustomPaypalButtons
-              createOrder={(data, actions) =>
-                actions.order.create({
-                  purchase_units: [
-                    {
-                      amount: {
-                        value: totalPrice.toFixed(2),
-                      },
+              createOrder={(data, actions) => actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: totalPrice.toFixed(2),
                     },
-                  ],
-                })
-              }
+                  },
+                ],
+              })}
               onApprove={handleApprove}
               onError={handleError}
             />

@@ -5,6 +5,7 @@ import { fetchTrades } from '../redux/reducers/tradesSlice';
 import loadingImage from '../assets/images/loading.gif';
 import TopSellersSlider from './ProductSlide';
 import SuggestionTab from './SuggestCategory';
+import cartImage from '../assets/images/bg-ecom-4.jpg';
 
 const TradesList = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,14 @@ const TradesList = () => {
   const handleSearch = () => {
     // Implement search functionality if needed
     console.log('Searching for:', searchTerm);
+  };
+
+  const handleExploreClick = () => {
+    // Scroll to the next section
+    const nextSection = document.getElementById('productListSection');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   if (loading) {
@@ -41,34 +50,45 @@ const TradesList = () => {
   }
 
   return (
-    <div className="container mx-auto mt-8">
-      <div className="flex justify-end items-center mb-4">
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="border p-2 rounded-md w-64 bg-nude text-black"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+    <div
+      className="container mx-auto mt-0"
+      style={{ fontFamily: 'Merriweather, sans-serif' }}
+    >
+      {/* Cart Image Section */}
+      <div className="relative h-screen flex flex-col items-center justify-center">
+        <img
+          src={cartImage}
+          alt="Cart"
+          className="object-cover w-full h-full"
         />
-        <button
-          type="button"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
+          <div className="text-4xl font-bold text-white mb-8">
+            Welcome to Our Online Store
+          </div>
+          <button
+            className="border-2 border-white text-white font-bold hover:text-red-600 hover:border-red-600 focus:outline-none transition duration-300 px-6 py-3 rounded-md font-semibold text-lg bg-transparent"
+            onClick={handleExploreClick}
+          >
+            Explore
+          </button>
+        </div>
       </div>
-      <TopSellersSlider />
-      {/* <h2 className="text-3xl font-semibold mb-4 text-neutral-800">
-        Most Popular Category
-      </h2> */}
-      <SuggestionTab />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+
+      {/* TopSellerSlider */}
+      <div className="mt-8">
+        <TopSellersSlider />
+      </div>
+
+      {/* Product List Section */}
+      <div
+        id="productListSection"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8"
+      >
         {trades.map((trade) => (
           <Link
             key={trade.id}
             to={`/trade/${trade.id}`}
-            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:scale-105 transition-transform cursor-pointer border border-gray-200"
+            className="bg-white overflow-hidden border border-gray-200 rounded-md p-4 transition-transform transform hover:scale-105"
           >
             <div
               style={{
@@ -77,15 +97,29 @@ const TradesList = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
-              className="bg-cover bg-center bg-no-repeat h-72 transition-all duration-300"
+              className="bg-cover bg-center bg-no-repeat h-48 mb-4 rounded-md"
             />
-            <div className="p-4">
-              <h5 className="text-lg font-semibold mb-2">{trade.name}</h5>
-              <p className="text-gray-500 text-sm mb-2">{trade.brand}</p>
-              <p className="text-green-500 text-base">{`$${trade.price}`}</p>
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <div className="flex flex-row justify-between">
+                  <p className="flex items-center text-sm text-gray-500 mb-1">
+                    {trade.category.name}
+                  </p>
+                  <p className="flex items-center text-sm text-gray-500 mb-1">
+                    {trade.brand}
+                  </p>
+                </div>
+                <h5 className="text-lg font-semibold mb-2">{trade.name}</h5>
+                <p className="text-red-500 text-base font-bold">{`$${trade.price}`}</p>
+              </div>
             </div>
           </Link>
         ))}
+      </div>
+
+      {/* Suggestion Tab */}
+      <div className="mt-8">
+        <SuggestionTab />
       </div>
     </div>
   );
