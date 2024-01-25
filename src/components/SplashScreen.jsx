@@ -1,14 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/splashscreen.css';
-import Lottie from 'lottie-react';
+import backgroundImage from '../assets/images/bg-ecom-4.jpg';
+import cartImage from '../assets/images/cart1.gif';
 import { getUserData } from '../utils/userStorage';
-import animationData from '../assets/images/homeshop.json';
 
 const SplashScreen = () => {
-  const splashRef = useRef(null);
   const navigate = useNavigate();
-
   const currentUser = getUserData();
 
   useEffect(() => {
@@ -26,37 +23,36 @@ const SplashScreen = () => {
   };
 
   return (
-    <div className="flex h-screen justify-center items-center splash-container">
-      <div className="splash p-10 shadow-md text-center ms-2 me-2 bg-white rounded-md">
+    <div
+      className="flex h-screen items-center justify-center splash-container"
+      style={{
+        background: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="bg-white bg-opacity-10 p-12 text-center rounded-full shadow-lg">
         <div className="flex justify-center items-center">
-          <Lottie
-            onComplete={() => {
-              splashRef.current.playSegments([10, animationData.op], true);
-            }}
-            lottieRef={splashRef}
-            loop={false}
-            animationData={animationData}
-            className="w-60"
-          />
+          <img src={cartImage} alt="Loading Animation" className="w-60" />
         </div>
-        <h1 className="splash-head text-4xl font-semibold mb-4 text-gray-800">
-          Micro Commerce
+        <h1 className="text-4xl font-bold text-white mb-4 font-merriweather">
+          Welcome to MicroCommerce
         </h1>
-        <p className="splash-subhead text-lg text-gray-600 mb-6">
-          Micro Commerce app for tradesmen and customers
+        <p className="text-lg font-bold text-accent text-white mb-6 font-open-sans">
+          Explore a world of possibilities for customers.
         </p>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-row justify-center space-x-4">
           <button
             type="button"
             onClick={handleSignup}
-            className="splashBtn bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+            className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold py-2 px-3 rounded-full focus:outline-none focus:shadow-outline"
           >
             Sign Up
           </button>
           <button
             type="button"
             onClick={handleLogin}
-            className="splashBtn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2 px-3 rounded-full focus:outline-none focus:shadow-outline"
           >
             Log In
           </button>

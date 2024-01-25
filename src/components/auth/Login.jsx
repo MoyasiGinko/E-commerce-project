@@ -3,51 +3,72 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/reducers/auth/loginSlice';
 import '../../styles/login.css';
+import backgroundImage from '../../assets/images/bg-ecom-3.jpg';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const loginStatus = useSelector((state) => state.login.status);
-  const loginError = useSelector((state) => state.login.error);
   const loginLoading = useSelector((state) => state.login.status === 'loading');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const user = {
-      email,
-      password,
-    };
-    dispatch(loginUser(user));
-    setEmail('');
-    setPass('');
+    try {
+      const user = {
+        email,
+        password,
+      };
+      await dispatch(loginUser(user));
+      setEmail('');
+      setPass('');
+    } catch (error) {
+      setLoginError('Invalid email or password. Please try again.');
+      // Display the error message in a notification
+      toast.error('Invalid email or password. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   useEffect(() => {
     if (loginStatus === 'success') {
       console.log('Login successful. Redirecting to /trade.');
       navigate('/trade');
-    } else if (loginStatus === 'failed') {
-      console.error('Login failed. Error:', loginError);
     }
-  }, [loginStatus, loginError, navigate]);
+  }, [loginStatus, navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+    <div
+      className="flex justify-center items-center h-screen"
+      style={{
+        background: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="w-full max-w-md p-8 bg-white bg-opacity-90 shadow-md rounded-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6 font-merriweather">
           Sign In
         </h1>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <p className="text-center text-red-500 font-bold">
-              {loginStatus === 'failed' && loginError}
+              {loginError ||
+                (loginStatus === 'failed' &&
+                  'An error occurred. Please try again.')}
             </p>
           </div>
           <div className="mb-4">
-            <span htmlFor="email" className="text-sm text-gray-600">
+            <span
+              htmlFor="email"
+              className="text-sm text-gray-600 font-merriweather"
+            >
               Email
             </span>
             <input
@@ -61,7 +82,10 @@ const Login = () => {
             />
           </div>
           <div className="mb-6">
-            <span htmlFor="password" className="text-sm text-gray-600">
+            <span
+              htmlFor="password"
+              className="text-sm text-gray-600 font-merriweather"
+            >
               Password
             </span>
             <input
@@ -87,9 +111,8 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-gray-600">
-          New to Micro Commerce?
-          {' '}
+        <p className="text-sm text-center text-gray-600 font-merriweather">
+          New to MicroCommerce?{' '}
           <Link
             to="/register"
             className="text-blue-500 hover:text-blue-700 focus:text-blue-700"
@@ -97,6 +120,7 @@ const Login = () => {
             Create account
           </Link>
         </p>
+        <ToastContainer />
       </div>
     </div>
   );

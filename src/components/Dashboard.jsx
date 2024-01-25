@@ -1,7 +1,7 @@
 // Dashboard.js
 import React, { useState } from 'react';
 import InventoryTab from './dashboard/InventoryTab';
-import TradeOrderHistoryTab from './dashboard/TradeorderHistoryTab';
+import HealthComponent from './dashboard/HealthCheck';
 import ProfileTab from './dashboard/ProfileTab';
 import { getUserRole } from '../utils/userStorage';
 
@@ -17,8 +17,8 @@ const Dashboard = () => {
         return <ProfileTab />;
       case 'inventory':
         return <InventoryTab />;
-      case 'orderHistory':
-        return <TradeOrderHistoryTab />;
+      case 'health':
+        return <HealthComponent />;
       default:
         return null;
     }
@@ -45,9 +45,9 @@ const Dashboard = () => {
         {userRole === 'ADMIN' && (
           <button
             type="button"
-            onClick={() => setActiveTab('orderHistory')}
+            onClick={() => setActiveTab('health')}
             className={`py-2 px-4 rounded-md focus:outline-none ${
-              activeTab === 'orderHistory'
+              activeTab === 'health'
                 ? 'bg-green-500 text-white'
                 : 'bg-gray-200'
             }`}

@@ -11,7 +11,7 @@ const initialState = {
   error: null,
 };
 
-export const fetchOrderHistory = createAsyncThunk(
+export const healthCheck = createAsyncThunk(
   'orderHistory/fetchOrderHistory',
   async () => {
     const token = getToken();
@@ -24,7 +24,7 @@ export const fetchOrderHistory = createAsyncThunk(
   },
 );
 
-const orderHistorySlice = createSlice({
+const healthSlice = createSlice({
   name: 'orderHistory',
   initialState,
   reducers: {},
@@ -45,4 +45,4 @@ const orderHistorySlice = createSlice({
   },
 });
 
-export default orderHistorySlice.reducer;
+export default healthSlice.reducer;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PaypalPayment from '../components/payment/PaypalPayment';
 import CashOnDelivery from '../components/payment/CashOnDelivery';
-import CardPayment from '../components/payment/CardPayment';
 
 const PaymentGateway = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -86,13 +85,6 @@ const PaymentGateway = () => {
 };
 
 export default PaymentGateway;
-
-// Prop types for your components remain the same as before
-
-CardPayment.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
-  setTotalPrice: PropTypes.func.isRequired,
-};
 
 PaypalPayment.propTypes = {
   totalPrice: PropTypes.number.isRequired,
