@@ -31,14 +31,17 @@ const EditProduct = () => {
   const filteredTrades = trades.filter((trade) => trade.vendorId === userId);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 gap-4">
       {filteredTrades.map((trade) => (
-        <div key={trade.id} className="border p-4 rounded-lg">
+        <div
+          key={trade.id}
+          className="border p-4 rounded-lg bg-white shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
+        >
           <Link to={`/trade/${trade.id}`} className="block mb-4">
             <img
               src={trade.imageURL}
               alt={trade.name}
-              className="w-full h-40 object-cover"
+              className="w-full h-40 object-cover rounded-md"
             />
           </Link>
           <h2 className="text-xl font-semibold mb-2">{trade.name}</h2>

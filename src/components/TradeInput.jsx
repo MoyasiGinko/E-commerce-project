@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Container,
-  CssBaseline,
-  Grid,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Typography,
-} from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import { addTrades } from '../redux/reducers/tradesSlice';
 import {
@@ -22,6 +11,7 @@ import {
 import { getUserRole, getUserId } from '../utils/userStorage';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/trade.css';
+import backgroundImage from '../assets/images/bg-splash-2.jpg';
 
 const TradeInput = () => {
   const dispatch = useDispatch();
@@ -76,7 +66,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10),
+      (category) => category.id === parseInt(selectedCategoryId, 10)
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -130,176 +120,115 @@ const TradeInput = () => {
   }
 
   return (
-    <Container component="main" maxWidth="md">
-      <CssBaseline />
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        className="full-height bg-vintage-yellow"
+    <div
+      className="flex items-center justify-center h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <ToastContainer />
+      <div
+        className="bg-white shadow-md p-8 rounded-md tradeinput-container"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
       >
-        <Paper
-          elevation={3}
-          className="p-8 rounded-md tradeinput-container"
-          style={{
-            backgroundColor: '#ffffffe6',
-            transform: 'translateY(-20px)',
-            transition: 'transform 0.3s ease',
-          }}
-        >
-          {errorMessage && (
-            <Typography variant="body1" color="error" className="mb-4">
-              {errorMessage}
-            </Typography>
-          )}
-          <form onSubmit={handleNewTrade} className="space-y-4">
-            {tradeError && (
-              <Typography variant="body1" color="error">
-                {tradeError}
-              </Typography>
-            )}
+        {errorMessage && (
+          <div className="text-red-500 mb-4">{errorMessage}</div>
+        )}
+        <form onSubmit={handleNewTrade} className="space-y-4 max-w-md">
+          {tradeError && <div className="text-red-500">{tradeError}</div>}
 
-            <Typography
-              component="h2"
-              variant="h4"
-              color="textPrimary"
-              gutterBottom
-              className="text-3xl mb-8 text-gray-700"
-              style={{
-                fontFamily: 'cursive',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-              }}
-            >
-              Add a New Product
-            </Typography>
+          <input
+            type="text"
+            name="name"
+            placeholder="Trade Name"
+            value={tradeData.name}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="name"
-              label="Trade Name"
-              name="name"
-              value={tradeData.name}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
+          <input
+            type="text"
+            name="brand"
+            placeholder="Brand"
+            value={tradeData.brand}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="brand"
-              label="Brand"
-              name="brand"
-              value={tradeData.brand}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
+          <textarea
+            name="details"
+            placeholder="Details"
+            value={tradeData.details}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="details"
-              label="Details"
-              name="details"
-              value={tradeData.details}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={tradeData.price}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              type="number"
-              id="price"
-              label="Price"
-              name="price"
-              value={tradeData.price}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
-            <Select
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="category"
-              label="Category"
-              name="category"
-              value={tradeData.category ? tradeData.category.id : ''}
-              onChange={handleCategoryChange}
-              required
-              className="rounded-md"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                color: 'rgba(0, 0, 0, 1)',
-              }}
-            >
-              <MenuItem value="" disabled selected>
-                Select a category
-              </MenuItem>
-              {categories
-                && categories.map((category) => (
-                  <MenuItem key={category.id} value={category.id}>
-                    {category.name}
-                  </MenuItem>
-                ))}
-            </Select>
+          <select
+            name="category"
+            value={tradeData.category ? tradeData.category.id : ''}
+            onChange={handleCategoryChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            {categories &&
+              categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+          </select>
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              type="number"
-              id="quantity"
-              label="Quantity"
-              name="quantity"
-              value={tradeData.quantity}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            value={tradeData.quantity}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
 
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="imageURL"
-              label="Image URL"
-              name="imageURL"
-              value={tradeData.imageURL}
-              onChange={handleInputChange}
-              required
-              className="rounded-md"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
-            />
-
-            <Button
+          <input
+            type="text"
+            name="imageURL"
+            placeholder="Image URL"
+            value={tradeData.imageURL}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
+            required
+          />
+          <div className="flex items-center justify-center">
+            <button
               type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
+              className={`submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md ${
+                tradeLoading ? 'cursor-not-allowed' : ''
+              }tradeBtn`}
               disabled={tradeLoading}
-              className="submit-button tradeBtn rounded-md"
             >
               {tradeLoading ? 'Adding Product...' : 'Add Product'}
-            </Button>
-          </form>
-        </Paper>
-      </Grid>
-      <ToastContainer />
-    </Container>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

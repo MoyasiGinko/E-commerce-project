@@ -64,7 +64,8 @@ const Recommendation = () => {
                 </h3>
                 <p className="text-gray-600 mb-2">{trade.category.name}</p>
                 <p className="text-lg font-semibold text-indigo-600">
-                  ${trade.price}
+                  $
+                  {trade.price}
                 </p>
               </div>
             </div>

@@ -1,15 +1,12 @@
 .tradeinput-container {
-  margin-top: 2rem;
+  margin-top: 0px !important;
   box-shadow: 5px 3px 7px 3px  grey !important;
 }
 
 .tradeBtn {
-  margin-top: 2rem !important;
   font-weight: 600;
   border: 2px solid #fff;
   transition: all 0.3s ease;
-  width: 60%;
-  gap: 2rem;
 }
 
 .tradeBtn:hover {

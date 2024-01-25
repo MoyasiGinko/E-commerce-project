@@ -30,7 +30,7 @@ const TradesDetails = () => {
 
     if (orderQuantity <= 0 || orderQuantity > availableQuantity) {
       toast.error(
-        `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`
+        `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`,
       );
       return;
     }
@@ -39,17 +39,16 @@ const TradesDetails = () => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingTradeIndex = existingCart.findIndex(
-      (item) => item.id === trade.id
+      (item) => item.id === trade.id,
     );
 
     if (existingTradeIndex !== -1) {
       // If trade is already in the cart, calculate the remaining quantity that can be added
-      const remainingQuantity =
-        availableQuantity - existingCart[existingTradeIndex].orderQuantity;
+      const remainingQuantity = availableQuantity - existingCart[existingTradeIndex].orderQuantity;
 
       if (orderQuantity > remainingQuantity) {
         toast.error(
-          `Cannot add more than ${remainingQuantity} items due to limited stock.`
+          `Cannot add more than ${remainingQuantity} items due to limited stock.`,
         );
         return;
       }
@@ -96,19 +95,30 @@ const TradesDetails = () => {
               {trade.name}
             </h2>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Description:</strong> {trade.details}
+              <strong>Description:</strong>
+              {' '}
+              {trade.details}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Brand:</strong> {trade.brand}
+              <strong>Brand:</strong>
+              {' '}
+              {trade.brand}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Price:</strong> ${trade.price}
+              <strong>Price:</strong>
+              {' '}
+              $
+              {trade.price}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Quantity:</strong> {trade.quantity}
+              <strong>Quantity:</strong>
+              {' '}
+              {trade.quantity}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Category:</strong> {trade.category.name}
+              <strong>Category:</strong>
+              {' '}
+              {trade.category.name}
             </p>
             <div className="mt-6 flex items-center">
               {/* Conditionally render the quantity input and "Add to Cart" button based on user role */}
@@ -132,7 +142,8 @@ const TradesDetails = () => {
                     className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3
                         rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
                   >
-                    <span className="mr-2">&#128722;</span>Add to Cart
+                    <span className="mr-2">&#128722;</span>
+                    Add to Cart
                   </button>
                 </>
               )}
