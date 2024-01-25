@@ -8,7 +8,7 @@ const SuggestionTab = () => {
   const dispatch = useDispatch();
   const userId = getUserId();
   const { categories, status, error } = useSelector(
-    (state) => state.suggestion
+    (state) => state.suggestion,
   );
 
   useEffect(() => {
@@ -24,7 +24,10 @@ const SuggestionTab = () => {
       )}
 
       {status === 'failed' && (
-        <div className="text-red-600">Error fetching suggestions: {error}</div>
+        <div className="text-red-600">
+          Error fetching suggestions:
+          {error}
+        </div>
       )}
 
       {status === 'succeeded' && (

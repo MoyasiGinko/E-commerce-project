@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import PaypalPayment from '../components/payment/PaypalPayment';
 import CashOnDelivery from '../components/payment/CashOnDelivery';
 
 const PaymentGateway = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
+  const [renderPaypalButtons, setRenderPaypalButtons] = useState(false);
 
   useEffect(() => {
     // Set the initial value of totalPrice from localStorage
@@ -27,6 +28,11 @@ const PaymentGateway = () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
+  useEffect(() => {
+    // Set renderPaypalButtons to true when "Digital Payment" is selected
+    setRenderPaypalButtons(selectedPaymentMethod === 'paypal');
+  }, [selectedPaymentMethod]);
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
@@ -58,16 +64,9 @@ const PaymentGateway = () => {
               onChange={() => setSelectedPaymentMethod('paypal')}
             />
             <span className="ml-2">Digital Payment</span>
-
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="cardPayment"
-              onChange={() => setSelectedPaymentMethod('cardPayment')}
-            />
           </div>
         </div>
-        {selectedPaymentMethod === 'paypal' && (
+        {renderPaypalButtons && (
           <PaypalPayment
             totalPrice={totalPrice}
             setTotalPrice={setTotalPrice}
@@ -85,13 +84,3 @@ const PaymentGateway = () => {
 };
 
 export default PaymentGateway;
-
-PaypalPayment.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
-  setTotalPrice: PropTypes.func.isRequired,
-};
-
-CashOnDelivery.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
-  setTotalPrice: PropTypes.func.isRequired,
-};
