@@ -30,7 +30,7 @@ const TradesDetails = () => {
 
     if (orderQuantity <= 0 || orderQuantity > availableQuantity) {
       toast.error(
-        `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`,
+        `Invalid quantity. Please enter a quantity between 1 and ${availableQuantity}.`
       );
       return;
     }
@@ -39,16 +39,17 @@ const TradesDetails = () => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingTradeIndex = existingCart.findIndex(
-      (item) => item.id === trade.id,
+      (item) => item.id === trade.id
     );
 
     if (existingTradeIndex !== -1) {
       // If trade is already in the cart, calculate the remaining quantity that can be added
-      const remainingQuantity = availableQuantity - existingCart[existingTradeIndex].orderQuantity;
+      const remainingQuantity =
+        availableQuantity - existingCart[existingTradeIndex].orderQuantity;
 
       if (orderQuantity > remainingQuantity) {
         toast.error(
-          `Cannot add more than ${remainingQuantity} items due to limited stock.`,
+          `Cannot add more than ${remainingQuantity} items due to limited stock.`
         );
         return;
       }
@@ -79,7 +80,7 @@ const TradesDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 font-merriweather">
       <ToastContainer />
       <div className="max-w-screen-2xl mx-auto p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-md">
@@ -95,37 +96,24 @@ const TradesDetails = () => {
               {trade.name}
             </h2>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Description:</strong>
-              {' '}
-              {trade.details}
+              <strong>Description:</strong> {trade.details}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Brand:</strong>
-              {' '}
-              {trade.brand}
+              <strong>Brand:</strong> {trade.brand}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Price:</strong>
-              {' '}
-              $
-              {trade.price}
+              <strong>Price:</strong> ${trade.price}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Quantity:</strong>
-              {' '}
-              {trade.quantity}
+              <strong>Quantity:</strong> {trade.quantity}
             </p>
             <p className="text-gray-700 text-lg mb-2">
-              <strong>Category:</strong>
-              {' '}
-              {trade.category.name}
+              <strong>Category:</strong> {trade.category.name}
             </p>
-            <div className="mt-6">
-              {/* Input field for choosing order quantity */}
-
-              {/* Conditionally render the "Add to Cart" button */}
-              {userRole !== 'VENDOR' && userRole !== 'ADMIN' && (
-                <div className="flex items-center mt-6">
+            <div className="mt-6 flex items-center">
+              {/* Conditionally render the quantity input and "Add to Cart" button based on user role */}
+              {userRole !== 'VENDOR' && (
+                <>
                   <span htmlFor="orderQuantity" className="text-gray-700">
                     Quantity:
                   </span>
@@ -144,19 +132,28 @@ const TradesDetails = () => {
                     className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3
                         rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
                   >
-                    Add to Cart
+                    <span className="mr-2">&#128722;</span>Add to Cart
                   </button>
-                </div>
-              )}
-              {userRole !== 'CUSTOMER' && userRole !== 'ADMIN' && (
-                <Link
-                  to={`/trade/edit-product/${trade.id}`}
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-4"
-                >
-                  Edit
-                </Link>
+                </>
               )}
             </div>
+            {userRole !== 'CUSTOMER' && userRole !== 'ADMIN' && (
+              <div className="mt-4 flex items-center">
+                <Link
+                  to={`/trade/edit-product/${trade.id}`}
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 inline-block"
+                >
+                  <span className="text-xl">&#9998;</span>
+                  Edit
+                </Link>
+                {/* <Link
+                  to={`/trade/edit-product/${trade.id}`}
+                  className="ml-2 text-blue-500 hover:text-blue-600"
+                >
+                  <span className="text-2xl">&#9998;</span>
+                </Link> */}
+              </div>
+            )}
           </div>
         </div>
         <div className="md:col-span-1 p-6">
