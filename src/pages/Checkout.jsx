@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createOrder } from '../redux/reducers/orderSlice';
+import backgroundImage from '../assets/images/bg-ecom-4.jpg'; // Replace with your actual background image
 
 const Checkout = () => {
   const [firstName, setFirstName] = useState('');
@@ -39,10 +40,11 @@ const Checkout = () => {
 
   const calcPrice = itemsInCheckout.reduce(
     (total, item) => total + Math.round(item.price * item.quantity * 100) / 100,
-    0,
+    0
   );
   const totalPrice = Math.round(calcPrice * 100) / 100;
-  const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
+  const isFormValid =
+    firstName && lastName && email && address && city && zipCode && phoneNumber;
 
   const handlePlaceOrder = async () => {
     try {
@@ -51,7 +53,7 @@ const Checkout = () => {
         createOrder({
           productList: [itemsInCheckout],
           totalPrice: totalPrice.toFixed(2),
-        }),
+        })
       );
 
       // Clear the cart (remove items from localStorage)
@@ -80,11 +82,17 @@ const Checkout = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="max-w-screen-md mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
-        <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
+    <div
+      className="flex items-center justify-center h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="max-w-screen-md mx-auto p-6 bg-white border border-gray-300 bg-opacity-90 rounded-lg shadow-md text-gray-800 w-full">
+        <h1 className="text-3xl font-bold mb-4">Checkout</h1>
         <form className="space-y-4">
-          {/* ... (rest of the form input fields) */}
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <input
@@ -95,7 +103,6 @@ const Checkout = () => {
                 className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
               />
             </div>
-
             <div className="col-span-1">
               <input
                 type="text"
@@ -117,7 +124,6 @@ const Checkout = () => {
                 className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
               />
             </div>
-
             <div className="col-span-1">
               <input
                 type="text"
@@ -149,7 +155,6 @@ const Checkout = () => {
                 className="input-field border border-gray-300 rounded-md px-4 py-2 w-full"
               />
             </div>
-
             <div className="col-span-1">
               <input
                 type="text"
@@ -160,22 +165,19 @@ const Checkout = () => {
               />
             </div>
           </div>
+
           <div className="border-t-2 border-gray-300 pt-4 mt-4">
             <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-2">Items in Checkout:</h3>
+              <h3 className="text-xl font-bold mb-2">Items in Checkout:</h3>
               <ul>
                 {itemsInCheckout.map((item) => (
                   <li
                     key={item.productId}
-                    className="flex justify-between items-center mb-2"
+                    className="flex justify-between font-bold text-yellow-500 items-center mb-2"
                   >
                     <div>{item.name}</div>
                     <div>
-                      {item.quantity}
-                      x
-                      {' '}
-                      - $
-                      {item.price * item.quantity}
+                      {item.quantity} x - ${item.price * item.quantity}
                     </div>
                   </li>
                 ))}
@@ -183,21 +185,20 @@ const Checkout = () => {
             </div>
             <div className="flex justify-between items-center">
               <button
-                type="button" // Change to "submit" if you want to submit the form
+                type="button"
                 onClick={handlePlaceOrder}
-                disabled={!isFormValid}
-                className={`btn-primary ${
+                className={`btn-primary font-bold ${
                   isFormValid
-                    ? 'bg-yellow-400 hover:bg-yellow-500'
+                    ? 'bg-yellow-300 hover:bg-yellow-500'
                     : 'bg-gray-400 cursor-not-allowed'
                 } text-white py-2 px-4 rounded-md`}
+                disabled={!isFormValid}
               >
                 Place Your Order
               </button>
               <div>
-                <h2 className="text-lg font-semibold mb-2">
-                  Order Total: $
-                  {totalPrice.toFixed(2)}
+                <h2 className="text-lg text-red-600 font-bold mb-2">
+                  Order Total: ${totalPrice.toFixed(2)}
                 </h2>
               </div>
             </div>
