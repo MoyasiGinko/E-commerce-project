@@ -95,7 +95,7 @@ const PaymentGateway = () => {
           <CashOnDelivery
             totalPrice={totalPrice}
             setTotalPrice={setTotalPrice}
-          />asSS
+          />
         )}
       </div>
     </div>
