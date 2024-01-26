@@ -22,7 +22,12 @@ class HealthComponent extends Component {
 
     if (error) {
       return (
-        <div>
+        <div
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            color: 'white',
+          }}
+        >
           Error fetching health data:
           {error.message}
         </div>
@@ -30,18 +35,32 @@ class HealthComponent extends Component {
     }
 
     if (!healthData) {
-      return <div>Loading...</div>;
+      return (
+        <div
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            color: ' rgba(25, 25, 255, 1)',
+          }}
+        >
+          Loading...
+        </div>
+      );
     }
 
     return (
-      <div>
+      <div
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          color: 'rgba(25, 25, 255, 1)',
+        }}
+      >
         <style>
           {`
             body {
               font-family: 'Arial', sans-serif;
               margin: 0;
               padding: 0;
-              background-color: #f5f5f5;
+              background-color: rgba(255, 255, 255, 0.1); /* Set background color here */
             }
 
             .container {
@@ -51,7 +70,7 @@ class HealthComponent extends Component {
             }
 
             h1 {
-              color: #333;
+              color: white; /* Set text color here */
               margin-bottom: 20px;
             }
 
@@ -65,15 +84,15 @@ class HealthComponent extends Component {
             th, td {
               padding: 8px;
               text-align: left;
-              border-bottom: 1px solid #ddd;
+              border-bottom: 1px solid  rgba(255, 255, 255, 0.1);
             }
 
             th {
-              background-color: #f2f2f2;
+              background-color:  rgba(255, 255, 255, 0.1);
             }
 
             .navbar {
-              background-color: #333;
+              background-color:  rgba(255, 255, 255, 0.1);
               padding: 10px 0;
             }
 

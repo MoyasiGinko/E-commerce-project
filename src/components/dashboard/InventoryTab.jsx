@@ -41,7 +41,7 @@ const InventoryTab = () => {
         updateTrade({
           id: editableTradeId,
           quantity: updatedQuantity,
-        }),
+        })
       );
 
       // Show toast notification
@@ -64,9 +64,11 @@ const InventoryTab = () => {
   const getStockStatus = (quantity) => {
     if (quantity > 20) {
       return 'In Stock';
-    } if (quantity > 10) {
+    }
+    if (quantity > 10) {
       return 'Stock Running Out';
-    } if (quantity > 1) {
+    }
+    if (quantity > 1) {
       return 'Low Stock';
     }
     return 'Out of Stock';
@@ -77,7 +79,7 @@ const InventoryTab = () => {
       console.log('Checking stock status...');
 
       const filteredTrades = trades.filter(
-        (trade) => trade.vendorId === userId,
+        (trade) => trade.vendorId === userId
       );
 
       filteredTrades.forEach((trade) => {
@@ -85,7 +87,7 @@ const InventoryTab = () => {
 
         if (
           ['Stock Running Out', 'Low Stock', 'Out of Stock'].includes(
-            stockStatus,
+            stockStatus
           )
         ) {
           toast.info(`Stock Status: ${stockStatus} for ${trade.name}`, {
@@ -147,6 +149,7 @@ const InventoryTab = () => {
                     className="flex-grow p-2 border mr-2"
                   />
                   <button
+                    type="button"
                     onClick={handleUpdateQuantity}
                     className="bg-violet-500 text-white py-2 px-4 rounded hover:bg-violet-600"
                   >
@@ -155,6 +158,7 @@ const InventoryTab = () => {
                 </div>
               ) : (
                 <button
+                  type="button"
                   onClick={() => handleEditClick(trade.id)}
                   className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 mt-2"
                 >

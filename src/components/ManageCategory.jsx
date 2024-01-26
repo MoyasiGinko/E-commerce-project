@@ -48,7 +48,7 @@ const CategoryManagement = () => {
         updateTradeCategory({
           categoryId: editingCategory.id,
           updatedCategory: { name: editingCategory.name },
-        }),
+        })
       )
         .then(() => {
           setEditingCategory(null);
@@ -94,7 +94,7 @@ const CategoryManagement = () => {
   return (
     <div className="max-w-screen-xl mx-auto mt-8 p-4">
       <div className="mb-4">
-        <h2 className="text-3xl font-bold">Shop by Category</h2>
+        <h2 className="text-3xl font-bold">Manage Category</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((category) => (
@@ -108,20 +108,20 @@ const CategoryManagement = () => {
                   type="text"
                   value={editingCategory.name}
                   onChange={handleInputChange}
-                  className="mb-2 px-2 py-1 border border-gray-300 w-full"
+                  className="mb-2 px-4 py-2 border border-gray-300 w-full rounded focus:outline-none focus:border-blue-500"
                 />
                 <div className="flex justify-between">
                   <button
                     type="button"
                     onClick={handleUpdateCategory}
-                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-red-500 focus:outline-none focus:ring focus:border-blue-300"
                   >
                     Update
                   </button>
                   <button
                     type="button"
                     onClick={handleCancelEdit}
-                    className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
+                    className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none focus:ring focus:border-gray-300"
                   >
                     Cancel
                   </button>
@@ -134,14 +134,14 @@ const CategoryManagement = () => {
                   <button
                     type="button"
                     onClick={() => handleEditCategory(category)}
-                    className="bg-green-500 text-white px-4 py-2 rounded"
+                    className="bg-gray-500 text-white px-4 py-2 rounded font-bold hover:bg-violet-500 focus:outline-none focus:ring focus:border-gray-300"
                   >
                     Edit
                   </button>
                   <button
                     type="button"
                     onClick={() => handleDeleteCategory(category.id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded"
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
                   >
                     Delete
                   </button>
@@ -160,12 +160,12 @@ const CategoryManagement = () => {
             placeholder="Enter category name"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
-            className="mb-2 px-4 py-2 border border-gray-300 rounded"
+            className="mb-2 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-red-500"
           />
           <button
             type="button"
             onClick={handleCreateCategory}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-red-500 focus:outline-none focus:ring focus:border-blue-300"
           >
             Create
           </button>
