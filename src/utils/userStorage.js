@@ -29,8 +29,9 @@ const getUserEmail = () => {
 
 // Function to get token
 const getToken = () => {
-  const tokenData = localStorage.getItem('token');
-  return tokenData || null;
+  const userData = getUserData();
+  console.log('Get token', userData?.token);
+  return userData?.token || null;
 };
 
 export {
