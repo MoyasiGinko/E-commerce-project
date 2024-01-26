@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { updateTrade } from '../redux/reducers/tradesSlice';
 import 'react-toastify/dist/ReactToastify.css';
+import backgroundImage from '../assets/images/bg-splash-2.jpg';
 
 const EditTrade = () => {
   const [editedTrade, setEditedTrade] = useState({ name: '', details: '' });
@@ -15,7 +16,15 @@ const EditTrade = () => {
     const tradeToEdit = trades.find(
       (trade) => trade.id === parseInt(tradeId, 10),
     );
-    setEditedTrade(tradeToEdit || { name: '', details: '' });
+    setEditedTrade(
+      tradeToEdit || {
+        name: '',
+        details: '',
+        imageURL: '',
+        brand: '',
+        price: '',
+      },
+    );
   }, [trades, tradeId]);
 
   const handleInputChange = (e) => {
@@ -54,17 +63,25 @@ const EditTrade = () => {
   }
 
   return (
-    <div className="bg-vintage-yellow min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md p-8 bg-vintage-blue rounded shadow-lg">
-        <h2 className="text-3xl font-semibold mb-6 text-vintage-white">
+    <div
+      className="flex items-center justify-center h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <ToastContainer />
+      <div
+        className="bg-white shadow-md p-8 rounded-md tradeinput-container"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+      >
+        <h2 className="text-3xl mb-6 text-gray-700 font-semibold">
           {editedTrade.name}
         </h2>
-        <form>
-          <div className="mb-6">
-            <label
-              htmlFor="name"
-              className="text-sm text-vintage-white block mb-2"
-            >
+        <form className="space-y-4 w-full">
+          <div>
+            <label htmlFor="name" className="text-sm block mb-2">
               Name:
             </label>
             <input
@@ -73,14 +90,11 @@ const EditTrade = () => {
               name="name"
               value={editedTrade.name}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+              className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
             />
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="details"
-              className="text-sm text-vintage-white block mb-2"
-            >
+          <div>
+            <label htmlFor="details" className="text-sm block mb-2">
               Details:
             </label>
             <textarea
@@ -88,14 +102,11 @@ const EditTrade = () => {
               name="details"
               value={editedTrade.details}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+              className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
             />
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="brand"
-              className="text-sm text-vintage-white block mb-2"
-            >
+          <div>
+            <label htmlFor="brand" className="text-sm block mb-2">
               Brand:
             </label>
             <input
@@ -104,14 +115,11 @@ const EditTrade = () => {
               name="brand"
               value={editedTrade.brand}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+              className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
             />
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="price"
-              className="text-sm text-vintage-white block mb-2"
-            >
+          <div>
+            <label htmlFor="price" className="text-sm block mb-2">
               Price:
             </label>
             <input
@@ -120,23 +128,21 @@ const EditTrade = () => {
               name="price"
               value={editedTrade.price}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+              className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
             />
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="image"
-              className="text-sm text-vintage-white block mb-2"
-            >
+          <div>
+            <label htmlFor="image" className="text-sm block mb-2">
               Image:
             </label>
             <input
+              type="text"
               placeholder="Image URL"
-              id="image"
-              name="image"
+              id="imageURL"
+              name="imageURL"
               value={editedTrade.imageURL}
               onChange={handleInputChange}
-              className="w-full p-3 border rounded focus:outline-none focus:ring focus:border-yellow-500 transition-all duration-300 bg-vintage-white text-vintage-blue"
+              className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
             />
           </div>
         </form>
@@ -144,19 +150,18 @@ const EditTrade = () => {
           <button
             type="button"
             onClick={handleSave}
-            className="bg-vintage-blue text-vintage-white py-3 px-6 rounded hover:bg-vintage-dark-blue mr-4 transition-all duration-300"
+            className="submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md mr-4"
           >
             Save
           </button>
           <Link
             to="/trade/edit-product"
-            className="bg-vintage-dark-blue text-vintage-white py-3 px-6 rounded hover:bg-vintage-darker-blue transition-all duration-300"
+            className="submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md"
           >
             Back to Dashboard
           </Link>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

@@ -106,24 +106,24 @@ const tradesSlice = createSlice({
         state.loading = false;
         const {
           name,
-          description,
-          image,
+          details,
+          imageURL,
           price,
-          duration,
-          location,
-          tradeType,
-          userId,
+          quantity,
+          brand,
+          category,
+          vendorId,
         } = action.payload;
 
         const newTrade = {
           name,
-          description,
-          image,
+          details,
+          imageURL,
           price,
-          duration,
-          location,
-          tradeType,
-          userId,
+          quantity,
+          brand,
+          category,
+          vendorId,
         };
         state.trades.push(newTrade);
         state.status = 'success';
@@ -148,10 +148,24 @@ const tradesSlice = createSlice({
         );
       })
       .addCase(updateTrade.fulfilled, (state, action) => {
+        const updatedTrade = action.payload;
+
+        // Find the index of the trade to be updated in the state
         const index = state.trades.findIndex(
-          (trade) => trade.id === action.payload.id,
+          (trade) => trade.id === updatedTrade.id,
         );
-        state.trades[index] = action.payload;
+
+        // If the trade is found in the state, update it
+        if (index !== -1) {
+          state.trades[index] = {
+            ...state.trades[index], // Keep other properties
+            ...updatedTrade, // Update with new values
+          };
+        }
+      })
+      .addCase(updateTrade.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
       .addCase(updateTrade.rejected, (state, action) => {
         state.loading = false;

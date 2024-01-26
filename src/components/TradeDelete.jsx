@@ -45,10 +45,10 @@ const TradeDelete = () => {
   return (
     <div className="text-center mt-4 w-full">
       <h2 className="text-3xl font-semibold mb-4 text-neutral-800">
-        Products Administration
+        Product Delete
       </h2>
       <p className="text-sm text-gray-500 mb-6">
-        Click on a trade to remove or restore it
+        Click on a trade to remove it.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredTrades.map((trade) => (

@@ -66,7 +66,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10)
+      (category) => category.id === parseInt(selectedCategoryId, 10),
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -188,8 +188,8 @@ const TradeInput = () => {
             <option value="" disabled>
               Select a category
             </option>
-            {categories &&
-              categories.map((category) => (
+            {categories
+              && categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
