@@ -50,7 +50,7 @@ const Checkout = () => {
       // Dispatch the createOrder action
       const response = await dispatch(
         createOrder({
-          productList: [itemsInCheckout],
+          productList: itemsInCheckout,
           totalPrice: totalPrice.toFixed(2),
         }),
       );

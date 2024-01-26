@@ -51,7 +51,7 @@ const TradeInput = () => {
   useEffect(() => {
     if (tradeSuccess === 'success') {
       // Show a success notification when trade is added successfully
-      toast.success('Trade added successfully!');
+      toast.success('Product added successfully!');
       navigate('/trade/add');
     }
   }, [tradeSuccess, navigate]);
