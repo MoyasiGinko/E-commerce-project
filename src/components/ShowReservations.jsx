@@ -66,7 +66,9 @@ const ShowReservation = () => {
                 {trade.category.type}
               </p>
               <p className="text-sm text-gray-500 mb-2">
-                Quantity: {trade.orderQuantity}
+                Quantity:
+                {' '}
+                {trade.orderQuantity}
               </p>
               <div className="flex justify-between items-center mt-auto">
                 {/* <button

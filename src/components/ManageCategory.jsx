@@ -12,14 +12,25 @@ import {
 const CategoryManagement = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
-  const loading = useSelector((state) => state.category.loading);
-  const error = useSelector((state) => state.category.error);
+  // const loading = useSelector((state) => state.category.loading);
+  // const error = useSelector((state) => state.category.error);
 
   const [newCategory, setNewCategory] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchTradeCategories());
+    setLoading(true);
+    dispatch(fetchTradeCategories())
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching trade categories:', err);
+        setError('Error fetching trade categories');
+        setLoading(false);
+      });
   }, [dispatch]);
 
   const showToast = (message, type = 'success') => {
@@ -30,20 +41,24 @@ const CategoryManagement = () => {
   };
 
   const handleCreateCategory = () => {
+    setLoading(true);
     dispatch(createTradeCategory([{ name: newCategory }]))
       .then(() => {
         setNewCategory('');
         dispatch(fetchTradeCategories());
         showToast('Category created successfully');
+        setLoading(false);
       })
       .catch((err) => {
         console.error('Error creating category:', err);
         showToast('Error creating category', 'error');
+        setLoading(false);
       });
   };
 
   const handleUpdateCategory = () => {
     if (editingCategory) {
+      setLoading(true);
       dispatch(
         updateTradeCategory({
           categoryId: editingCategory.id,
@@ -54,24 +69,29 @@ const CategoryManagement = () => {
           setEditingCategory(null);
           dispatch(fetchTradeCategories());
           showToast('Category updated successfully');
+          setLoading(false);
         })
         .catch((err) => {
           console.error('Error updating category:', err);
           showToast('Error updating category', 'error');
+          setLoading(false);
         });
     }
   };
 
   const handleDeleteCategory = (categoryId) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
+      setLoading(true);
       dispatch(deleteTradeCategory(categoryId))
         .then(() => {
           dispatch(fetchTradeCategories());
           showToast('Category deleted successfully');
+          setLoading(false);
         })
         .catch((err) => {
           console.error('Error deleting category:', err);
           showToast('Error deleting category', 'error');
+          setLoading(false);
         });
     }
   };
@@ -90,6 +110,19 @@ const CategoryManagement = () => {
       name: e.target.value,
     });
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        Error:
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-screen-xl mx-auto mt-8 p-4">

@@ -40,11 +40,10 @@ const Checkout = () => {
 
   const calcPrice = itemsInCheckout.reduce(
     (total, item) => total + Math.round(item.price * item.quantity * 100) / 100,
-    0
+    0,
   );
   const totalPrice = Math.round(calcPrice * 100) / 100;
-  const isFormValid =
-    firstName && lastName && email && address && city && zipCode && phoneNumber;
+  const isFormValid = firstName && lastName && email && address && city && zipCode && phoneNumber;
 
   const handlePlaceOrder = async () => {
     try {
@@ -53,7 +52,7 @@ const Checkout = () => {
         createOrder({
           productList: [itemsInCheckout],
           totalPrice: totalPrice.toFixed(2),
-        })
+        }),
       );
 
       // Clear the cart (remove items from localStorage)
@@ -177,7 +176,10 @@ const Checkout = () => {
                   >
                     <div>{item.name}</div>
                     <div>
-                      {item.quantity} x - ${item.price * item.quantity}
+                      {item.quantity}
+                      {' '}
+                      x - $
+                      {item.price * item.quantity}
                     </div>
                   </li>
                 ))}
@@ -198,7 +200,8 @@ const Checkout = () => {
               </button>
               <div>
                 <h2 className="text-lg text-red-600 font-bold mb-2">
-                  Order Total: ${totalPrice.toFixed(2)}
+                  Order Total: $
+                  {totalPrice.toFixed(2)}
                 </h2>
               </div>
             </div>

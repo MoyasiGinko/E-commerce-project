@@ -14,8 +14,7 @@ const PaymentGateway = () => {
   const [renderPaypalButtons, setRenderPaypalButtons] = useState(true);
 
   useEffect(() => {
-    const initialTotalPrice =
-      parseFloat(localStorage.getItem('totalPrice')) || 0;
+    const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
     setTotalPrice(initialTotalPrice);
 
     const handleStorageChange = (event) => {

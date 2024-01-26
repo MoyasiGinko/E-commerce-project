@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrades } from '../redux/reducers/tradesSlice';
@@ -13,16 +13,16 @@ const TradesList = () => {
   const loading = useSelector((state) => state.trades.loading);
   const error = useSelector((state) => state.trades.error);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     dispatch(fetchTrades());
   }, [dispatch]);
 
-  const handleSearch = () => {
-    // Implement search functionality if needed
-    console.log('Searching for:', searchTerm);
-  };
+  // const handleSearch = () => {
+  //   // Implement search functionality if needed
+  //   console.log('Searching for:', searchTerm);
+  // };
 
   const handleExploreClick = () => {
     // Scroll to the next section
@@ -66,6 +66,7 @@ const TradesList = () => {
             Welcome to Our Online Store
           </div>
           <button
+            type="button"
             className="border-2 border-white text-white font-bold hover:text-red-600 hover:border-red-600 focus:outline-none transition duration-300 px-6 py-3 rounded-md font-semibold text-lg bg-transparent"
             onClick={handleExploreClick}
           >

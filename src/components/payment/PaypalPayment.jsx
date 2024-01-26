@@ -44,7 +44,7 @@ const PaypalPayment = () => {
           orderId: orderIdFromResponse,
           accountName: '1234', // Dummy account name
           password: '1234', // Dummy password
-        })
+        }),
       );
 
       // Capture the payment on the client side
@@ -75,22 +75,21 @@ const PaypalPayment = () => {
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="mb-6">
           <span className="text-lg font-bold block mb-2 text-red-600">
-            Payable: ${totalPrice.toFixed(2)}
+            Payable: $
+            {totalPrice.toFixed(2)}
           </span>
 
           {renderPaypalButtons && ( // Conditionally render based on state
             <CustomPaypalButtons
-              createOrder={(data, actions) =>
-                actions.order.create({
-                  purchase_units: [
-                    {
-                      amount: {
-                        value: totalPrice.toFixed(2),
-                      },
+              createOrder={(data, actions) => actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: totalPrice.toFixed(2),
                     },
-                  ],
-                })
-              }
+                  },
+                ],
+              })}
               onApprove={handleApprove}
               onError={handleError}
             />

@@ -121,7 +121,6 @@ const TradesDetails = () => {
               {trade.category.name}
             </p>
             <div className="mt-6 flex items-center">
-              {/* Conditionally render the quantity input and "Add to Cart" button based on user role */}
               {userRole !== 'VENDOR' && (
                 <>
                   <span htmlFor="orderQuantity" className="text-gray-700">

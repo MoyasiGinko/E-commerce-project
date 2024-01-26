@@ -82,11 +82,17 @@ const CategoryTrades = () => {
       </div>
 
       <h2 className="text-2xl font-bold text-gray-800 mb-2">
-        Products List for {selectedTradeType || 'All Categories'}
+        Products List for
+        {' '}
+        {selectedTradeType || 'All Categories'}
       </h2>
 
       <p className="text-gray-700 mb-4">
-        Showing {filteredTrades.length} products
+        Showing
+        {' '}
+        {filteredTrades.length}
+        {' '}
+        products
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -107,7 +113,8 @@ const CategoryTrades = () => {
                 {trade.category ? trade.category.name : 'No Category'}
               </p>
               <p className="mt-2 text-lg text-red-500 font-bold">
-                ${trade.price}
+                $
+                {trade.price}
               </p>
             </div>
           </Link>

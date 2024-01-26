@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { fetchTrades, deleteTrade } from '../redux/reducers/tradesSlice';
 import { getUserRole, getUserId } from '../utils/userStorage';
 import loadingImage from '../assets/images/loading.gif';
@@ -44,11 +46,11 @@ const TradeDelete = () => {
 
   return (
     <div className="text-center mt-4 w-full">
-      <h2 className="text-3xl font-semibold mb-4 text-neutral-800">
+      <h2 className="text-3xl font-bold mb-4 text-neutral-800">
         Product Delete
       </h2>
-      <p className="text-sm text-gray-500 mb-6">
-        Click on a trade to remove it.
+      <p className="text-sm font-semibold text-gray-500 mb-6">
+        Click on a product to remove it.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredTrades.map((trade) => (
@@ -78,9 +80,10 @@ const TradeDelete = () => {
                   trade.removed
                     ? 'bg-gray-300 text-neutral-600 hover:bg-green-300 hover:text-neutral-800'
                     : 'bg-red-500 text-white hover:bg-red-600 hover:text-white'
-                } transition-colors`}
+                } transition-colors flex items-center`}
                 onClick={() => handleRemoveTrade(trade.id, trade.name)}
               >
+                <FontAwesomeIcon icon={faTrash} className="mr-2" />
                 {trade.removed ? 'Restore' : 'Remove'}
               </button>
             </div>

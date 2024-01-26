@@ -45,7 +45,14 @@ const Recommendation = () => {
       <h2 className="text-3xl font-semibold mb-4 text-gray-800">
         Recommended for You
       </h2>
-      <Slider {...sliderSettings}>
+      <Slider
+        dots={sliderSettings.dots}
+        infinite={sliderSettings.infinite}
+        speed={sliderSettings.speed}
+        slidesToShow={sliderSettings.slidesToShow}
+        slidesToScroll={sliderSettings.slidesToScroll}
+        responsive={sliderSettings.responsive}
+      >
         {recommendedTrades.map((trade) => (
           <Link
             key={trade.id}

@@ -29,7 +29,13 @@ const TopSellersSlider = () => {
   return (
     <div className="mt-8">
       <h2 className="text-3xl font-semibold mb-4 text-gray-800">Top Sellers</h2>
-      <Slider {...sliderSettings}>
+      <Slider
+        dots={sliderSettings.dots}
+        infinite={sliderSettings.infinite}
+        speed={sliderSettings.speed}
+        slidesToShow={sliderSettings.slidesToShow}
+        slidesToScroll={sliderSettings.slidesToScroll}
+      >
         {topSellers.map((trade) => (
           <Link
             key={trade.id}

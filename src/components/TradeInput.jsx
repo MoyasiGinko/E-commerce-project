@@ -40,6 +40,7 @@ const TradeInput = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState('');
+  console.log(categoriesLoading, categoriesError);
 
   useEffect(() => {
     dispatch(fetchTradeCategories()).catch((error) => {
