@@ -24,7 +24,7 @@ export const fetchTradesForCategory = createAsyncThunk(
     const { selectedTradeType } = getState().category;
 
     try {
-      let apiUrl = `${BASE_URL}/product`; // Modify the endpoint based on your API structure
+      let apiUrl = `${BASE_URL}/product/`; // Modify the endpoint based on your API structure
 
       if (selectedTradeType) {
         apiUrl += `?category=${selectedTradeType}`; // Adjust the query parameter based on your API
@@ -91,7 +91,7 @@ export const getTradeCategoryById = createAsyncThunk(
     try {
       const token = getToken();
       const response = await axios.get(
-        `${BASE_URL}/product-category/${categoryId}`,
+        `${BASE_URL}/product-category/${categoryId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ export const updateTradeCategory = createAsyncThunk(
     try {
       const token = getToken();
       const response = await axios.put(
-        `${BASE_URL}/product-category/${categoryId}`,
+        `${BASE_URL}/product-category/${categoryId}/`,
         updatedCategory,
         {
           headers: {
@@ -136,7 +136,7 @@ export const deleteTradeCategory = createAsyncThunk(
     try {
       const token = getToken();
       const response = await axios.delete(
-        `${BASE_URL}/product-category/${categoryId}`,
+        `${BASE_URL}/product-category/${categoryId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

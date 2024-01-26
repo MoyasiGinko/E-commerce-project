@@ -14,12 +14,12 @@ export const fetchTradeDetails = createAsyncThunk(
   'tradeDetails/fetchTradeDetails',
   async (tradeId) => {
     const response = await axios.get(
-      `${baseUrl}/product/${tradeId}`,
+      `${baseUrl}/product/${tradeId}/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     return response.data;
   },

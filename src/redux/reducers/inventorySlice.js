@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/inventory`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}/inventory/`;
 
 // Async thunk for fetching inventory
 export const fetchInventory = createAsyncThunk(

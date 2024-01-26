@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken, getUserId } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/order`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}/order/`;
 
 const initialState = {
   orders: [],
