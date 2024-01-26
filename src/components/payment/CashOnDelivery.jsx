@@ -64,15 +64,13 @@ const CashOnDelivery = () => {
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-2xl font-bold mb-4">Cash on Delivery</h2>
       <p className="mb-4">
-        Thank you for choosing Cash on Delivery! We appreciate your order.
+        Thank you for choosing Cash on Delivery!
         Please review and agree to the following terms before confirming your
         order.
       </p>
       <p className="mb-4">
         By checking the boxes below, you confirm that you have read and agree to
-        our Terms and Conditions and Privacy Policy. Once you confirm, an email
-        will be sent to you with the details of your order. Please be ready to
-        pay the total amount in cash upon delivery at your doorstep.
+        our Terms and Conditions and Privacy Policy.
       </p>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col space-y-4">
