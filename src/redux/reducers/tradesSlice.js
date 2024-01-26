@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const BASE_URL = `${process.env.REACT_APP_API_URL}/product`;
+const BASE_URL = `${process.env.REACT_APP_API_URL}/product/`;
 const initialState = {
   trades: [],
   status: 'idle',
@@ -34,7 +34,7 @@ export const updateTrade = createAsyncThunk(
     try {
       const token = getToken();
       const response = await axios.put(
-        `${BASE_URL}/${id}`,
+        `${BASE_URL}${id}/`,
         {
           name,
           details,
@@ -80,7 +80,7 @@ export const deleteTrade = createAsyncThunk(
   async (tradeId) => {
     try {
       const token = getToken();
-      await axios.delete(`${BASE_URL}/${tradeId}`, {
+      await axios.delete(`${BASE_URL}${tradeId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
