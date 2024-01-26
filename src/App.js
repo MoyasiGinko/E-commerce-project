@@ -6,7 +6,6 @@ import Layout from './components/Layout';
 import Splash from './pages/Splash';
 import TradeDetails from './pages/TradeDetails';
 import Reservations from './pages/Reservations';
-import ReserveFromTd from './pages/ReserveFromTd';
 import Reserve from './pages/Reserve';
 import AddTrades from './pages/AddTrades';
 import DeleteTrade from './pages/DeleteTrade';
@@ -40,7 +39,6 @@ const App = () => (
       <Route path="/trade/edit-product/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
       <Route path="reserve" element={<Reserve />} />
-      <Route path="/trade/reserve/:tradeId" element={<ReserveFromTd />} />
       <Route path="add" element={<AddTrades />} />
       <Route path="delete" element={<DeleteTrade />} />
       <Route path="*" element={<NotFound />} />
