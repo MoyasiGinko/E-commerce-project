@@ -41,7 +41,7 @@ const InventoryTab = () => {
         updateTrade({
           id: editableTradeId,
           quantity: updatedQuantity,
-        })
+        }),
       );
 
       // Show toast notification
@@ -79,7 +79,7 @@ const InventoryTab = () => {
       console.log('Checking stock status...');
 
       const filteredTrades = trades.filter(
-        (trade) => trade.vendorId === userId
+        (trade) => trade.vendorId === userId,
       );
 
       filteredTrades.forEach((trade) => {
@@ -87,7 +87,7 @@ const InventoryTab = () => {
 
         if (
           ['Stock Running Out', 'Low Stock', 'Out of Stock'].includes(
-            stockStatus
+            stockStatus,
           )
         ) {
           toast.info(`Stock Status: ${stockStatus} for ${trade.name}`, {

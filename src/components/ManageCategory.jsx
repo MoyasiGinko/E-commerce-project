@@ -48,7 +48,7 @@ const CategoryManagement = () => {
         updateTradeCategory({
           categoryId: editingCategory.id,
           updatedCategory: { name: editingCategory.name },
-        })
+        }),
       )
         .then(() => {
           setEditingCategory(null);
