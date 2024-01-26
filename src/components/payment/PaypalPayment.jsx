@@ -2,9 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { act } from 'react-dom/test-utils';
-import CustomPaypalButtons from './PayPalButtons';
+// import CustomPaypalButtons from './PayPalButtons';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import PropTypes from 'prop-types';
 import { makePayment } from '../../redux/reducers/paymentSlice';
+
+const CustomPaypalButtons = ({ onApprove, onError, createOrder }) => (
+  <PayPalScriptProvider
+    options={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}
+  >
+    <PayPalButtons
+      createOrder={(data, actions) => createOrder(data, actions)}
+      onApprove={(data, actions) => onApprove(data, actions)}
+      onError={(err) => onError(err)}
+    />
+  </PayPalScriptProvider>
+);
+
+// export default CustomPaypalButtons;
 
 const PaypalPayment = () => {
   const dispatch = useDispatch();
@@ -29,7 +44,7 @@ const PaypalPayment = () => {
           orderId: orderIdFromResponse,
           accountName: '1234', // Dummy account name
           password: '1234', // Dummy password
-        }),
+        })
       );
 
       // Capture the payment on the client side
@@ -53,28 +68,29 @@ const PaypalPayment = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
+    <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-500 bg-opacity-50 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
         PayPal Payment
       </h2>
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="mb-6">
-          <span className="text-lg font-semibold block mb-2 text-gray-700">
-            Payable: $
-            {totalPrice.toFixed(2)}
+          <span className="text-lg font-bold block mb-2 text-red-600">
+            Payable: ${totalPrice.toFixed(2)}
           </span>
 
           {renderPaypalButtons && ( // Conditionally render based on state
             <CustomPaypalButtons
-              createOrder={(data, actions) => actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value: totalPrice.toFixed(2),
+              createOrder={(data, actions) =>
+                actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: totalPrice.toFixed(2),
+                      },
                     },
-                  },
-                ],
-              })}
+                  ],
+                })
+              }
               onApprove={handleApprove}
               onError={handleError}
             />
@@ -87,3 +103,9 @@ const PaypalPayment = () => {
 };
 
 export default PaypalPayment;
+
+CustomPaypalButtons.propTypes = {
+  onApprove: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  createOrder: PropTypes.func.isRequired,
+};

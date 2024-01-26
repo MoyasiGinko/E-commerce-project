@@ -44,19 +44,25 @@ const PaymentGateway = () => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="max-w-md bg-white border-2 border-gray-300 rounded-lg shadow-md p-6 text-gray-800">
+      <div className="max-w-md bg-blue-800 bg-opacity-50 border-2 border-blue-900 rounded-lg shadow-md p-6 text-gray-200">
         <h2 className="text-2xl font-bold mb-4">Payment Gateway</h2>
-        <p className="text-sm mb-4">
+        <p className="text-sm text-gray-300 mb-4">
           Thank you for choosing us! Whether you prefer the ease of card
           payment, the speed of PayPal, or the convenience of Cash on Delivery,
           we have got you covered for a smooth and secure shopping experience.
         </p>
         <div className="mb-4">
-          <span className="block text-sm font-semibold mb-2">
+          <span className="block text-sm text-yellow-500 font-semibold mb-2">
             Select Payment Method:
           </span>
           <div className="flex space-x-4 items-center">
-            <label className="flex items-center">
+            <label
+              className={`flex items-center transition-all duration-300 rounded-md cursor-pointer ${
+                selectedPaymentMethod === 'paypal'
+                  ? 'bg-yellow-500 text-gray-800'
+                  : 'bg-transparent text-gray-200 hover:bg-gray-800 hover:text-white'
+              }`}
+            >
               <input
                 type="radio"
                 name="paymentMethod"
@@ -70,7 +76,13 @@ const PaymentGateway = () => {
               </span>
             </label>
 
-            <label className="flex items-center">
+            <label
+              className={`flex items-center transition-all duration-300 rounded-md cursor-pointer ${
+                selectedPaymentMethod === 'cashOnDelivery'
+                  ? 'bg-yellow-500 text-gray-800'
+                  : 'bg-transparent text-gray-200 hover:bg-gray-800 hover:text-white'
+              }`}
+            >
               <input
                 type="radio"
                 name="paymentMethod"

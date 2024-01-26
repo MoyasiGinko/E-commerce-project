@@ -61,7 +61,7 @@ const CashOnDelivery = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md text-gray-800 w-full">
+    <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-500 bg-opacity-50 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-2xl font-bold mb-4">Cash on Delivery</h2>
       <p className="mb-4">
         Thank you for choosing Cash on Delivery!
@@ -100,7 +100,7 @@ const CashOnDelivery = () => {
           </div>
         </div>
         <div className="mb-4">
-          <span className="text-lg font-semibold">
+          <span className="text-lg text-red-600 font-bold">
             Payable: $
             {totalPrice.toFixed(2)}
           </span>
@@ -109,7 +109,7 @@ const CashOnDelivery = () => {
           <button
             type="button"
             onClick={handlePayment}
-            className="btn-primary bg-gray-800 hover:bg-red-500 text-red-500 hover:text-white py-2 px-4 rounded-full"
+            className="btn-primary bg-gray-800 hover:bg-yellow-500 text-yellow-500 hover:text-white py-2 px-4 rounded-full"
             disabled={totalPrice === 0}
           >
             Confirm
