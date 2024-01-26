@@ -82,7 +82,7 @@ const TradeInput = () => {
   const handleNewTrade = (e) => {
     e.preventDefault();
 
-    const newTradeData = {
+    const newTradeData = [{
       name: tradeData.name,
       brand: tradeData.brand,
       details: tradeData.details,
@@ -91,7 +91,7 @@ const TradeInput = () => {
       quantity: parseFloat(tradeData.quantity),
       imageURL: tradeData.imageURL,
       vendorId: currentUserId,
-    };
+    }];
 
     dispatch(addTrades(newTradeData))
       .then(() => {
