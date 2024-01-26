@@ -81,9 +81,9 @@ const EditTrade = () => {
         </h2>
         <form className="space-y-4 w-full">
           <div>
-            <label htmlFor="name" className="text-sm block mb-2">
+            <span htmlFor="name" className="text-sm block mb-2">
               Name:
-            </label>
+            </span>
             <input
               type="text"
               id="name"
@@ -94,9 +94,9 @@ const EditTrade = () => {
             />
           </div>
           <div>
-            <label htmlFor="details" className="text-sm block mb-2">
+            <span htmlFor="details" className="text-sm block mb-2">
               Details:
-            </label>
+            </span>
             <textarea
               id="details"
               name="details"
@@ -106,9 +106,9 @@ const EditTrade = () => {
             />
           </div>
           <div>
-            <label htmlFor="brand" className="text-sm block mb-2">
+            <span htmlFor="brand" className="text-sm block mb-2">
               Brand:
-            </label>
+            </span>
             <input
               type="text"
               id="brand"
@@ -119,9 +119,9 @@ const EditTrade = () => {
             />
           </div>
           <div>
-            <label htmlFor="price" className="text-sm block mb-2">
+            <span htmlFor="price" className="text-sm block mb-2">
               Price:
-            </label>
+            </span>
             <input
               type="number"
               id="price"
@@ -132,9 +132,9 @@ const EditTrade = () => {
             />
           </div>
           <div>
-            <label htmlFor="image" className="text-sm block mb-2">
+            <span htmlFor="image" className="text-sm block mb-2">
               Image:
-            </label>
+            </span>
             <input
               type="text"
               placeholder="Image URL"

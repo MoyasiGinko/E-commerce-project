@@ -55,7 +55,7 @@ const PaymentGateway = () => {
             Select Payment Method:
           </span>
           <div className="flex space-x-4 items-center">
-            <label
+            <span
               className={`flex items-center transition-all duration-300 rounded-md cursor-pointer ${
                 selectedPaymentMethod === 'paypal'
                   ? 'bg-yellow-500 text-gray-800'
@@ -73,9 +73,9 @@ const PaymentGateway = () => {
                 <FontAwesomeIcon icon={faCreditCard} className="mr-2" />
                 Digital Payment
               </span>
-            </label>
+            </span>
 
-            <label
+            <span
               className={`flex items-center transition-all duration-300 rounded-md cursor-pointer ${
                 selectedPaymentMethod === 'cashOnDelivery'
                   ? 'bg-yellow-500 text-gray-800'
@@ -93,7 +93,7 @@ const PaymentGateway = () => {
                 <FontAwesomeIcon icon={faMoneyBillAlt} className="mr-2" />
                 Cash on Delivery
               </span>
-            </label>
+            </span>
           </div>
         </div>
         {renderPaypalButtons && (

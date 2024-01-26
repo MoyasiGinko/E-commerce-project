@@ -82,9 +82,9 @@ const CashOnDelivery = () => {
               checked={termsAndConditionsChecked}
               onChange={handleTermsAndConditionsChange}
             />
-            <label htmlFor="termsAndConditions" className="text-sm">
+            <span htmlFor="termsAndConditions" className="text-sm">
               I agree to the Terms and Conditions
-            </label>
+            </span>
           </div>
           <div className="flex items-center">
             <input
@@ -94,9 +94,9 @@ const CashOnDelivery = () => {
               checked={privacyPolicyChecked}
               onChange={handlePrivacyPolicyChange}
             />
-            <label htmlFor="privacyPolicy" className="text-sm">
+            <span htmlFor="privacyPolicy" className="text-sm">
               I agree to the Privacy Policy
-            </label>
+            </span>
           </div>
         </div>
         <div className="mb-4">
