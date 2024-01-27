@@ -209,8 +209,8 @@ const categorySlice = createSlice({
       .addCase(updateTradeCategory.fulfilled, (state, action) => {
         state.loading = false;
         const updatedCategory = action.payload;
-        state.categories = state.categories.map((category) =>
-          (category.id === updatedCategory.id ? updatedCategory : category));
+        state.categories = state.categories.map((category) => (category.id
+          === updatedCategory.id ? updatedCategory : category));
         state.status = 'success';
         state.error = null;
       })
