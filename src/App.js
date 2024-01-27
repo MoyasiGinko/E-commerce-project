@@ -1,5 +1,4 @@
 // App.jsx
-
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -10,7 +9,6 @@ import Reserve from './pages/Reserve';
 import AddTrades from './pages/AddTrades';
 import DeleteTrade from './pages/DeleteTrade';
 import ListTrades from './pages/ListTrades';
-// import TradesList from './components/CategoryList'; // Update the path accordingly
 import './App.css';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -30,7 +28,6 @@ const App = () => (
     <Route path="/register" element={<Register />} />
     <Route path="/trade" element={<Layout />}>
       <Route index element={<ListTrades />} />
-      {/* <Route path=":tradeType" element={<TradesList />} /> */}
       <Route path=":id" element={<TradeDetails />} />
       <Route path="reservations" element={<Reservations />} />
       <Route path="checkout" element={<Checkout />} />

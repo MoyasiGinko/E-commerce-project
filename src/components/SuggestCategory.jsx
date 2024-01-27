@@ -7,13 +7,25 @@ import { getUserId } from '../utils/userStorage';
 const SuggestionTab = () => {
   const dispatch = useDispatch();
   const userId = getUserId();
-  const { categories, status, error } = useSelector(
-    (state) => state.suggestion,
+  const { categories, status, loading, error } = useSelector(
+    (state) => state.suggestion
   );
 
   useEffect(() => {
     dispatch(fetchUserSuggestions(userId));
   }, [dispatch, userId]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return (
+      <p>
+        Error:
+        {error}
+      </p>
+    );
+  }
 
   return (
     <div className="bg-white p-4 rounded-md shadow-md">

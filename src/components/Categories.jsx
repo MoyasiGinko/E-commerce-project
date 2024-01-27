@@ -29,12 +29,12 @@ const CategoryTrades = () => {
   const uniqueTradeTypeSet = new Set();
 
   if (loading) {
-    return <p>Loading trades...</p>;
+    return <p>Loading products...</p>;
   }
   if (error) {
     return (
       <p>
-        Error fetching trades:
+        Error fetching products:
         {error}
       </p>
     );
