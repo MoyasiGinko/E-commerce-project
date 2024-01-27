@@ -17,6 +17,11 @@ class HealthComponent extends Component {
       .catch((error) => this.setState({ error }));
   }
 
+  handleButtonClick = () => {
+    // Open the link when the button is clicked
+    window.open('http://localhost:8761', '_blank');
+  };
+
   render() {
     const { healthData, error } = this.state;
 
@@ -28,6 +33,16 @@ class HealthComponent extends Component {
             color: 'white',
           }}
         >
+          <div>
+            <span>If the page does not render, </span>
+            <button
+              className="text-red-500"
+              type="button"
+              onClick={this.handleButtonClick}
+            >
+              click here
+            </button>
+          </div>
           Error fetching health data:
           {error.message}
         </div>
@@ -39,9 +54,19 @@ class HealthComponent extends Component {
         <div
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            color: ' rgba(25, 25, 255, 1)',
+            color: 'rgba(25, 25, 255, 1)',
           }}
         >
+          <div>
+            <span>If the page does not render, </span>
+            <button
+              className="text-red-500"
+              type="button"
+              onClick={this.handleButtonClick}
+            >
+              click here
+            </button>
+          </div>
           Loading...
         </div>
       );
@@ -107,6 +132,16 @@ class HealthComponent extends Component {
             }
           `}
         </style>
+        <div>
+          <span>If the page does not render, </span>
+          <button
+            className="text-red-500"
+            type="button"
+            onClick={this.handleButtonClick}
+          >
+            click here
+          </button>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: healthData }} />
       </div>
     );
