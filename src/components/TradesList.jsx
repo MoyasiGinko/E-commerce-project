@@ -6,6 +6,9 @@ import loadingImage from '../assets/images/loading.gif';
 import TopSellersSlider from './ProductSlide';
 import SuggestionTab from './SuggestCategory';
 import cartImage from '../assets/images/bg-ecom-4.jpg';
+import { getUserRole } from '../utils/userStorage';
+
+const userRole = getUserRole();
 
 const TradesList = () => {
   const dispatch = useDispatch();
@@ -85,7 +88,7 @@ const TradesList = () => {
       {/* Product List Section */}
       <div
         id="productListSection"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-4 mt-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4 p-4 mt-8"
       >
         {Array.isArray(trades) && trades.length > 0 ? (
           trades.map((trade) => (
@@ -127,9 +130,11 @@ const TradesList = () => {
       </div>
 
       {/* Suggestion Tab */}
-      <div className="mt-8">
-        <SuggestionTab />
-      </div>
+      {userRole === 'CUSTOMER' && (
+        <div className="mt-8">
+          <SuggestionTab />
+        </div>
+      )}
     </div>
   );
 };

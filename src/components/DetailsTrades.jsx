@@ -121,7 +121,7 @@ const TradesDetails = () => {
               {trade.category.name}
             </p>
             <div className="mt-6 flex items-center">
-              {userRole !== 'VENDOR' && (
+              {userRole !== 'VENDOR' && userRole !== 'ADMIN' && (
                 <>
                   <span htmlFor="orderQuantity" className="text-gray-700">
                     Quantity:

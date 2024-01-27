@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getToken } from '../../utils/userStorage';
+import { getToken, getUserId, getUserRole } from '../../utils/userStorage';
 
 const BASE_URL = `${process.env.REACT_APP_API_URL}/product/`;
 
@@ -64,7 +64,16 @@ export const updateTrade = createAsyncThunk(
 
 export const fetchTrades = createAsyncThunk('trades/fetchTrades', async () => {
   try {
-    const response = await axiosInstance.get('');
+    const userRole = getUserRole();
+    const userId = getUserId();
+
+    let endpoint = '';
+    if (userRole === 'VENDOR') {
+      // If the user has the VENDOR role, use their userId as the vendorId
+      endpoint = `vendor/${userId}`;
+    }
+
+    const response = await axiosInstance.get(endpoint);
     return response.data;
   } catch (error) {
     return error.response.data;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../redux/reducers/auth/logoutSlice';
@@ -8,11 +8,17 @@ import { getUserRole, getUserName } from '../utils/userStorage';
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768); // Set initial screen size
   const role = getUserRole();
   const userName = getUserName() || 'Guest';
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const closeNavbar = () => {
+    setMenu(false);
+    setShowProfileOptions(false);
+  };
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -27,14 +33,23 @@ const Navbar = () => {
     setShowProfileOptions(false);
   };
 
-  const closeMenu = () => {
-    setMenu(false);
-    setShowProfileOptions(false);
-  };
-
   const toggleProfileOptions = () => {
     setShowProfileOptions(!showProfileOptions);
   };
+
+  const handleResize = () => {
+    setIsDesktop(window.innerWidth > 768);
+  };
+
+  useEffect(() => {
+    // Set up event listener for resizing
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const dropdownItems = [
     {
@@ -42,7 +57,7 @@ const Navbar = () => {
       path: '/trade/dashboard',
       onClick: () => {
         navigate('/trade/dashboard');
-        closeMenu();
+        closeNavbar();
       },
     },
   ];
@@ -60,7 +75,6 @@ const Navbar = () => {
     ],
     VENDOR: [
       { path: '/trade', text: 'Home' },
-      { path: '/trade/reserve', text: 'Categories' },
       { path: '/trade/edit-product', text: 'Edit' },
       { path: '/trade/add', text: 'Add' },
       { path: '/trade/delete', text: 'Delete' },
@@ -82,11 +96,13 @@ const Navbar = () => {
         aria-controls="default-sidebar"
         type="button"
         onClick={toggleMenu}
-        className="items-start p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden
-         hover:bg-gray-100 focus:outline-none focus:ring-2
-         focus:ring-gray-200
-         dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        style={{ position: 'absolute', margin: 0 }}
+        className="fixed top-0 left-0 p-2 text-sm text-gray-500 rounded-lg sm:hidden
+          hover:bg-gray-100 focus:outline-none focus:ring-2
+          focus:ring-gray-200
+          dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        style={{
+          zIndex: 1000, // Ensure it's above other elements
+        }}
       >
         <span className="sr-only">Open sidebar</span>
         <svg
@@ -106,10 +122,34 @@ const Navbar = () => {
       <aside
         id="default-sidebar"
         aria-label="Sidebar"
-        className={`fixed top-0 left-0 z-40 w-full h-screen bg-gray-800 transition-transform sm:relative sm:w-64 ${
+        className={`fixed top-0 left-0 z-50 w-full h-screen bg-gray-800 transition-transform sm:relative sm:w-64 ${
           menu ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
       >
+        {!isDesktop && (
+          <button
+            type="button"
+            onClick={closeNavbar}
+            className="absolute top-2 right-2 text-white cursor-pointer flex items-center z-60"
+          >
+            {/* Close Icon */}
+            {/* <svg
+              className="w-4 h-4"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg> */}
+          </button>
+        )}
         <nav className="h-screen flex flex-col justify-between items-center border-e-2 p-3">
           <div className="flex flex-col items-center">
             <h1
@@ -165,9 +205,14 @@ const Navbar = () => {
                   <button
                     type="button"
                     className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
-                    onClick={
-                      link.onClick ? link.onClick : () => navigate(link.path)
-                    }
+                    onClick={() => {
+                      if (link.onClick) {
+                        link.onClick();
+                      } else {
+                        navigate(link.path);
+                      }
+                      closeNavbar(); // Close the navbar upon selecting any navbar item
+                    }}
                   >
                     {link.text}
                   </button>

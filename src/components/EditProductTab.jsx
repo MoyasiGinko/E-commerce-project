@@ -73,7 +73,7 @@ const EditTrade = () => {
     >
       <ToastContainer />
       <div
-        className="bg-white shadow-md p-8 rounded-md tradeinput-container"
+        className="bg-white shadow-md p-4 rounded-md w-96 tradeinput-container"
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
       >
         <h2 className="text-3xl mb-6 text-gray-700 font-semibold">
