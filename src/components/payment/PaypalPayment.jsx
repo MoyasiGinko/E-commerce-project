@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import CustomPaypalButtons from './PayPalButtons';
+import { navigate } from '@reach/router';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import PropTypes from 'prop-types';
 import { makePayment } from '../../redux/reducers/paymentSlice';
@@ -57,6 +58,7 @@ const PaypalPayment = () => {
       setTotalPrice(0);
       toast.success('Payment successful!');
       localStorage.removeItem('totalPrice');
+      navigate('/trade/payment-success');
     } catch (error) {
       console.error('Error making PayPal Payment:', error);
     }
