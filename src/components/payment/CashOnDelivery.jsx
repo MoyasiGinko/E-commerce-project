@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { makePayment } from '../../redux/reducers/paymentSlice';
 import 'react-toastify/dist/ReactToastify.css';
+import { makePayment } from '../../redux/reducers/paymentSlice';
 
 const CashOnDelivery = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate
   const orderIdFromResponse = Number(localStorage.getItem('orderId'));
-  const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0; // Get totalPrice from local storage
+  const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
   const [termsAndConditionsChecked, setTermsAndConditionsChecked] = useState(false);
   const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
@@ -27,19 +28,16 @@ const CashOnDelivery = () => {
   };
 
   const handlePayment = async () => {
-    // Check if terms and conditions and privacy policy are agreed
     if (!termsAndConditionsChecked || !privacyPolicyChecked) {
       toast.error('Please agree to Terms and Conditions and Privacy Policy.');
       return;
     }
 
-    // Check if the payable amount is greater than 0
     if (totalPrice === 0) {
       toast.error('Cannot process payment for $0.00');
       return;
     }
 
-    // Simulating API call
     try {
       const response = await dispatch(
         makePayment({
@@ -51,10 +49,10 @@ const CashOnDelivery = () => {
         }),
       );
       console.log('Cash on Delivery Payment Successful:', response);
-      setTotalPrice(0); // Set totalPrice to 0 after payment
-      // Show success message
+      setTotalPrice(0);
       toast.success('Payment placed on Cash on Delivery successful.');
       localStorage.removeItem('totalPrice');
+      navigate('/trade/payment-success'); // Redirect to the home page after successful payment
     } catch (error) {
       console.error('Error making Cash on Delivery Payment:', error);
     }
@@ -64,9 +62,8 @@ const CashOnDelivery = () => {
     <div className="max-w-md mx-auto p-6 bg-white border-2 border-gray-500 bg-opacity-50 rounded-lg shadow-md text-gray-800 w-full">
       <h2 className="text-2xl font-bold mb-4">Cash on Delivery</h2>
       <p className="mb-4">
-        Thank you for choosing Cash on Delivery!
-        Please review and agree to the following terms before confirming your
-        order.
+        Thank you for choosing Cash on Delivery! Please review and agree to the
+        following terms before confirming your order.
       </p>
       <p className="mb-4">
         By checking the boxes below, you confirm that you have read and agree to

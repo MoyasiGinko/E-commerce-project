@@ -4,6 +4,7 @@ import {
   faCreditCard,
   faMoneyBillAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import PaypalPayment from '../components/payment/PaypalPayment';
 import CashOnDelivery from '../components/payment/CashOnDelivery';
 import backgroundImage from '../assets/images/bg-admin-2.jpg';
@@ -12,6 +13,7 @@ const PaymentGateway = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('paypal');
   const [totalPrice, setTotalPrice] = useState(0);
   const [renderPaypalButtons, setRenderPaypalButtons] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
@@ -33,6 +35,12 @@ const PaymentGateway = () => {
   useEffect(() => {
     setRenderPaypalButtons(selectedPaymentMethod === 'paypal');
   }, [selectedPaymentMethod]);
+
+  const handlePaymentSuccess = () => {
+    // Perform any necessary actions on payment success
+    console.log('Payment success!, Redirecting test.');
+    navigate('/trade'); // Replace '/trade' with the desired URL
+  };
 
   return (
     <div
@@ -100,12 +108,14 @@ const PaymentGateway = () => {
           <PaypalPayment
             totalPrice={totalPrice}
             setTotalPrice={setTotalPrice}
+            onPaymentSuccess={handlePaymentSuccess}
           />
         )}
         {selectedPaymentMethod === 'cashOnDelivery' && (
           <CashOnDelivery
             totalPrice={totalPrice}
             setTotalPrice={setTotalPrice}
+            onPaymentSuccess={handlePaymentSuccess}
           />
         )}
       </div>

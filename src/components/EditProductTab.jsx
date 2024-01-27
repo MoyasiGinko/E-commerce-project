@@ -14,7 +14,7 @@ const EditTrade = () => {
 
   useEffect(() => {
     const tradeToEdit = trades.find(
-      (trade) => trade.id === parseInt(tradeId, 10)
+      (trade) => trade.id === parseInt(tradeId, 10),
     );
     setEditedTrade(
       tradeToEdit || {
@@ -23,7 +23,7 @@ const EditTrade = () => {
         imageURL: '',
         brand: '',
         price: '',
-      }
+      },
     );
   }, [trades, tradeId]);
 
@@ -44,7 +44,7 @@ const EditTrade = () => {
         brand: editedTrade.brand,
         price: editedTrade.price,
         imageURL: editedTrade.imageURL,
-      })
+      }),
     );
 
     // Show successful notification

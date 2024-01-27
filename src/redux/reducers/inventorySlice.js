@@ -19,7 +19,7 @@ export const fetchInventory = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 // Async thunk for adding an inventory item
@@ -35,7 +35,7 @@ export const addInventoryItem = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 // Async thunk for updating an inventory item
@@ -49,13 +49,13 @@ export const updateInventoryItem = createAsyncThunk(
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const fetchInventoryById = createAsyncThunk(
@@ -70,7 +70,7 @@ export const fetchInventoryById = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 // Async thunk for deleting an inventory item
@@ -86,7 +86,7 @@ export const deleteInventoryItem = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 // Define the inventory slice
@@ -125,7 +125,7 @@ const inventorySlice = createSlice({
     // Reducer for updateInventoryItem
     builder.addCase(updateInventoryItem.fulfilled, (state, action) => {
       const updatedItemIndex = state.items.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id,
       );
       if (updatedItemIndex !== -1) {
         state.items[updatedItemIndex] = action.payload;

@@ -21,6 +21,7 @@ import Dashboard from './components/Dashboard';
 import EditTrade from './components/EditProductTab';
 import EditProduct from './pages/EditProduct';
 import CategoryManagement from './components/ManageCategory';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 const App = () => (
   <Routes>
@@ -38,6 +39,7 @@ const App = () => (
       <Route path="edit-product" element={<EditProduct />} />
       <Route path="/trade/edit-product/:tradeId" element={<EditTrade />} />
       <Route path="payment-gateway" element={<PaymentGateway />} />
+      <Route path="payment-success" element={<PaymentSuccess />} />
       <Route path="reserve" element={<Reserve />} />
       <Route path="add" element={<AddTrades />} />
       <Route path="delete" element={<DeleteTrade />} />

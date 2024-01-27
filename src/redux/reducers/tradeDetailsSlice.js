@@ -19,7 +19,7 @@ export const fetchTradeDetails = createAsyncThunk(
       },
     });
     return response.data;
-  }
+  },
 );
 
 const tradeDetailsSlice = createSlice({

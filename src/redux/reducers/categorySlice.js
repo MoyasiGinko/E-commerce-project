@@ -41,7 +41,7 @@ export const fetchTradesForCategory = createAsyncThunk(
       console.error('Error fetching trades:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchTradeCategories = createAsyncThunk(
@@ -59,7 +59,7 @@ export const fetchTradeCategories = createAsyncThunk(
       console.error('Error fetching trade categories:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const createTradeCategory = createAsyncThunk(
@@ -74,7 +74,7 @@ export const createTradeCategory = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       return response.data;
@@ -82,7 +82,7 @@ export const createTradeCategory = createAsyncThunk(
       console.error('Error creating trade category:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const getTradeCategoryById = createAsyncThunk(
@@ -96,7 +96,7 @@ export const getTradeCategoryById = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       return [response.data];
@@ -104,7 +104,7 @@ export const getTradeCategoryById = createAsyncThunk(
       console.error('Error fetching trade category by ID:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const updateTradeCategory = createAsyncThunk(
@@ -119,7 +119,7 @@ export const updateTradeCategory = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       return response.data;
@@ -127,7 +127,7 @@ export const updateTradeCategory = createAsyncThunk(
       console.error('Error updating trade category:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const deleteTradeCategory = createAsyncThunk(
@@ -141,20 +141,20 @@ export const deleteTradeCategory = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.status >= 200 && response.status < 300) {
         return response.data;
       }
       throw new Error(
-        `Failed to delete trade category. Status: ${response.status}`
+        `Failed to delete trade category. Status: ${response.status}`,
       );
     } catch (error) {
       console.error('Error deleting trade category:', error.message);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 const categorySlice = createSlice({
@@ -210,8 +210,7 @@ const categorySlice = createSlice({
         state.loading = false;
         const updatedCategory = action.payload;
         state.categories = state.categories.map((category) =>
-          category.id === updatedCategory.id ? updatedCategory : category
-        );
+          (category.id === updatedCategory.id ? updatedCategory : category));
         state.status = 'success';
         state.error = null;
       })

@@ -30,13 +30,13 @@ const createOrder = createAsyncThunk(
           totalPrice: numericTotalPrice,
           customerId: userId,
         },
-        { headers }
+        { headers },
       );
       return response.data; // Return the data property of the response
     } catch (error) {
       return Promise.reject(error.response.statusText);
     }
-  }
+  },
 );
 
 const orderSlice = createSlice({

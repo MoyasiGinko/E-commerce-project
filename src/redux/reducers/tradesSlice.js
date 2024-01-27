@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 const initialState = {
@@ -42,7 +42,9 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
 
 export const updateTrade = createAsyncThunk(
   'trades/updateTrade',
-  async ({ id, name, details, quantity, price, brand, category, imageURL }) => {
+  async ({
+    id, name, details, quantity, price, brand, category, imageURL,
+  }) => {
     try {
       const response = await axiosInstance.put(`${id}/`, {
         name,
@@ -57,7 +59,7 @@ export const updateTrade = createAsyncThunk(
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 export const fetchTrades = createAsyncThunk('trades/fetchTrades', async () => {
@@ -78,7 +80,7 @@ export const deleteTrade = createAsyncThunk(
     } catch (error) {
       return error.response.data;
     }
-  }
+  },
 );
 
 const tradesSlice = createSlice({
@@ -133,7 +135,7 @@ const tradesSlice = createSlice({
       .addCase(deleteTrade.fulfilled, (state, action) => {
         // Remove the trade from the state using its ID
         state.trades = state.trades.filter(
-          (trade) => trade.id !== action.payload
+          (trade) => trade.id !== action.payload,
         );
       })
       .addCase(updateTrade.fulfilled, (state, action) => {
@@ -141,7 +143,7 @@ const tradesSlice = createSlice({
 
         // Find the index of the trade to be updated in the state
         const index = state.trades.findIndex(
-          (trade) => trade.id === updatedTrade.id
+          (trade) => trade.id === updatedTrade.id,
         );
 
         // If the trade is found in the state, update it
