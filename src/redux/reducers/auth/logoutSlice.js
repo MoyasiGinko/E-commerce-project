@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getToken } from '../../../utils/userStorage';
 
 const BASE_URL = `${process.env.REACT_APP_API_AUTH_URL}/logout/`;
 
@@ -10,7 +11,7 @@ const initialState = {
 
 export const logoutUser = createAsyncThunk('logout/logoutUser', async (_, thunkAPI) => {
   try {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = getToken();
     if (!token) {
       return thunkAPI.rejectWithValue('Token missing');
     }
