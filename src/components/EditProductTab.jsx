@@ -14,7 +14,7 @@ const EditTrade = () => {
 
   useEffect(() => {
     const tradeToEdit = trades.find(
-      (trade) => trade.id === parseInt(tradeId, 10),
+      (trade) => trade.id === parseInt(tradeId, 10)
     );
     setEditedTrade(
       tradeToEdit || {
@@ -23,7 +23,7 @@ const EditTrade = () => {
         imageURL: '',
         brand: '',
         price: '',
-      },
+      }
     );
   }, [trades, tradeId]);
 
@@ -44,7 +44,7 @@ const EditTrade = () => {
         brand: editedTrade.brand,
         price: editedTrade.price,
         imageURL: editedTrade.imageURL,
-      }),
+      })
     );
 
     // Show successful notification
@@ -147,13 +147,19 @@ const EditTrade = () => {
           </div>
         </form>
         <div className="flex justify-end mt-8">
-          <button
-            type="button"
-            onClick={handleSave}
-            className="submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md mr-4"
+          <Link
+            to="/trade/edit-product"
+            className="submit-button"
           >
-            Save
-          </button>
+            <button
+              type="button"
+              onClick={handleSave}
+              to="/trade/edit-product"
+              className="submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md mr-4"
+            >
+              Save
+            </button>
+          </Link>
           <Link
             to="/trade/edit-product"
             className="submit-button bg-gray-500 font-bold hover:bg-red-500 text-white px-6 py-2 rounded-md"
