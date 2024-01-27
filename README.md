@@ -1,6 +1,6 @@
 <br>
 <div align='center'>
-	<h1>HandyHome Hub App Front-end (API)</h1>
+	<h1>Micro Commerce App Front-end (API)</h1>
   </div>
 <a name="readme-top"></a>
 
@@ -23,19 +23,16 @@
 - [📝 License](#license)
 
 
-# 🖥️ "HandyHome Hub" Front-end  <a name="about-project"></a>
+# 🖥️ "Micro Commerce" Front-end  <a name="about-project"></a>
 
-**HandyHome Hub Front-end** is an application to complement our "Appointments for Home Services" project, providing a user-friendly interface for scheduling and managing home service appointments.
+**Micro Commerce App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Micro Commerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
 
 ## ⚙️ Integration with Back-End
 
-This front-end project is designed to seamlessly integrate with its counterpart *back-end project* 👉🏽[Appointment-capstone-backend](https://github.com/lincoln1883/Appointment-capstone-backend). The Back-end project provides the API endpoints and database for the front-end project.
+This front-end project is designed to seamlessly integrate with its counterpart *back-end project*. The Back-end project provides the API endpoints and database for the front-end project.
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
-### Built With <a name="built-with"></a>
-
-#### Tech Stack <a name="tech-stack"></a>
 
 <details>
   <summary>Client</summary>
@@ -69,18 +66,6 @@ This front-end project is designed to seamlessly integrate with its counterpart 
       <img alt="ruby" width="120px"  height="35px" src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
     </a>
     <br>
-    <a href="https://jestjs.io/">
-      <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
-    </a>
-    <br>
-    <a href="https://testing-library.com/docs/react-testing-library/intro/">
-      <img alt="ruby" width="200px"  height="35px" src="https://img.shields.io/badge/-Testing_Library-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white" />
-    </a>
-    <br>
-    <a href="https://www.netlify.com/">
-      <img alt="ruby" width="120px"  height="35px" src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" />
-    </a>
-    <br>
     <a href="https://tailwind.com/">
       <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
     </a>
@@ -101,15 +86,15 @@ This front-end project is designed to seamlessly integrate with its counterpart 
 
 #### Key Features <a name="key-features"></a>
 
-- Authenticate users: Create an account by providing a valid name, e-mail, and password with password confirmation. Once your account is created, you'll be automatically logged in and can access all of the app's features.
+- Seamless Online Shopping: Experience a revolutionized e-commerce industry with our Micro Commerce app. Browse, explore, and purchase your favorite items with ease.
 
-- User-Friendly Interface: The app offers an intuitive and visually appealing user interface, ensuring a seamless experience for users of all backgrounds.
+- Wide Range of Products: Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Micro Commerce has something for everyone. Discover a diverse collection of products.
 
-- Appointment Booking: Users can easily browse and book appointments for a wide range of home services, from cleaning to plumbing, with just a few clicks.
+- User-Friendly Interface: Enjoy a visually appealing and intuitive user interface that ensures a seamless shopping experience for users of all backgrounds.
 
-- Reservation Management: The app allows users to view and manage their reservations, providing a convenient overview of upcoming appointments.
+- Integration with Back-End: Our front-end project seamlessly integrates with the back-end project, providing API endpoints and a database for a complete e-commerce solution.
 
-- Responsive Design: Our app is responsive, ensuring a consistent and enjoyable experience on both mobile devices and desktops.
+- Responsive Design: Micro Commerce is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -117,7 +102,8 @@ This front-end project is designed to seamlessly integrate with its counterpart 
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- Enjoy the live version of the app 👉🏽 [here](https://handyhomehub.netlify.app/)
+N/A
+<!-- - Enjoy the live version of the app 👉🏽 -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,6 +126,7 @@ In order to run this project you need:
 - NPM (version 6.14.10 or higher) ([Download](https://www.npmjs.com/get-npm))
 - React ([Create React App](https://create-react-app.dev/docs/getting-started/))
 - Redux ([React Redux](https://react-redux.js.org/))
+- Postman ([Download](https://www.postman.com/downloads/))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,8 +137,8 @@ In order to run this project you need:
 
 ```bash
 open git bash
-git clone https://github.com/lincoln1883/Appointment-capstone-frontend.git
-cd Appointment-capstone-frontend
+git clone https://github.com/MoyasiGinko/E-commerce-project.git
+cd E-commerce-project
 ```
 
 2. Install the dependencies:
@@ -162,15 +149,17 @@ npm install
 
 3. Modify your local environment: To setup your environment variables, you need to create a `.env` file in the root directory of the project and add the following line:
 
-- For development: 
+- For development: PORT is optional, if not provided, the app will run on port 3000.
 ```bash
+REACT_APP_API_AUTH_URL=http://localhost:3001/api/v1/auth
 REACT_APP_API_URL=http://localhost:3001/api/v1
-REACT_APP_API_AUTH_URL=http://localhost:3001
+REACT_APP_PAYPAL_CLIENT_ID="your-client-id"
 ```
 - For production:
 ```bash
-REACT_APP_API_URL=https://appointments-ajt3.onrender.com/api/v1
-REACT_APP_API_AUTH_URL=https://appointments-ajt3.onrender.com 
+REACT_APP_API_AUTH_URL="your-auth-url"
+REACT_APP_API_URL="your-api-url"
+REACT_APP_PAYPAL_CLIENT_ID="your-client-id"
 ```
 
 4. Start the app in a Power-Shell/bash terminal:
@@ -181,85 +170,14 @@ npm start
 
 5. Open your web browser and navigate to: http://localhost:3000/ to access the application.
 
-6. **Back End**: You need to have the back-end running in order to see the run your frontend server, please visit the [Appoinment-capstone-backend](https://github.com/lincoln1883/Appointment-capstone-backend) repository and follow the instructions in the README file.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- TESTS -->
-### Tests <a name="tests"></a>
-
-**Testing Instructions**
-
-To ensure the reliability and functionality of this project, we have included a "tests" section. This section includes unit tests for the project's components and integration tests for the project's functionality.
-
-Tools and dependencies used in the testing are listed below:
-```
-- Jest
-- Jest-Dom
-- React Testing Library
-- Redux Mock Store
-- Redux Thunk
-```
-
-We use ***React Testing Library*** in combination with ***Jest*** and ***jest-dom*** for our testing framework. These tools allow us to perform various types of tests, including unit tests and integration tests, ensuring that the application's components and functionality work as expected.
-
-Follow these specific instructions to correctly run the tests using npm. 
-
-1. Open your terminal or command prompt.
-
-```
-example:
-
-open git bash
-```
-
-2. Navigate to the project directory using the `cd` command:
-```
-cd path/to/your/project
-example:
-cd ~/Documents/GitHub/Appointment-capstone-frontend
-```
-
-3. Install project dependencies (if you haven't already) by running:
-```
-npm install
-```
-
-4. Now, run the tests using the following command:
-```
-npm test
-```
-
-5. Observe the test results in your terminal. Any failures or errors will be displayed, helping you identify and address any issues.
-
-Running these tests regularly ensures that your project maintains its expected behavior and helps catch any regressions or bugs early in development.
+6. **Back End**: You need to have the back-end running in order to see the run your frontend server, please read the backend documentation and follow the instructions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- AUTHORS -->
 ## 👥 Authors (in alphabetical order)<a name="authors"></a>
 
-This project was developed by the following people:
-
-👤 **Cosmos Hagan**
-- GitHub: [cosmosha](https://github.com/Cosmosha)
-- LinkedIn: [cosmoshagan](https://gh.linkedin.com/in/cosmoshagan)
-- Twitter: [@hagancosmos](https://twitter.com/hagancosmos)
-
-👤 **Ibrahim Hossain**
-- GitHub: [ibugithub](https://github.com/ibugithub)
-- LinkedIn: [ibuu](https://www.linkedin.com/in/ibuu/)
-- Twitter: [@mdibrahimibuu](https://twitter.com/mdibrahimibuu)
-
-👤 **Jorge Camargo**
-- GitHub: [@jicamargo](https://github.com/jicamargo)
-- LinkedIn: [Jorge Camargo](https://www.linkedin.com/in/jorgecamargog/?locale=en_US)
-- Twitter: [@ji_camargo](https://twitter.com/ji_camargo)
-
-👤 **Lincoln Gibson**
-- GitHub: [lincoln1883](https://github.com/lincoln1883)
-- LinkedIn: [lincoln-gibson](https://www.linkedin.com/in/lincoln-gibson)
-- Twitter: [@lincolngibson7](https://twitter.com/lincolngibson7)
+This project was developed by:
 
 👤 **Moyasi Ginko**
 - GitHub: [@MoyasiGinko](https://github.com/MoyasiGinko)
@@ -271,13 +189,11 @@ This project was developed by the following people:
 
 <!-- KANBAN BOARD -->
 
-## 📈 Kanban Board<a name="kanban"></a>
+## 📈 Project Gallery<a name="kanban"></a>
 
-The project's kanban board is available [here](https://github.com/lincoln1883/appointment-capstone-frontend/projects/1)
+The project's gallery is available [here]()
 
-You can see a screenshoot of the initial state of the board below:
-
-![Kanban Board](./src/assets/images/kanban-board-initial.png)
+<!-- You can see a screenshoot of the initial state of the board below: -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -285,10 +201,29 @@ You can see a screenshoot of the initial state of the board below:
 <!-- FUTURE FEATURES -->
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **Add categories to services**
+- [ ] **Add user authentication**
+- [ ] **Add user authorization**
+- [ ] **Add user role; CUSTOMER, VENDOR and ADMIN**
+
+- [ ] **Add products**
+- [ ] **Add edit product details**
+- [ ] **Add delete product**
+
+- [ ] **Add product categories**
+- [ ] **Add edit product categories**
+- [ ] **Add delete product categories**
+
+- [ ] **Add shopping cart**
+- [ ] **Add checkout process**
 - [ ] **Add payment processing**
+- [ ] **Add paypal integration**
+
 - [ ] **Add user profiles**
-- [ ] **Add user reviews and ratings**
+- [ ] **Add product inventory**
+- [ ] **Add navbar**
+
+- [ ] **Add check application health**
+- [ ] **Add responsive design**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -298,7 +233,7 @@ You can see a screenshoot of the initial state of the board below:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/lincoln1883/Appointment-capstone-backend/issues).
+Feel free to check the [issues page](https://github.com/MoyasiGinko/E-commerce-project/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -314,8 +249,6 @@ Feel free to check the [issues page](https://github.com/lincoln1883/Appointment-
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-- We would like to thank to [microverse](https://www.microverse.org/) For teaching me the database and more things.
-- Thank to Murat Korkmaz on Behance for the design of the website 👉🏽.(https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign)
 - Thanks a lot to everyone who will get time to check this out.
 
 
