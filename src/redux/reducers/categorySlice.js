@@ -64,7 +64,7 @@ export const fetchTradeCategories = createAsyncThunk(
 
 export const createTradeCategory = createAsyncThunk(
   'category/createTradeCategory',
-  async ([categoryArray], { rejectWithValue }) => {
+  async (categoryArray, { rejectWithValue }) => {
     try {
       const token = getToken();
       const response = await axios.post(
