@@ -125,7 +125,7 @@ const TradesList = () => {
             </Link>
           ))
         ) : (
-          <p>No trades available</p>
+          <p>No products available</p>
         )}
       </div>
 
