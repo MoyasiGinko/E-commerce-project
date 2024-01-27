@@ -25,7 +25,7 @@ const makePayment = createAsyncThunk(
     } catch (error) {
       throw error.response.data; // Throwing the error response for rejection
     }
-  },
+  }
 );
 
 const paymentSlice = createSlice({

@@ -1,10 +1,29 @@
-// tradesSlice.js
-
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getToken } from '../../utils/userStorage';
 
 const BASE_URL = `${process.env.REACT_APP_API_URL}/product/`;
+
+// Axios instance with common headers
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add a request interceptor to include the token in every request
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 const initialState = {
   trades: [],
   status: 'idle',
@@ -14,12 +33,7 @@ const initialState = {
 
 export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
   try {
-    const token = getToken();
-    const response = await axios.post(BASE_URL, add, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.post('', add);
     return response.data;
   } catch (error) {
     return error.response.data;
@@ -28,47 +42,27 @@ export const addTrades = createAsyncThunk('trades/AddTrades', async (add) => {
 
 export const updateTrade = createAsyncThunk(
   'trades/updateTrade',
-  async ({
-    id, name, details, quantity, price, brand, category, imageURL,
-  }) => {
+  async ({ id, name, details, quantity, price, brand, category, imageURL }) => {
     try {
-      const token = getToken();
-      const response = await axios.put(
-        `${BASE_URL}${id}/`,
-        {
-          name,
-          details,
-          quantity,
-          price,
-          brand,
-          category,
-          imageURL,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const response = await axiosInstance.put(`${id}/`, {
+        name,
+        details,
+        quantity,
+        price,
+        brand,
+        category,
+        imageURL,
+      });
       return response.data;
     } catch (error) {
       return error.response.data;
     }
-  },
+  }
 );
-
-const token = getToken();
-
-const headers = {
-  'Content-Type': 'application/json',
-  Authorization: `Bearer ${token}`,
-};
 
 export const fetchTrades = createAsyncThunk('trades/fetchTrades', async () => {
   try {
-    const response = await axios.get(`${BASE_URL}`, {
-      headers,
-    });
+    const response = await axiosInstance.get('');
     return response.data;
   } catch (error) {
     return error.response.data;
@@ -79,17 +73,12 @@ export const deleteTrade = createAsyncThunk(
   'trades/deleteTrade',
   async (tradeId) => {
     try {
-      const token = getToken();
-      await axios.delete(`${BASE_URL}${tradeId}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axiosInstance.delete(`${tradeId}/`);
       return tradeId; // Return the deleted trade's ID
     } catch (error) {
       return error.response.data;
     }
-  },
+  }
 );
 
 const tradesSlice = createSlice({
@@ -144,7 +133,7 @@ const tradesSlice = createSlice({
       .addCase(deleteTrade.fulfilled, (state, action) => {
         // Remove the trade from the state using its ID
         state.trades = state.trades.filter(
-          (trade) => trade.id !== action.payload,
+          (trade) => trade.id !== action.payload
         );
       })
       .addCase(updateTrade.fulfilled, (state, action) => {
@@ -152,7 +141,7 @@ const tradesSlice = createSlice({
 
         // Find the index of the trade to be updated in the state
         const index = state.trades.findIndex(
-          (trade) => trade.id === updatedTrade.id,
+          (trade) => trade.id === updatedTrade.id
         );
 
         // If the trade is found in the state, update it

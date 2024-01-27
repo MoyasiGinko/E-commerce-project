@@ -49,6 +49,8 @@ const TradesList = () => {
     );
   }
 
+  console.log('Fetched products', trades);
+
   return (
     <div
       className="container mx-auto mt-0"
@@ -85,37 +87,43 @@ const TradesList = () => {
         id="productListSection"
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-4 mt-8"
       >
-        {trades.map((trade) => (
-          <Link
-            key={trade.id}
-            to={`/trade/${trade.id}`}
-            className="bg-white overflow-hidden border border-gray-200 rounded-md p-4 transition-transform transform hover:scale-105"
-          >
-            <div
-              style={{
-                backgroundImage: `url(${trade.imageURL})`,
-                height: '200px',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              className="bg-cover bg-center bg-no-repeat h-48 mb-4 rounded-md"
-            />
-            <div className="flex flex-col justify-between h-full">
-              <div>
-                <div className="flex flex-row justify-between">
-                  <p className="flex items-center text-sm text-gray-500 mb-1">
-                    {trade.category.name}
-                  </p>
-                  <p className="flex items-center text-sm text-gray-500 mb-1">
-                    {trade.brand}
-                  </p>
+        {Array.isArray(trades) && trades.length > 0 ? (
+          trades.map((trade) => (
+            <Link
+              key={trade.id}
+              to={`/trade/${trade.id}`}
+              className="bg-white overflow-hidden border border-gray-200 rounded-md p-4 transition-transform transform hover:scale-105"
+            >
+              <div
+                style={{
+                  backgroundImage: `url(${trade.imageURL})`,
+                  height: '200px',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+                className="bg-cover bg-center bg-no-repeat h-48 mb-4 rounded-md"
+              />
+              <div className="flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex flex-row justify-between">
+                    <p className="flex items-center text-sm text-gray-500 mb-1">
+                      {trade.category
+                        ? trade.category.name
+                        : 'Unknown Category'}
+                    </p>
+                    <p className="flex items-center text-sm text-gray-500 mb-1">
+                      {trade.brand}
+                    </p>
+                  </div>
+                  <h5 className="text-lg font-semibold mb-2">{trade.name}</h5>
+                  <p className="text-red-500 text-base font-bold">{`$${trade.price}`}</p>
                 </div>
-                <h5 className="text-lg font-semibold mb-2">{trade.name}</h5>
-                <p className="text-red-500 text-base font-bold">{`$${trade.price}`}</p>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <p>No trades available</p>
+        )}
       </div>
 
       {/* Suggestion Tab */}

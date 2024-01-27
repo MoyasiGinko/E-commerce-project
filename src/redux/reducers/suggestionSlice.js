@@ -1,4 +1,3 @@
-// suggestionSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getToken } from '../../utils/userStorage';
 
@@ -32,7 +31,7 @@ export const fetchUserSuggestions = createAsyncThunk(
     const data = await response.json();
     console.log('API Response:', data);
     return data.categories;
-  },
+  }
 );
 
 // Create the suggestion slice

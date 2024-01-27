@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken } from '../../utils/userStorage';
 
-const token = getToken();
 const baseUrl = process.env.REACT_APP_API_URL;
 const initialState = {
   trade: null,
@@ -13,16 +12,14 @@ const initialState = {
 export const fetchTradeDetails = createAsyncThunk(
   'tradeDetails/fetchTradeDetails',
   async (tradeId) => {
-    const response = await axios.get(
-      `${baseUrl}/product/${tradeId}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const token = getToken();
+    const response = await axios.get(`${baseUrl}/product/${tradeId}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
     return response.data;
-  },
+  }
 );
 
 const tradeDetailsSlice = createSlice({

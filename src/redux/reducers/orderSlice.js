@@ -1,4 +1,3 @@
-// ordersSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getToken, getUserId } from '../../utils/userStorage';
@@ -31,13 +30,13 @@ const createOrder = createAsyncThunk(
           totalPrice: numericTotalPrice,
           customerId: userId,
         },
-        { headers },
+        { headers }
       );
       return response.data; // Return the data property of the response
     } catch (error) {
       return Promise.reject(error.response.statusText);
     }
-  },
+  }
 );
 
 const orderSlice = createSlice({
