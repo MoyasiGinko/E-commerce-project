@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import CustomPaypalButtons from './PayPalButtons';
-import { navigate } from '@reach/router';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import PropTypes from 'prop-types';
 import { makePayment } from '../../redux/reducers/paymentSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CustomPaypalButtons = ({ onApprove, onError, createOrder }) => (
   <PayPalScriptProvider
@@ -24,6 +23,7 @@ const CustomPaypalButtons = ({ onApprove, onError, createOrder }) => (
 
 const PaypalPayment = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const orderIdFromResponse = Number(localStorage.getItem('orderId'));
   const initialTotalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
