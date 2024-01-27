@@ -112,7 +112,7 @@ export const updateTradeCategory = createAsyncThunk(
   async ({ categoryId, updatedCategory }, { rejectWithValue }) => {
     try {
       const token = getToken();
-      const response = await axios.put(
+      const response = await axios.patch(
         `${BASE_URL}/product-category/${categoryId}/`,
         updatedCategory,
         {
