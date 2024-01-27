@@ -67,7 +67,7 @@ const TradeInput = () => {
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategory = categories.find(
-      (category) => category.id === parseInt(selectedCategoryId, 10),
+      (category) => category.id === parseInt(selectedCategoryId, 10)
     );
 
     dispatch(selectTradeType(selectedCategory.id));
@@ -82,16 +82,18 @@ const TradeInput = () => {
   const handleNewTrade = (e) => {
     e.preventDefault();
 
-    const newTradeData = [{
-      name: tradeData.name,
-      brand: tradeData.brand,
-      details: tradeData.details,
-      price: parseFloat(tradeData.price),
-      category: tradeData.category, // Use the entire category object
-      quantity: parseFloat(tradeData.quantity),
-      imageURL: tradeData.imageURL,
-      vendorId: currentUserId,
-    }];
+    const newTradeData = [
+      {
+        name: tradeData.name,
+        brand: tradeData.brand,
+        details: tradeData.details,
+        price: parseFloat(tradeData.price),
+        category: tradeData.category, // Use the entire category object
+        quantity: parseFloat(tradeData.quantity),
+        imageURL: tradeData.imageURL,
+        vendorId: currentUserId,
+      },
+    ];
 
     dispatch(addTrades(newTradeData))
       .then(() => {
@@ -143,7 +145,7 @@ const TradeInput = () => {
           <input
             type="text"
             name="name"
-            placeholder="Trade Name"
+            placeholder="Product Name"
             value={tradeData.name}
             onChange={handleInputChange}
             className="w-full px-4 py-2 rounded-md mb-2 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300"
@@ -189,8 +191,8 @@ const TradeInput = () => {
             <option value="" disabled>
               Select a category
             </option>
-            {categories
-              && categories.map((category) => (
+            {categories &&
+              categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
