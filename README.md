@@ -124,12 +124,14 @@ In order to run this project you need:
 
 ### Setup <a name="setup"></a>
 
-1. Clone the repository:
+1. Clone the repository: if the project is in the GitHub, then follow the instructions below,
 
+
+*Example*
 ```bash
 open git bash
-git clone https://github.com/MoyasiGinko/E-commerce-project.git
-cd E-commerce-project
+git clone https://github.com/{github-username}/{project-name}.git
+cd {project-name}
 ```
 
 2. Install the dependencies:
@@ -138,7 +140,7 @@ cd E-commerce-project
 npm install
 ```
 
-3. Modify your local environment: To setup your environment variables, you need to create a `.env` file in the root directory of the project and add the following line:
+3. Modify your local environment: To set your environment variables, you need to create a `.env` file in the root directory of the project and add the following line:
 
 - For development: PORT is optional, if not provided, the app will run on port 3000.
 ```bash
@@ -153,7 +155,7 @@ REACT_APP_API_URL="your-api-url"
 REACT_APP_PAYPAL_CLIENT_ID="your-client-id"
 ```
 
-4. Start the app in a Power-Shell/bash terminal:
+4. Start the app in a Power Shell/bash terminal:
 
 ```bash
 npm start
@@ -161,7 +163,7 @@ npm start
 
 5. Open your web browser and navigate to: http://localhost:3000/ to access the application.
 
-6. **Back End**: You need to have the back-end running in order to see the run your frontend server, please read the backend documentation and follow the instructions.
+6. **Back End**: You need to have the back-end running to see the run on your frontend server, please read the backend documentation and follow the instructions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
