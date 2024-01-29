@@ -191,7 +191,10 @@ This project was developed by:
 
 ## 📈 Project Gallery<a name="gallery"></a>
 
-The project's gallery is available [here]()
+The project's gallery is available [here](https://github.com/MoyasiGinko/E-commerce-project/issues/1)
+
+![Screenshot 2024-01-29 105603](https://github.com/MoyasiGinko/E-commerce-project/assets/108092696/85bb6c3d-00db-4aff-bd88-28f0f0d660c2)
+
 
 <!-- You can see a screenshoot of the initial state of the board below: -->
 
