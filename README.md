@@ -16,7 +16,7 @@
   - [Tests](#tests)
 - [👥 Authors](#authors)
 - [📈 Kanban Board](#kanban)
-- [🔭 Future Features](#future-features)
+- [🔭 Added Features](#added-features)
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
 - [🙏 Acknowledgements](#acknowledgements)
@@ -199,7 +199,7 @@ The project's gallery is available [here]()
 
 
 <!-- FUTURE FEATURES -->
-## 🔭 Future Features <a name="future-features"></a>
+## 🔭 Added Features <a name="added-features"></a>
 
 - [ ] **Add user authentication**
 - [ ] **Add user authorization**
