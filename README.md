@@ -15,7 +15,7 @@
   - [Setup](#setup)
   - [Tests](#tests)
 - [👥 Authors](#authors)
-- [📈 Kanban Board](#kanban)
+- [📈 Gallery](#gallery)
 - [🔭 Added Features](#added-features)
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
@@ -189,7 +189,7 @@ This project was developed by:
 
 <!-- KANBAN BOARD -->
 
-## 📈 Project Gallery<a name="kanban"></a>
+## 📈 Project Gallery<a name="gallery"></a>
 
 The project's gallery is available [here]()
 
