@@ -13,13 +13,11 @@
 - [💻 Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
-- [📈 Gallery](#gallery)
 - [🔭 Added Features](#added-features)
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
-
 
 # 🖥️ "Micro Commerce" Front-end  <a name="about-project"></a>
 
@@ -44,13 +42,9 @@ This front-end project is designed to seamlessly integrate with its counterpart 
       <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black" />
     </a>
     <br>
-    <a href="https://github.com/microverseinc/linters-config/tree/master/react-redux">
       <img alt="ruby" width="130px"  height="35px" src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" />
-    </a>
     <br>
-    <a href="https://github.com/microverseinc/linters-config/tree/master/react-redux">
       <img alt="ruby" width="145px"  height="35px" src="https://img.shields.io/badge/stylelint-000?style=for-the-badge&logo=stylelint&logoColor=white" />
-    </a>
     <br>
     <a href="https://webpack.js.org/">
       <img alt="ruby" width="140px"  height="35px" src="https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black" />
@@ -68,16 +62,13 @@ This front-end project is designed to seamlessly integrate with its counterpart 
       <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
     </a>
     <br>
-
   </ul>
 </details>
 <details>
   <summary>Server</summary>
   <br>
   <ul>
-    <a href="https://github.com/Mhamad-Raad/final-capstone-backend">
       <img alt="ruby" width="90px"  height="35px" src="https://img.shields.io/badge/api-F37626?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" />
-    </a>
     <br>
   </ul>
 </details>
@@ -124,10 +115,10 @@ In order to run this project you need:
 
 ### Setup <a name="setup"></a>
 
-1. Clone the repository: if the project is in the GitHub, then follow the instructions below,
+1. Clone the repository: if the project is in GitHub or a Github repository, then follow the instructions below.
 
 
-*Example*
+*Example: on your computer:*
 ```bash
 open git bash
 git clone https://github.com/{github-username}/{project-name}.git
@@ -164,13 +155,6 @@ npm start
 5. Open your web browser and navigate to: http://localhost:3000/ to access the application.
 
 6. **Back End**: You need to have the back-end running to see the run on your frontend server, please read the backend documentation and follow the instructions.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## 📈 Project Gallery<a name="gallery"></a>
-
-![Screenshot 2024-01-29 105603](https://github.com/MoyasiGinko/E-commerce-project/assets/108092696/85bb6c3d-00db-4aff-bd88-28f0f0d660c2)
-![Screenshot 2024-01-29 105906](https://github.com/MoyasiGinko/E-commerce-project/assets/108092696/f0560eb4-68fe-4f3c-9868-e05a9646923a)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
