@@ -13,8 +13,6 @@
 - [💻 Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
-  - [Tests](#tests)
-- [👥 Authors](#authors)
 - [📈 Gallery](#gallery)
 - [🔭 Added Features](#added-features)
 - [🤝 Contributing](#contributing)
@@ -25,7 +23,7 @@
 
 # 🖥️ "Micro Commerce" Front-end  <a name="about-project"></a>
 
-**Micro Commerce App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Micro Commerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
+**Micro Commerce App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, MicroCommerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
 
 ## ⚙️ Integration with Back-End
 
@@ -94,26 +92,20 @@ This front-end project is designed to seamlessly integrate with its counterpart 
 
 - Integration with Back-End: Our front-end project seamlessly integrates with the back-end project, providing API endpoints and a database for a complete e-commerce solution.
 
-- Responsive Design: Micro Commerce is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
+- Responsive Design: MicroCommerce is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- LIVE DEMO  -->
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 N/A
-<!-- - Enjoy the live version of the app 👉🏽 -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
 Prerequisites and setup instructions for the project are listed below.
 
-<!-- Prerequisites -->
 ### Prerequisites <a name="prerequisites"></a>
 
 In order to run this project you need:
@@ -130,7 +122,6 @@ In order to run this project you need:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Setup -->
 ### Setup <a name="setup"></a>
 
 1. Clone the repository:
@@ -174,34 +165,13 @@ npm start
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- AUTHORS -->
-## 👥 Authors (in alphabetical order)<a name="authors"></a>
-
-This project was developed by:
-
-👤 **Moyasi Ginko**
-- GitHub: [@MoyasiGinko](https://github.com/MoyasiGinko)
-- LinkedIn: [moyasi](https://www.linkedin.com/in/moyasi/)
-- Twitter: [@moyasi_ginko](https://twitter.com/moyasi_ginko)
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- KANBAN BOARD -->
-
 ## 📈 Project Gallery<a name="gallery"></a>
 
-The project's gallery is available [here](https://github.com/MoyasiGinko/E-commerce-project/issues/1)
-
 ![Screenshot 2024-01-29 105603](https://github.com/MoyasiGinko/E-commerce-project/assets/108092696/85bb6c3d-00db-4aff-bd88-28f0f0d660c2)
-
-
-<!-- You can see a screenshoot of the initial state of the board below: -->
+![Screenshot 2024-01-29 105906](https://github.com/MoyasiGinko/E-commerce-project/assets/108092696/f0560eb4-68fe-4f3c-9868-e05a9646923a)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- FUTURE FEATURES -->
 ## 🔭 Added Features <a name="added-features"></a>
 
 - [ ] **Add user authentication**
@@ -230,17 +200,11 @@ The project's gallery is available [here](https://github.com/MoyasiGinko/E-comme
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
-
 ## 🤝 Contributing <a name="contributing"></a>
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/MoyasiGinko/E-commerce-project/issues).
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- SUPPORT -->
 
 ## ⭐️ Show your support <a name="support"></a>
 
@@ -248,18 +212,11 @@ Feel free to check the [issues page](https://github.com/MoyasiGinko/E-commerce-p
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGEMENTS -->
-
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
 - Thanks a lot to everyone who will get time to check this out.
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- FAQ (optional) -->
-
-<!-- LICENSE -->
 
 ## 📝 License <a name="license"></a>
 
