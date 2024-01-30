@@ -38,7 +38,7 @@ The Seamless Product Discovery user story is designed to provide users with a fr
 
 **Recommendation Algorithm:**
 
-- Collaborate with the back-end team to enhance the recommendation algorithm.
+- Work with the back-end to enhance the recommendation algorithm.
 - Consider past purchases, product views, and preferences in the algorithm.
 - Ensure the algorithm generates accurate and relevant recommendations.
 
@@ -76,7 +76,7 @@ The Seamless Product Discovery user story is designed to provide users with a fr
 
 **6. Recommendation Algorithm:**
 
-- Collaborate with the back-end team to integrate and enhance the recommendation algorithm.
+- Work with the back-end to integrate and enhance the recommendation algorithm.
 - Consider past purchases, product views, and preferences in the algorithm.
 - Ensure the algorithm generates accurate and relevant recommendations.
 
