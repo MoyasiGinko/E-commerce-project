@@ -2,19 +2,19 @@
 
 ## Overview
 
-The Seamless Product Discovery user story is meticulously designed to offer users a seamless and personalized product discovery journey. By leveraging advanced analytics of user preferences, past purchases, and browsing history, the system provides tailored product recommendations on the homepage, within specific categories, and even on product details pages.
+The Seamless Product Discovery user story is designed to deliver a seamless and personalized product discovery journey. Leveraging advanced analytics of user preferences, past purchases, and browsing history, the system provides tailored product recommendations on the homepage, within specific categories, and on product details pages.
 
 ## Acceptance Criteria
 
 ### User Authentication
 
-- Ensure seamless user authentication to enable personalized recommendations.
+- Ensure seamless user authentication for personalized recommendations.
 - Utilize the authentication API from the back-end.
 - Confirm successful retrieval of the user's authentication token.
 
 ### Personalized Homepage
 
-- Create an exclusive section on the homepage for personalized product recommendations.
+- Create a dedicated section on the homepage for personalized product recommendations.
 - Dynamically update recommendations based on user interactions.
 - Integrate a product slideshow displaying the most visited products randomly based on user preferences.
 - Include a recommendation section based on the most visited category.
@@ -46,7 +46,7 @@ The Seamless Product Discovery user story is meticulously designed to offer user
 
 ### 1. User Authentication
 
-- Integrate authentication API from the back-end.
+- Integrate the authentication API from the back-end.
 - Utilize Redux to manage authentication state.
 - Retrieve and store the user's authentication token.
 
@@ -121,7 +121,7 @@ The Seamless Product Discovery user story is meticulously designed to offer user
 
 ## Overview
 
-The second user story centers around providing customers with a smooth and secure checkout process, aiming to complete their purchases quickly. The system facilitates the addition of items to the cart, provides a clear order review, and ensures a secure payment process with support for multiple payment methods. Real-time order updates enhance the transaction experience.
+The second user story focuses on providing customers with a smooth and secure checkout process for quick purchase completion. The system enables users to add items to the cart, provides a clear order review, and ensures a secure payment process with support for multiple payment methods. Real-time order updates enhance the transaction experience.
 
 ## Acceptance Criteria
 
@@ -130,13 +130,11 @@ The second user story centers around providing customers with a smooth and secur
 - Allow users to add items to the cart seamlessly.
 - Provide a clear and concise order review before proceeding to checkout.
 - Implement a secure payment process with support for multiple payment methods.
-- Ensure the secure storage of payment information for future transactions.
 
 ### Real-Time Order Updates
 
 - Provide real-time updates on the order status.
 - Notify users of successful transactions and any issues during the payment process.
-- Integrate a user-friendly interface to track order history and details.
 
 ### Efficient Transaction Experience
 
@@ -162,37 +160,31 @@ The second user story centers around providing customers with a smooth and secur
 
 ### 2. Real-Time Order Updates
 
-- Integrate WebSocket or a similar technology for real-time updates.
-- Develop event-driven notifications to inform users of order status changes.
 - Utilize Redux to manage and update order-related state in real-time.
-- Implement a user-friendly order history page displaying real-time updates.
+- Implement a user-friendly checkout page to facilitate seamless order placement.
 
 #### Testing
 
-- Implement unit tests for WebSocket or real-time update functions.
-- Simulate order status changes and ensure users receive real-time notifications.
-- Conduct integration testing to validate the seamless integration of real-time updates.
-- Test the order history page for accurate and real-time status display.
+- Simulate various order status changes, including successful transactions.
+- Verify that users receive real-time notifications for order updates and any issues during the payment process.
 
 ### 3. Efficient Transaction Experience
 
 - Optimize frontend and backend processes for a quick and efficient checkout.
 - Implement error handling and provide clear error messages to guide users.
 - Conduct load testing to ensure the system can handle peak transaction periods.
-- Implement logging and monitoring for efficient issue resolution.
 
 #### Testing
 
 - Perform load testing to evaluate the system's performance during peak periods.
 - Test error handling scenarios, including payment failures, and verify user guidance.
 - Monitor transaction times and optimize any processes causing delays.
-- Implement logging and monitoring for efficient issue resolution.
 
 # User Story 3: Efficient Product Inventory Management
 
 ## Overview
 
-The third user story addresses the need for efficient product inventory management. This includes easy real-time updates to product availability, automated low-stock alerts, and an automatic system to mark products as "out of stock" when inventory is depleted. The system provides insights into sales trends and inventory performance, aiding shop owners in making informed restocking decisions.
+The third user story addresses the need for efficient product inventory management, enabling easy real-time updates to product availability, automated low-stock alerts, and an automatic system to mark products as "out of stock" when inventory is depleted. The system provides insights into sales trends and inventory performance, aiding shop owners in making informed restocking decisions.
 
 ## Acceptance Criteria
 
@@ -209,12 +201,6 @@ The third user story addresses the need for efficient product inventory manageme
 - Provide options for automatic reordering through integration with suppliers.
 - Develop a dashboard for shop owners to view and manage low-stock alerts.
 
-### Sales Trends and Inventory Performance
-
-- Develop a reporting system to showcase sales trends over time.
-- Provide insights into the performance of each product in terms of sales.
-- Offer data-driven recommendations for restocking decisions based on sales data.
-
 ### Automated "Out of Stock" Marking
 
 - Implement an automatic system to mark products as "out of stock" when inventory is depleted.
@@ -225,7 +211,7 @@ The third user story addresses the need for efficient product inventory manageme
 
 ### 1. Real-Time Inventory Updates
 
-- Implement WebSocket or a similar technology to enable real-time updates.
+- Implement algorithms with API integration to enable real-time updates.
 - Develop a user interface for shop owners to easily update product availability.
 - Utilize Redux to manage and update inventory-related state in real-time.
 - Implement API endpoints to handle real-time inventory updates.
@@ -240,7 +226,7 @@ The third user story addresses the need for efficient product inventory manageme
 ### 2. Low-Stock Alerts
 
 - Create a configurable low-stock threshold system.
-- Implement automated notifications via email or other channels.
+- Implement automated notifications via implementing algorithms.
 - Provide options for automated reordering through integration with suppliers.
 - Develop a dashboard for shop owners to view and manage low-stock alerts.
 
@@ -251,21 +237,7 @@ The third user story addresses the need for efficient product inventory manageme
 - Test the dashboard for managing and responding to low-stock alerts.
 - Ensure proper functioning of automated reordering options.
 
-### 3. Sales Trends and Inventory Performance
-
-- Integrate a reporting and analytics module into the system.
-- Generate reports showcasing sales trends over specified time periods.
-- Implement data visualization tools to display inventory performance.
-- Provide actionable insights for restocking decisions based on sales data.
-
-#### Testing
-
-- Implement unit tests for reporting and analytics functions.
-- Generate reports for different time periods and validate against expected results.
-- Verify the accuracy of data visualization tools in representing sales trends.
-- Conduct user testing to assess the usability and clarity of actionable insights.
-
-### 4. Automated "Out of Stock" Marking
+### 3. Automated "Out of Stock" Marking
 
 - Develop a background process to monitor and mark products as "out of stock."
 - Implement a notification system to inform shop owners of products marked as "out of stock."
@@ -294,6 +266,12 @@ The third user story addresses the need for efficient product inventory manageme
 
 - Establish a process for updating and improving the recommendation algorithm.
 - Monitor user feedback and adjust the algorithm accordingly.
+
+#### 1. Health Status Monitoring
+
+- Admins can view the real-time health status of each microservice.
+- Develop a centralized service or API to aggregate and display health data.
+- Utilize WebSocket or a similar technology for real-time updates.
 
 ### Performance Considerations
 
