@@ -21,7 +21,7 @@
 
 # 🖥️ "Aniverse Shop" Front-end  <a name="about-project"></a>
 
-**Aniverse Shop App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, MicroCommerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
+**Aniverse Shop App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Aniverse Shop has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
 
 ## ⚙️ Integration with Back-End
 
@@ -87,7 +87,7 @@ This front-end project is designed to seamlessly integrate with its counterpart 
 
 - Integration with Back-End: Our front-end project seamlessly integrates with the back-end project, providing API endpoints and a database for a complete e-commerce solution.
 
-- Responsive Design: MicroCommerce is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
+- Responsive Design: Aniverse Shop is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
