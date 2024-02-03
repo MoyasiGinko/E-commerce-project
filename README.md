@@ -25,7 +25,7 @@
 
 ## ⚙️ Integration with Back-End
 
-This front-end project is designed to seamlessly integrate with its counterpart *back-end project*. The Back-end project provides the API endpoints and database for the front-end project.
+This front-end project is designed to seamlessly integrate with its counterpart *back-end project*. The Back-end project provides the API endpoints and database for the front-end project. Please follow the instructions accordingly to successfully build the app and see the API documentations from the [Here's the Backend Server](https://github.com/MoyasiGinko/ecom-server).
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
