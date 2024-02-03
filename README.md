@@ -1,6 +1,6 @@
 <br>
 <div align='center'>
-	<h1>Aniverse Shop App Front-end (API)</h1>
+	<h1>Aniverse Shop app Front-end (API)</h1>
   </div>
 <a name="readme-top"></a>
 
