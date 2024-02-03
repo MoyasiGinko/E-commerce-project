@@ -156,7 +156,7 @@ const Navbar = () => {
               className="text-3xl mt-4 -rotate-6 text-bold underline font-bold text-white"
               style={headerStyle}
             >
-              MicroCommerce
+              AniverseShop
             </h1>
             <div className="text-lg font-semibold text-gray-300 mt-2">
               {userName}
