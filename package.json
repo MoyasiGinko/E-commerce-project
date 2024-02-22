@@ -1,5 +1,5 @@
 {
-  "name": "appointment-capstone-frontend",
+  "name": "micro-e-commerce-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -82,5 +82,10 @@
     "transformIgnorePatterns": [
       "node_modules/(?!axios)/"
     ]
-  }
+  },
+  "description": "<br>\r <div align='center'>\r \t<h1>Micro Commerce App Front-end (API)</h1>\r   </div>\r <a name=\"readme-top\"></a>",
+  "main": "tailwind.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
