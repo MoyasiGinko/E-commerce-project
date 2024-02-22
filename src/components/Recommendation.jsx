@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { fetchTrades } from "../redux/reducers/tradesSlice"; // Import the action to fetch trades
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { fetchTrades } from '../redux/reducers/tradesSlice'; // Import the action to fetch trades
 
 const Recommendation = () => {
   const [recommendedTrades, setRecommendedTrades] = useState([]);
@@ -80,7 +80,8 @@ const Recommendation = () => {
                 </h3>
                 <p className="text-gray-600 mb-2">{trade.category.name}</p>
                 <p className="text-lg font-semibold text-indigo-600">
-                  ${trade.price}
+                  $
+                  {trade.price}
                 </p>
               </div>
             </div>

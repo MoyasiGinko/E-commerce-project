@@ -120,34 +120,33 @@ const TradesDetails = () => {
               {' '}
               {trade.category.name}
             </p>
-            <div className="mt-6 flex items-center">
-              {userRole !== 'VENDOR' && userRole !== 'ADMIN' && (
-                <>
-                  <span htmlFor="orderQuantity" className="text-gray-700">
-                    Quantity:
-                  </span>
-                  <input
-                    type="number"
-                    id="orderQuantity"
-                    value={orderQuantity}
-                    onChange={handleOrderQuantityChange}
-                    className="w-16 p-2 border rounded"
-                    min="1"
-                    max={trade.quantity || ''}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddToCart}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3
-                        rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
-                  >
-                    <span className="mr-2">&#128722;</span>
-                    Add to Cart
-                  </button>
-                </>
-              )}
-            </div>
-            {userRole !== 'CUSTOMER' && userRole !== 'ADMIN' && (
+            {userRole === 'CUSTOMER' && (
+              <div className="mt-6 flex items-center">
+                <span htmlFor="orderQuantity" className="text-gray-700">
+                  Quantity:
+                </span>
+                <input
+                  type="number"
+                  id="orderQuantity"
+                  value={orderQuantity}
+                  onChange={handleOrderQuantityChange}
+                  className="w-16 p-2 border rounded"
+                  min="1"
+                  max={trade.quantity || ''}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddToCart}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3
+          rounded-full transition-colors duration-300 text-lg font-semibold inline-block ml-4"
+                >
+                  <span className="mr-2">&#128722;</span>
+                  Add to Cart
+                </button>
+              </div>
+            )}
+
+            {userRole === 'VENDOR' && (
               <div className="mt-4 flex items-center">
                 <Link
                   to={`/trade/edit-product/${trade.id}`}
@@ -155,12 +154,6 @@ const TradesDetails = () => {
                 >
                   <span className="text-xl">&#9998;</span>
                 </Link>
-                {/* <Link
-                  to={`/trade/edit-product/${trade.id}`}
-                  className="ml-2 text-blue-500 hover:text-blue-600"
-                >
-                  <span className="text-2xl">&#9998;</span>
-                </Link> */}
               </div>
             )}
           </div>
