@@ -94,6 +94,7 @@ const Navbar = () => {
         data-drawer-target="default-sidebar"
         data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar"
+        aria-label="Toggle Menu"
         type="button"
         onClick={toggleMenu}
         className="fixed top-0 left-0 p-2 text-sm text-gray-500 rounded-lg sm:hidden
@@ -200,24 +201,48 @@ const Navbar = () => {
           </div>
           <div className="navbar-nav mt-4">
             <ul className="space-y-4">
-              {roleLinks[role].map((link) => (
-                <li key={link.path}>
-                  <button
-                    type="button"
-                    className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
-                    onClick={() => {
-                      if (link.onClick) {
-                        link.onClick();
-                      } else {
-                        navigate(link.path);
-                      }
-                      closeNavbar(); // Close the navbar upon selecting any navbar item
-                    }}
-                  >
-                    {link.text}
-                  </button>
-                </li>
-              ))}
+              {role
+              && (role === 'ADMIN' || role === 'VENDOR' || role === 'CUSTOMER') ? (
+                  roleLinks[role].map((link) => (
+                    <li key={link.path}>
+                      <button
+                        type="button"
+                        className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
+                        onClick={() => {
+                          if (link.onClick) {
+                            link.onClick();
+                          } else {
+                            navigate(link.path);
+                          }
+                          closeNavbar(); // Close the navbar upon selecting any navbar item
+                        }}
+                      >
+                        {link.text}
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li>
+                      <button
+                        type="button"
+                        className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
+                        onClick={() => navigate('/trade')}
+                      >
+                        Home
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="text-lg font-semibold text-gray-300 hover:bg-gray-700 hover:text-red-600 w-full px-4 py-2 rounded-full"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
             </ul>
           </div>
           <FooterToolbar />

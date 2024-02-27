@@ -7,8 +7,10 @@ import { getUserId } from '../utils/userStorage';
 const SuggestionTab = () => {
   const dispatch = useDispatch();
   const userId = getUserId();
-  const { categories, status, loading, error } = useSelector(
-    (state) => state.suggestion
+  const {
+    categories, status, loading, error,
+  } = useSelector(
+    (state) => state.suggestion,
   );
 
   useEffect(() => {

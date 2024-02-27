@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { fetchTrades } from '../redux/reducers/tradesSlice'; // Import the action to fetch trades
 
 const Recommendation = () => {
   const [recommendedTrades, setRecommendedTrades] = useState([]);
   const allTrades = useSelector((state) => state.trades.trades);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Fetch trades if they are not available
+    if (!allTrades || allTrades.length === 0) {
+      dispatch(fetchTrades());
+    }
+  }, [dispatch, allTrades]);
 
   useEffect(() => {
     // Shuffle the array of all trades to simulate randomness
