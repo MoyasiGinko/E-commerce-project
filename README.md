@@ -5,6 +5,7 @@
 <a name="readme-top"></a>
 
 # 📗 Table of Contents
+
 - [📖 About the Project](#about-project)
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
@@ -14,18 +15,17 @@
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
 - [🔭 Added Features](#added-features)
-- [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
-- [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-# 🖥️ "Micro Commerce" Front-end  <a name="about-project"></a>
+# 🖥️ "Micro Commerce" Front-end <a name="about-project"></a>
 
 **Micro Commerce App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, MicroCommerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
 
 ## ⚙️ Integration with Back-End
 
-This front-end project is designed to seamlessly integrate with its counterpart *back-end project*. The Back-end project provides the API endpoints and database for the front-end project.
+This front-end project is designed to seamlessly integrate with its counterpart _back-end project_. The Back-end project provides the API endpoints and database for the front-end project.
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
@@ -100,6 +100,7 @@ Prerequisites and setup instructions for the project are listed below.
 ### Prerequisites <a name="prerequisites"></a>
 
 In order to run this project you need:
+
 - Computer running MacOS, Linux or Windows
 - Terminal (MacOS/Linux) or Command Line (Windows)
 - Git ([Download](https://git-scm.com/downloads))
@@ -117,33 +118,53 @@ In order to run this project you need:
 
 1. Clone the repository: if the project is in GitHub or a Github repository, then follow the instructions below.
 
+_Example: on your computer:_
 
-*Example: on your computer:*
 ```bash
 open git bash
-git clone https://github.com/{github-username}/{project-name}.git
-cd {project-name}
+git clone https://github.com/AbdulHamidA/E-Microservice.git
+cd E-Microservice-main\frontend
 ```
 
-2. Install the dependencies:
+2. Install the dependencies: To install your `npm packages` please follow the instructions below.
+
+- _Note: If the packages are outdated and throwing errors, make sure to identify and update them before running `npm install`. Here's what you can do by running the command `npm outdated`, you will see a list of packages that needs to be updated and following the commands below will update all your packages to their optimal version._
 
 ```
+npm update
 npm install
 ```
 
 3. Modify your local environment: To set your environment variables, you need to create a `.env` file in the root directory of the project and add the following line:
 
 - For development: PORT is optional, if not provided, the app will run on port 3000.
+
 ```bash
 REACT_APP_API_AUTH_URL=http://localhost:3001/api/v1/auth
 REACT_APP_API_URL=http://localhost:3001/api/v1
 REACT_APP_PAYPAL_CLIENT_ID="your-client-id"
 ```
+
 - For production:
+
 ```bash
 REACT_APP_API_AUTH_URL="your-auth-url"
 REACT_APP_API_URL="your-api-url"
 REACT_APP_PAYPAL_CLIENT_ID="your-client-id"
+```
+
+- In the root directory of the project go to the folder `./public/index.html`and open the `index.html` file. Find the line and make the necessary changes to put your PayPal `client-id` as shown below. You can set a default currency parameter if you want, for example `USD/CAD/NOK`etc. Use the one that works for you or you can leave it empty after the `your-client-id`.
+
+with default currency paramemter:
+
+```bash
+<script src="https://www.paypal.com/sdk/js?client-id={your-client-id}&currency={set-your-default-currency}"></script>
+```
+
+without default currency parameter:
+
+```bash
+<script src="https://www.paypal.com/sdk/js?client-id={your-client-id}"></script>
 ```
 
 4. Start the app in a Power Shell/bash terminal:
@@ -160,47 +181,35 @@ npm start
 
 ## 🔭 Added Features <a name="added-features"></a>
 
-- [ ] **Add user authentication**
-- [ ] **Add user authorization**
-- [ ] **Add user role; CUSTOMER, VENDOR and ADMIN**
+- [x] **Add user authentication**
+- [x] **Add user authorization**
+- [x] **Add user role; CUSTOMER, VENDOR and ADMIN**
 
-- [ ] **Add products**
-- [ ] **Add edit product details**
-- [ ] **Add delete product**
+- [x] **Add products**
+- [x] **Add edit product details**
+- [x] **Add delete product**
 
-- [ ] **Add product categories**
-- [ ] **Add edit product categories**
-- [ ] **Add delete product categories**
+- [x] **Add product categories**
+- [x] **Add edit product categories**
+- [x] **Add delete product categories**
 
-- [ ] **Add shopping cart**
-- [ ] **Add checkout process**
-- [ ] **Add payment processing**
-- [ ] **Add paypal integration**
+- [x] **Add shopping cart**
+- [x] **Add checkout process**
+- [x] **Add payment processing**
+- [x] **Add paypal integration**
 
-- [ ] **Add user profiles**
-- [ ] **Add product inventory**
-- [ ] **Add navbar**
+- [x] **Add user profiles**
+- [x] **Add product inventory**
+- [x] **Add navbar**
 
-- [ ] **Add check application health**
-- [ ] **Add responsive design**
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## 🤝 Contributing <a name="contributing"></a>
-
-Contributions, issues, and feature requests are welcome!
+- [x] **Add check application health**
+- [x] **Add responsive design**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## ⭐️ Show your support <a name="support"></a>
 
 - If you like this project please give it a ⭐️!
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## 🙏 Acknowledgments <a name="acknowledgements"></a>
-
-- Thanks a lot to everyone who will get time to check this out.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
