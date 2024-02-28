@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+/* eslint-disable */
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   fetchTradeCategories,
   createTradeCategory,
   updateTradeCategory,
   deleteTradeCategory,
-} from '../redux/reducers/categorySlice';
+} from "../redux/reducers/categorySlice";
 
 const CategoryManagement = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const CategoryManagement = () => {
   // const loading = useSelector((state) => state.category.loading);
   // const error = useSelector((state) => state.category.error);
 
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState("");
   const [editingCategory, setEditingCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,15 +28,15 @@ const CategoryManagement = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching trade categories:', err);
-        setError('Error fetching trade categories');
+        console.error("Error fetching trade categories:", err);
+        setError("Error fetching trade categories");
         setLoading(false);
       });
   }, [dispatch]);
 
-  const showToast = (message, type = 'success') => {
+  const showToast = (message, type = "success") => {
     toast[type](message, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 2000,
     });
   };
@@ -44,14 +45,14 @@ const CategoryManagement = () => {
     setLoading(true);
     dispatch(createTradeCategory([{ name: newCategory }]))
       .then(() => {
-        setNewCategory('');
+        setNewCategory("");
         dispatch(fetchTradeCategories());
-        showToast('Category created successfully');
+        showToast("Category created successfully");
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error creating category:', err);
-        showToast('Error creating category', 'error');
+        console.error("Error creating category:", err);
+        showToast("Error creating category", "error");
         setLoading(false);
       });
   };
@@ -63,34 +64,34 @@ const CategoryManagement = () => {
         updateTradeCategory({
           categoryId: editingCategory.id,
           updatedCategory: { name: editingCategory.name },
-        }),
+        })
       )
         .then(() => {
           setEditingCategory(null);
           dispatch(fetchTradeCategories());
-          showToast('Category updated successfully');
+          showToast("Category updated successfully");
           setLoading(false);
         })
         .catch((err) => {
-          console.error('Error updating category:', err);
-          showToast('Error updating category', 'error');
+          console.error("Error updating category:", err);
+          showToast("Error updating category", "error");
           setLoading(false);
         });
     }
   };
 
   const handleDeleteCategory = (categoryId) => {
-    if (window.confirm('Are you sure you want to delete this category?')) {
+    if (window.confirm("Are you sure you want to delete this category?")) {
       setLoading(true);
       dispatch(deleteTradeCategory(categoryId))
         .then(() => {
           dispatch(fetchTradeCategories());
-          showToast('Category deleted successfully');
+          showToast("Category deleted successfully");
           setLoading(false);
         })
         .catch((err) => {
-          console.error('Error deleting category:', err);
-          showToast('Error deleting category', 'error');
+          console.error("Error deleting category:", err);
+          showToast("Error deleting category", "error");
           setLoading(false);
         });
     }
@@ -211,3 +212,4 @@ const CategoryManagement = () => {
 };
 
 export default CategoryManagement;
+

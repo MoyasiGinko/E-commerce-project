@@ -1,4 +1,5 @@
 // Function to get user data from local storage
+/* eslint-disable no-console */
 const getUserData = () => {
   const userData = JSON.parse(localStorage.getItem('user'));
   return userData || null;

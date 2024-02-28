@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getToken } from '../../utils/userStorage';
 

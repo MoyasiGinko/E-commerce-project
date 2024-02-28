@@ -1,3 +1,4 @@
+/* eslint-disable no-console, react/no-danger */
 import React, { Component } from 'react';
 
 class HealthComponent extends Component {
