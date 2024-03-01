@@ -1,6 +1,6 @@
 <br>
 <div align='center'>
-	<h1>Micro Commerce App Front-end (API)</h1>
+	<h1>Aniverse Shop app Front-end (API)</h1>
   </div>
 <a name="readme-top"></a>
 
@@ -18,13 +18,15 @@
 - [⭐️ Show your support](#support)
 - [📝 License](#license)
 
-# 🖥️ "Micro Commerce" Front-end <a name="about-project"></a>
 
-**Micro Commerce App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, MicroCommerce has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
+# 🖥️ "Aniverse Shop" Front-end  <a name="about-project"></a>
+
+
+**Aniverse Shop App Front-end** is an application that aims to revolutionize the e-commerce industry by providing a seamless and user-friendly online shopping experience. With a wide range of products and intuitive features, our app makes it easy for customers to browse, explore, and purchase their favorite items. Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Aniverse Shop has something for everyone. Start exploring our virtual marketplace today and discover the joy of online shopping like never before.
 
 ## ⚙️ Integration with Back-End
 
-This front-end project is designed to seamlessly integrate with its counterpart _back-end project_. The Back-end project provides the API endpoints and database for the front-end project.
+This front-end project is designed to seamlessly integrate with its counterpart *back-end project*. The Back-end project provides the API endpoints and database for the front-end project. Please follow the instructions accordingly to successfully build the app and see the API documentations from the [Here's the Backend Server](https://github.com/MoyasiGinko/ecom-server).
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -62,6 +64,10 @@ This front-end project is designed to seamlessly integrate with its counterpart 
       <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
     </a>
     <br>
+    <a href="https://javascript.com/">
+      <img alt="ruby" width="100px"  height="35px" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+    </a>
+    <br>
   </ul>
 </details>
 <details>
@@ -75,15 +81,15 @@ This front-end project is designed to seamlessly integrate with its counterpart 
 
 #### Key Features <a name="key-features"></a>
 
-- Seamless Online Shopping: Experience a revolutionized e-commerce industry with our Micro Commerce app. Browse, explore, and purchase your favorite items with ease.
+- Seamless Online Shopping: Experience a revolutionized e-commerce industry with our Aniverse Shop app. Browse, explore, and purchase your favorite items with ease.
 
-- Wide Range of Products: Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Micro Commerce has something for everyone. Discover a diverse collection of products.
+- Wide Range of Products: Whether you're a fashion enthusiast, a tech geek, or a home decor lover, Aniverse Shop has something for everyone. Discover a diverse collection of products.
 
 - User-Friendly Interface: Enjoy a visually appealing and intuitive user interface that ensures a seamless shopping experience for users of all backgrounds.
 
 - Integration with Back-End: Our front-end project seamlessly integrates with the back-end project, providing API endpoints and a database for a complete e-commerce solution.
 
-- Responsive Design: MicroCommerce is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
+- Responsive Design: Aniverse Shop is designed to be responsive, providing a consistent and enjoyable shopping experience on both mobile devices and desktops.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
