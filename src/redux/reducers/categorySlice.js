@@ -1,4 +1,5 @@
 // categorySlice.js
+/* eslint-disable no-console */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
