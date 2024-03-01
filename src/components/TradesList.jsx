@@ -68,12 +68,12 @@ const TradesList = () => {
           className="object-cover w-full h-full"
         />
         <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
-          <div className="text-4xl font-bold text-white mb-8">
+          <div className="text-4xl font-semibold text-white mb-8">
             Welcome to Our Online Store
           </div>
           <button
             type="button"
-            className="border-2 border-white text-white font-bold hover:text-red-600 hover:border-red-600 focus:outline-none transition duration-300 px-6 py-3 rounded-md font-semibold text-lg bg-transparent"
+            className="border-2 border-white text-white hover:text-red-600 hover:border-red-600 focus:outline-none transition duration-300 px-6 py-3 rounded-md font-semibold text-lg bg-transparent"
             onClick={handleExploreClick}
           >
             Explore
